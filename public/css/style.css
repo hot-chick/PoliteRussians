@@ -9,51 +9,60 @@
     src: url('https://fonts.google.com/share?selection.family=Montserrat:ital,wght@0,100..900;1,100..900');
 }
 
-body {
-    background: url('/video/index.png');
-    background-size: cover;
-    font-family: "Montserrat", sans-serif;
-}
-
-
-
-.bgvideo {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -9999;
-    max-width: 1600px;
-}
-
 a {
     text-decoration: none;
     color: black;
 }
 
-header {
-    display: flex;
-    align-items: center;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    width: 85%;
-    margin: 0 auto;
-    justify-content: space-between;
+body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    position: relative;
 }
 
-header:hover{
-    background-color: white;
-    color: black;
+/* Хедер */
+header {
+    position: sticky;
+    top: 0;
+    transition: background-color 0.4s, color 0.4s;
+    background-color: transparent;
+    color: rgb(231, 231, 231);
+    z-index: 1000;
+}
+
+.header_wrapper {
     display: flex;
     align-items: center;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    width: 85%;
+    padding: 24px;
     margin: 0 auto;
     justify-content: space-between;
+    width: 70%;
+}
+
+header:hover * {
+    color: black;
+}
+
+header:hover {
+    background-color: white;
+    color: black;
+}
+
+header:hover img {
+    filter: invert(1);
+}
+
+header.scrolled {
+    background-color: white;
+    color: black;
+}
+
+header.scrolled * {
+    color: black;
+}
+
+header.scrolled img {
+    filter: invert(1);
 }
 
 ul {
@@ -71,12 +80,30 @@ header ul {
     align-items: center;
 }
 
-header a {
+ul a {
     color: white;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+ul a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: black;
+    transition: width 0.3s ease;
+}
+
+ul a:hover::after {
+    width: 100%;
 }
 
 header img {
     max-width: 125px;
+    height: 30px;
 }
 
 .user_menu img {
@@ -85,6 +112,157 @@ header img {
 
 .user_menu {
     display: flex;
+    gap: 24px;
     align-items: center;
     color: white;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bgvideo {
+    position: absolute;
+    right: 0;
+    bottom: 350px;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    z-index: -9999;
+    max-width: 1600px;
+    object-fit: cover;
+}
+
+.logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container {
+    height: 65vh;
+    padding: 20px;
+}
+
+.category {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Блок категории с круглыми изображениями */
+.category-item {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    /* Скрываем выходящие за границы части изображения */
+    text-decoration: none;
+    background-color: #f0f0f0;
+    /* Задаем фон для круга, если изображения нет */
+}
+
+/* Изображение внутри круга */
+.category-item img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 110%;
+    /* Чуть больше, чтобы при уменьшении не появлялись пустые края */
+    height: 110%;
+    transform: translate(-50%, -50%) scale(1);
+    /* Центрируем изображение и устанавливаем базовый масштаб */
+    object-fit: cover;
+    /* Обрезаем изображение, чтобы оно покрывало весь круг */
+    transition: transform 0.3s ease;
+    /* Плавный переход для эффекта уменьшения */
+}
+
+/* Текст внутри круга */
+.category-item span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    z-index: 1;
+    /* Поверх изображения */
+}
+
+/* Эффект при наведении */
+.category-item:hover img {
+    transform: translate(-50%, -50%) scale(0.92);
+    filter: brightness(0.7) contrast(1.2);
+}
+
+.category-item:hover span {
+    opacity: 1;
+    /* Делаем текст видимым при наведении */
+    color: white;
+}
+
+
+/* Адаптивные стили */
+
+@media (max-width: 1024px) {
+    .header_wrapper {
+        width: 90%;
+        /* Увеличиваем ширину на планшетах */
+    }
+
+    .category-item {
+        width: 250px;
+        /* Уменьшаем ширину элементов категории */
+        height: 250px;
+        /* Уменьшаем высоту элементов категории */
+    }
+}
+
+@media (max-width: 768px) {
+    .header_wrapper {
+        flex-direction: column;
+        /* Хедер становится вертикальным на мобильных устройствах */
+        align-items: center;
+        padding: 16px;
+    }
+
+    .header_wrapper nav ul {
+        flex-direction: column;
+        /* Меню становится вертикальным */
+        gap: 10px;
+    }
+
+    .category-item {
+        width: 200px;
+        /* Еще меньше размер элементов категории */
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header_wrapper {
+        padding: 12px;
+    }
+
+    .category-item {
+        width: 150px;
+        /* Минимальный размер элементов категории на маленьких экранах */
+        height: 150px;
+    }
+
+    .category-item span {
+        font-size: 14px;
+        /* Уменьшаем размер текста */
+    }
 }
