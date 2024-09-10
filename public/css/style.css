@@ -126,27 +126,34 @@ header img {
 .bgvideo {
     position: absolute;
     right: 0;
-    bottom: 350px;
+    bottom: 300px;
     min-width: 100%;
     min-height: 100%;
     width: auto;
     z-index: -9999;
     max-width: 1600px;
     object-fit: cover;
+    margin-bottom: 20px;
 }
 
 .logo {
     position: absolute;
-    left: 50%;
+    left: 47%;
     transform: translateX(-50%);
 }
 
+.logo img{
+    width: 150%;
+    height: 150%;
+}
+
 .container {
-    height: 65vh;
+    height: 70vh;
     padding: 20px;
 }
 
 .category {
+    margin-top: 20px;
     display: flex;
     gap: 20px;
     flex-wrap: wrap;

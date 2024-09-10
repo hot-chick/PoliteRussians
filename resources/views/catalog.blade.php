@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/style.css">
-    <title>PoliteRussians</title>
-</head>
+<x-layout></x-layout>
 <style>
     header {
         position: sticky;
@@ -25,7 +16,7 @@
         padding: 24px;
         margin: 0 auto;
         justify-content: space-between;
-        width: 68%;
+        width: 70%;
     }
 
     header:hover * {
@@ -152,208 +143,133 @@
     .products {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        /* 4 колонки в ряд по умолчанию */
+        /* 4 колонки по умолчанию */
         gap: 20px;
         /* Пробелы между карточками */
-        margin-top: 100px;
+        margin-top: 50px;
     }
 
     /* Стили для карточки товара */
     .card {
         padding: 10px;
+        box-sizing: border-box;
+        /* Учитываем padding в ширину */
     }
 
     .card img {
         margin-bottom: 10px;
         width: 100%;
-        display: block;
     }
 
     .card p {
         font-size: 12px;
     }
 
-    /* Эффект при наведении на карточку */
-
-
     /* Адаптивность для мобильных устройств */
     @media (max-width: 768px) {
-        .container {
-            width: 100%;
-            margin: 30px auto;
-        }
-
         .products {
             grid-template-columns: repeat(2, 1fr);
-            /* 2 колонки в ряд на экранах до 768px */
-            width: 100%;
+            /* 2 колонки на экранах до 768px */
         }
-    }
-
-    .card_count {
-        margin: 20px 0;
-        text-align: center;
-        width: 100%;
-        padding: 0 10px;
-        box-sizing: border-box;
-    }
-
-    /* Стили для самого ползунка */
-    input[type="range"] {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(to right, black 50%, #ddd 50%);
-        outline: none;
-        transition: background 0.3s ease-in-out;
-        cursor: pointer;
-    }
-
-    input[type="range"]::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 8px;
-        background: transparent;
-        border: none;
-        border-radius: 5px;
-    }
-
-    input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        width: 16px;
-        height: 16px;
-        background: black;
-        cursor: pointer;
-        border-radius: 50%;
-        position: relative;
-        top: -4px;
-    }
-
-    input[type="range"]::-moz-range-thumb {
-        width: 16px;
-        height: 16px;
-        background: black;
-        cursor: pointer;
-        border-radius: 50%;
-    }
-
-    input[type="range"]::-moz-range-track {
-        background: #ddd;
-    }
-
-    input[type="range"]::-moz-range-progress {
-        background-color: black;
-    }
-
-    /* Цвет перетащенной части ползунка для IE */
-    input[type="range"]::-ms-fill-lower {
-        background-color: black;
-        height: 8px;
     }
 </style>
 
-<body>
-    <header>
-        <div class="header_wrapper">
-            <nav>
-                <ul>
-                    <li><a href="/catalog">Каталог</a></li>
-                    <li><a href="/">Коллекции</a></li>
-                    <li><a href="/">Новинки</a></li>
-                    <li><a href="/">Lookbook</a></li>
-                    <li><a href="/">Магазины</a></li>
-                </ul>
-            </nav>
-            <a href="/" class="logo"><img src="./img/logo_black.png" alt=""></a>
-            <div class="user_menu">
-                <div class="search">
-                    <img src="/img/search_white.png" alt="Поиск">
-                    <p>Поиск</p>
-                </div>
-                <a href="/"><img src="/img/heart.png" alt="Список желаемого"></a>
-                <a href="/"><img src="/img/paper_bag.png" alt="Bag"></a>
-            </div>
-        </div>
-    </header>
-    <div class="container">
-        <div class="filter">
-            <span>Все товары (102 изделия)</span>
-            <div class="filter_sort">
-                <div class="sort">
-                    <img src="/img/arrow_down.png" alt="">
-                    <p>Сортировка</p>
-                </div>
 
-                <div class="sort">
-                    <img src="/img/filter.png" alt="">
-                    <p>Фильтры</p>
-                </div>
+<div class="container">
+    <div class="filter">
+        <span>Все товары (102 изделия)</span>
+        <div class="filter_sort">
+            <div class="sort">
+                <img src="/img/arrow_down.png" alt="">
+                <p>Сортировка</p>
             </div>
-        </div>
-        <div class="card_count">
-            <input type="range" id="productSlider" min="2" max="6" step="2" value="4">
-        </div>
-        <div class="products">
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
+
+            <div class="sort">
+                <img src="/img/filter.png" alt="">
+                <p>Фильтры</p>
             </div>
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const slider = document.getElementById('productSlider');
 
-            // Обновление цвета заливки ползунка
-            function updateSliderFill(value) {
-                const min = slider.min;
-                const max = slider.max;
-                const percent = ((value - min) / (max - min)) * 100;
-                slider.style.background = `linear-gradient(to right, black ${percent}%, #ddd ${percent}%)`;
-            }
+    <div class="products">
+        <a href="/product">
+            <div class="card">
+                <img src="/img/product.png" alt="продукт">
+                <p>Платье миди шоколадного цвета</p>
+                <p>12 980 Р</p>
+            </div>
+        </a>
+        <a href="/product">
+            <div class="card">
+                <img src="/img/product.png" alt="продукт">
+                <p>Платье миди шоколадного цвета</p>
+                <p>12 980 Р</p>
+            </div>
+        </a>
+        <a href="/product">
+            <div class="card">
+                <img src="/img/product.png" alt="продукт">
+                <p>Платье миди шоколадного цвета</p>
+                <p>12 980 Р</p>
+            </div>
+        </a>
+        <a href="/product">
+            <div class="card">
+                <img src="/img/product.png" alt="продукт">
+                <p>Платье миди шоколадного цвета</p>
+                <p>12 980 Р</p>
+            </div>
+        </a>
+        <a href="/product">
+            <div class="card">
+                <img src="/img/product.png" alt="продукт">
+                <p>Платье миди шоколадного цвета</p>
+                <p>12 980 Р</p>
+            </div>
+        </a>
+        <a href="/product">
+            <div class="card">
+                <img src="/img/product.png" alt="продукт">
+                <p>Платье миди шоколадного цвета</p>
+                <p>12 980 Р</p>
+            </div>
+        </a>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slider = document.getElementById('productSlider');
 
-            // Функция для обновления отображаемого количества товаров
-            function updateProductsDisplay(count) {
-                const cards = document.querySelectorAll('.card');
+        // Обновление цвета заливки ползунка
+        function updateSliderFill(value) {
+            const min = slider.min;
+            const max = slider.max;
+            const percent = ((value - min) / (max - min)) * 100;
+            slider.style.background = `linear-gradient(to right, black ${percent}%, #ddd ${percent}%)`;
+        }
 
-                // Скрываем все карточки
-                cards.forEach((card, index) => {
-                    card.style.display = (index < count) ? 'block' : 'none';
-                });
-            }
+        // Функция для обновления отображаемого количества товаров
+        function updateProductsDisplay(count) {
+            const cards = document.querySelectorAll('.card');
 
-            // Слушатель для изменения значения ползунка
-            slider.addEventListener('input', function() {
-                const selectedValue = parseInt(this.value);
-                updateProductsDisplay(selectedValue);
-                updateSliderFill(this.value);
+            // Скрываем все карточки
+            cards.forEach((card, index) => {
+                card.style.display = (index < count) ? 'block' : 'none';
             });
+        }
 
-            // Устанавливаем начальное количество отображаемых товаров и цвета заливки
-            updateProductsDisplay(parseInt(slider.value));
-            updateSliderFill(slider.value);
+        // Слушатель для изменения значения ползунка
+        slider.addEventListener('input', function() {
+            const selectedValue = parseInt(this.value);
+            updateProductsDisplay(selectedValue);
+            updateSliderFill(this.value);
         });
-    </script>
+
+        // Устанавливаем начальное количество отображаемых товаров и цвета заливки
+        updateProductsDisplay(parseInt(slider.value));
+        updateSliderFill(slider.value);
+    });
+</script>
 </body>
 
 </html>
