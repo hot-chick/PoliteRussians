@@ -4,27 +4,29 @@
     font-size: 16px;
 }
 
-@font-face {
-    font-family: Alegreya;
-    src: url('https://fonts.google.com/share?selection.family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900');
-}
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@100;400;700&display=swap');
 
 a {
     text-decoration: none;
     color: black;
 }
 
+button {
+    font-family: 'Alegreya', serif;
+}
+
 body {
     margin: 0;
-    font-family: "Alegreya", sans-serif;
+    font-family: 'Alegreya', serif;
     position: relative;
+    height: 100vh;
 }
 
 /* Хедер */
 header {
     position: sticky;
     top: 0;
-    transition: background-color 0.4s, color 0.4s;
+    transition: background-color 0.7s, color 0.4s;
     background-color: transparent;
     color: rgb(231, 231, 231);
     z-index: 1000;
@@ -36,7 +38,7 @@ header {
     padding: 24px;
     margin: 0 auto;
     justify-content: space-between;
-    width: 70%;
+    width: 85%;
 }
 
 header:hover * {
@@ -107,7 +109,8 @@ header img {
 }
 
 .user_menu img {
-    max-width: 30px;
+    max-width: 25px;
+    max-height: 25px;
 }
 
 .user_menu {
@@ -126,9 +129,9 @@ header img {
 .bgvideo {
     position: absolute;
     right: 0;
-    bottom: 300px;
+    bottom: 150px;
     min-width: 100%;
-    min-height: 100%;
+    max-height: 100%;
     width: auto;
     z-index: -9999;
     max-width: 1600px;
@@ -142,14 +145,9 @@ header img {
     transform: translateX(-50%);
 }
 
-.logo img{
+.logo img {
     width: 150%;
     height: 150%;
-}
-
-.container {
-    height: 70vh;
-    padding: 20px;
 }
 
 .category {
@@ -165,8 +163,8 @@ header img {
     position: relative;
     display: inline-block;
     text-align: center;
-    width: 300px;
-    height: 300px;
+    width: 230px;
+    height: 230px;
     border-radius: 50%;
     overflow: hidden;
     /* Скрываем выходящие за границы части изображения */
@@ -272,4 +270,463 @@ header img {
         font-size: 14px;
         /* Уменьшаем размер текста */
     }
+}
+
+.container {
+    width: 85%;
+    margin: 30px auto;
+}
+
+.filter {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter p {
+    font-size: 16px;
+}
+
+.filter span {
+    color: rgb(56, 56, 56);
+    font-size: 24px;
+}
+
+.filter_sort {
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+}
+
+.filter img {
+    filter: invert(1);
+    max-width: 25px;
+}
+
+.sort {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Контейнер для всех карточек товаров */
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
+    margin-top: 50px;
+}
+
+/* Стили для карточки товара */
+.card {
+    padding: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Обрезаем изображение, выходящее за пределы карточки */
+    position: relative;
+    background-color: white;
+    /* Добавьте, если нужно задать цвет фона карточки */
+    transition: transform 0.3s ease;
+    /* Плавное изменение размеров карточки */
+}
+
+/* Стили для изображения внутри карточки */
+.card img {
+    margin-bottom: 10px;
+    width: 100%;
+    transition: transform 0.3s ease;
+    /* Плавное увеличение изображения */
+}
+
+/* Увеличение изображения при наведении */
+.card:hover img {
+    transform: scale(1.1);
+    /* Увеличиваем изображение */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+
+.product-page {
+    display: flex;
+    max-width: 1320px;
+    width: 100%;
+    gap: 100px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 30px auto;
+}
+
+/* Стили для изображений продукта */
+.product-images {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-image img {
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.thumbnail-images {
+    display: flex;
+    gap: 10px;
+}
+
+.thumbnail-images img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.thumbnail-images img.active {
+    border: 1px solid black;
+}
+
+/* Стили для информации о продукте */
+.product-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.price {
+    font-size: 24px;
+    color: #000;
+    white-space: nowrap;
+}
+
+.product-description {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.add-to-cart {
+    padding: 15px;
+    background-color: #828181;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background-color: black;
+    color: white
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .product-page {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.product-name-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+}
+
+.product-name-title h1 {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+/* Стили для обертки select */
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Скрыть стандартный select */
+.custom-select {
+    display: none;
+}
+
+/* Стили для кастомного селекта */
+.custom-select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* Стили для выпадающего списка */
+.custom-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    max-height: 0;
+    /* Изначально высота равна 0 */
+    opacity: 1;
+    /* Прозрачность 1 (сделано для соответствия другим элементам) */
+    overflow: hidden;
+    /* Скрытие переполнения */
+    transition: max-height 0.3s ease;
+    /* Плавное изменение высоты */
+}
+
+/* Показать выпадающий список */
+.custom-options.open {
+    max-height: 200px;
+    /* Максимальная высота */
+}
+
+.custom-options .custom-option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.custom-option.selected {
+    background-color: #ddd;
+}
+
+/* Стили для кнопки */
+.add-to-cart {
+    /* margin-top: 20px; */
+    /* Отступ сверху, чтобы не перекрывать выпадающий список */
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.product-buttons {
+    /* position: relative; */
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+
+
+.heart-container {
+    position: relative;
+    max-width: 42px;
+    max-height: 42px;
+    /* overflow: hidden; */
+}
+
+.heart {
+    position: static;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.heart-black {
+    opacity: 1;
+}
+
+.heart-red {
+    position: absolute;
+    opacity: 0;
+}
+
+.heart-container.active .heart-black {
+    opacity: 0;
+}
+
+.heart-container.active .heart-red {
+    opacity: 1;
+}
+
+.accordion {
+    margin-top: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #ddd;
+}
+
+.accordion-header {
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 15px;
+    /* Горизонтальный padding */
+    font-size: 14px;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    /* Плавное изменение высоты и padding */
+}
+
+.accordion-header::after {
+    content: '\002B';
+    font-size: 20px;
+}
+
+.accordion-header.active::after {
+    content: '\2212';
+}
+
+p {
+    font-weight: 200;
+}
+
+.site-footer {
+    background-color: #fff;
+    color: #000;
+    padding: 20px 0px;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+    border-bottom: 1px solid rgb(231, 231, 231);
+    padding: 20px 0px;
+}
+
+/* Стили для колонок футера */
+.footer-column {
+    flex: 1 1 200px;
+}
+
+.footer-column p {
+    font-size: 12px;
+}
+
+.footer-column h4 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    /* Верхний регистр для заголовков */
+}
+
+.footer-column ul {
+    list-style: none;
+    line-height: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: #bbb;
+    /* Цвет текста при наведении */
+}
+
+/* Стили для социальных иконок */
+.footer-socials a {
+    margin-right: 15px;
+}
+
+.footer-socials img {
+    width: 20px;
+    height: 20px;
+    filter: invert(1);
+    /* Инверсия для белых иконок */
+    transition: filter 0.3s ease;
+}
+
+.footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    line-height: 50px;
+    margin: 0 auto;
+    gap: 20px;
+    border-bottom: 1px solid rgb(231, 231, 231);
+}
+
+.footer-bottom a {
+    font-size: 14px;
+}
+
+.footer-bottom2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    line-height: 50px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.socials img {
+    margin-top: 10px;
+    max-width: 30px;
+}
+
+.sendaway {
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+    gap: 20px;
+}
+
+.sendaway button {
+    background-color: #fff;
+    font-weight: 300;
+    border: none;
+    border: 1px solid gray;
+    height: 7vh;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.sendaway button:hover {
+    background-color: #000000;
+    color: white;
+    transition: 0.3s ease;
+}
+
+.sendaway input {
+    padding: 2px;
+    border: none;
+    border-bottom: 1px solid gray;
+    height: 5vh;
+    font-weight: 300;
 }

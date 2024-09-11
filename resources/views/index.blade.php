@@ -1,5 +1,12 @@
 <x-layout></x-layout>
-
+<style>
+    .container {
+        height: 59vh;
+        padding: 20px;
+        width: 85%;
+        margin: 30px auto;
+    }
+</style>
 <video autoplay loop muted class="bgvideo" id="bgvideo">
     <source src="/video/index.mp4" type="video/mp4">
 </video>
@@ -34,7 +41,6 @@
         </a>
     </div>
 </div>
-</body>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
@@ -48,5 +54,4 @@
         });
     });
 </script>
-
-</html>
+<x-footer></x-footer>

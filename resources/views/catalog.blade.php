@@ -1,180 +1,27 @@
 <x-layout></x-layout>
 <style>
     header {
-        position: sticky;
-        top: 0;
-        transition: background-color 0.4s, color 0.4s;
-        background-color: white;
-        color: black;
-        z-index: 1000;
+        background-color: #fff;
         border-bottom: 1px solid rgb(231, 231, 231);
-    }
-
-    .header_wrapper {
-        display: flex;
-        align-items: center;
-        padding: 24px;
-        margin: 0 auto;
-        justify-content: space-between;
-        width: 70%;
-    }
-
-    header:hover * {
         color: black;
     }
 
-    header:hover {
-        background-color: white;
+    header a {
         color: black;
     }
 
-    header img {
+    .logo img {
         filter: invert(1);
-    }
-
-    header.scrolled {
-        background-color: white;
-        color: black;
-    }
-
-    header.scrolled * {
-        color: black;
-    }
-
-    header.scrolled img {
-        filter: invert(1);
-    }
-
-    ul {
-        text-decoration: none;
-    }
-
-    li {
-        list-style-type: none;
-    }
-
-    header ul {
-        display: flex;
-        gap: 24px;
-        list-style: none;
-        align-items: center;
-    }
-
-    ul a {
-        color: black;
-        position: relative;
-        padding-bottom: 5px;
-    }
-
-    ul a::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background-color: black;
-        transition: width 0.3s ease;
-    }
-
-    ul a:hover::after {
-        width: 100%;
-    }
-
-    header img {
-        max-width: 125px;
-        height: 30px;
     }
 
     .user_menu img {
-        max-width: 30px;
-    }
-
-    .user_menu {
-        display: flex;
-        gap: 24px;
-        align-items: center;
-        color: black;
-    }
-
-    .search {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .container {
-        width: 68%;
-        margin: 30px auto;
-    }
-
-    .filter {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .filter p {
-        font-size: 16px;
-    }
-
-    .filter span {
-        color: rgb(56, 56, 56);
-        font-size: 24px;
-    }
-
-    .filter_sort {
-        display: flex;
-        width: 25%;
-        justify-content: space-between;
-    }
-
-    .filter img {
         filter: invert(1);
-        max-width: 25px;
     }
 
-    .sort {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-    }
-
-    /* Контейнер для всех карточек товаров */
-    .products {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        /* 4 колонки по умолчанию */
-        gap: 20px;
-        /* Пробелы между карточками */
-        margin-top: 50px;
-    }
-
-    /* Стили для карточки товара */
-    .card {
-        padding: 10px;
-        box-sizing: border-box;
-        /* Учитываем padding в ширину */
-    }
-
-    .card img {
-        margin-bottom: 10px;
-        width: 100%;
-    }
-
-    .card p {
-        font-size: 12px;
-    }
-
-    /* Адаптивность для мобильных устройств */
-    @media (max-width: 768px) {
-        .products {
-            grid-template-columns: repeat(2, 1fr);
-            /* 2 колонки на экранах до 768px */
-        }
+    p {
+        color: black
     }
 </style>
-
-
 <div class="container">
     <div class="filter">
         <span>Все товары (102 изделия)</span>
@@ -270,6 +117,4 @@
         updateSliderFill(slider.value);
     });
 </script>
-</body>
-
-</html>
+<x-footer></x-footer>

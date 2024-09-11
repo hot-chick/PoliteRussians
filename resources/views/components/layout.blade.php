@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@100;400;700&display=swap">
     <link rel="stylesheet" href="/css/style.css">
     <title>PoliteRussians</title>
 </head>
@@ -20,7 +21,8 @@
                     <li><a href="/">Магазины</a></li>
                 </ul>
             </nav>
-            <a href="/" class="logo"><img src="./img/LOGOW.png" alt=""></a>
+            <a href="/" class="logo"><img style="transition: 0.4s ease" src="./img/LOGOW.png"
+                    alt=""></a>
             <div class="user_menu">
                 <div class="search">
                     <img src="/img/search_white.png" alt="Поиск">

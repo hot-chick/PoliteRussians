@@ -1,362 +1,25 @@
 <x-layout></x-layout>
 <style>
     header {
-        position: sticky;
-        top: 0;
-        transition: background-color 0.4s, color 0.4s;
-        background-color: white;
-        color: black;
-        z-index: 1000;
+        background-color: #fff;
         border-bottom: 1px solid rgb(231, 231, 231);
-    }
-
-    .header_wrapper {
-        display: flex;
-        align-items: center;
-        padding: 24px;
-        margin: 0 auto;
-        justify-content: space-between;
-        width: 70%;
-    }
-
-    header:hover * {
         color: black;
     }
 
-    header:hover {
-        background-color: white;
+    header a {
         color: black;
-    }
-
-    header img {
-        filter: invert(1);
-    }
-
-    header.scrolled {
-        background-color: white;
-        color: black;
-    }
-
-    header.scrolled * {
-        color: black;
-    }
-
-    header.scrolled img {
-        filter: invert(1);
-    }
-
-    ul {
-        text-decoration: none;
-    }
-
-    li {
-        list-style-type: none;
-    }
-
-    header ul {
-        display: flex;
-        gap: 24px;
-        list-style: none;
-        align-items: center;
-    }
-
-    ul a {
-        color: black;
-        position: relative;
-        padding-bottom: 5px;
-    }
-
-    ul a::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 1px;
-        background-color: black;
-        transition: width 0.3s ease;
-    }
-
-    ul a:hover::after {
-        width: 100%;
-    }
-
-    header img {
-        max-width: 125px;
-        height: 30px;
-    }
-
-    .user_menu img {
-        max-width: 30px;
-    }
-
-    .user_menu {
-        display: flex;
-        gap: 24px;
-        align-items: center;
-        color: black;
-    }
-
-    .search {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .logo {
-        position: absolute;
-        left: 47%;
-        transform: translateX(-50%);
     }
 
     .logo img {
-        width: 150%;
-        height: 150%;
+        filter: invert(1);
     }
 
-    .product-page {
-        display: flex;
-        max-width: 1200px;
-        width: 100%;
-        gap: 100px;
-        padding: 20px;
-        box-sizing: border-box;
-        margin: 0 auto;
+    .user_menu img {
+        filter: invert(1);
     }
 
-    /* Стили для изображений продукта */
-    .product-images {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .main-image img {
-        width: 100%;
-        object-fit: cover;
-        margin-bottom: 20px;
-    }
-
-    .thumbnail-images {
-        display: flex;
-        gap: 10px;
-    }
-
-    .thumbnail-images img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        cursor: pointer;
-        border: 1px solid transparent;
-    }
-
-    .thumbnail-images img.active {
-        border: 1px solid black;
-    }
-
-    /* Стили для информации о продукте */
-    .product-info {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .price {
-        font-size: 24px;
-        color: #000;
-        white-space: nowrap;
-    }
-
-    .product-description {
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .add-to-cart {
-        padding: 15px;
-        background-color: #333;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-
-    .add-to-cart:hover {
-        background-color: black;
-    }
-
-    /* Адаптивность для мобильных устройств */
-    @media (max-width: 768px) {
-        .product-page {
-            flex-direction: column;
-            align-items: center;
-        }
-    }
-
-    .product-name-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: top;
-    }
-
-    .product-name-title h1 {
-        font-size: 24px;
-        font-weight: normal;
-    }
-
-    /* Стили для обертки select */
-    .custom-select-wrapper {
-        position: relative;
-        display: inline-block;
-        margin-bottom: 20px;
-    }
-
-    /* Скрыть стандартный select */
-    .custom-select {
-        display: none;
-    }
-
-    /* Стили для кастомного селекта */
-    .custom-select-trigger {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        cursor: pointer;
-        font-size: 14px;
-        color: #333;
-        position: relative;
-        width: 100%;
-        box-sizing: border-box;
-        z-index: 2;
-    }
-
-    /* Стили для выпадающего списка */
-    .custom-options {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 3;
-        display: flex;
-        flex-direction: column;
-        max-height: 0;
-        /* Изначально высота равна 0 */
-        opacity: 1;
-        /* Прозрачность 1 (сделано для соответствия другим элементам) */
-        overflow: hidden;
-        /* Скрытие переполнения */
-        transition: max-height 0.3s ease;
-        /* Плавное изменение высоты */
-    }
-
-    /* Показать выпадающий список */
-    .custom-options.open {
-        max-height: 200px;
-        /* Максимальная высота */
-    }
-
-    .custom-options .custom-option {
-        padding: 10px;
-        cursor: pointer;
-    }
-
-    .custom-option.selected {
-        background-color: #ddd;
-    }
-
-    /* Стили для кнопки */
-    .add-to-cart {
-        /* margin-top: 20px; */
-        /* Отступ сверху, чтобы не перекрывать выпадающий список */
-        position: relative;
-        z-index: 1;
-        width: 100%;
-    }
-
-    .product-buttons {
-        /* position: relative; */
-        display: flex;
-        gap: 20px;
-        justify-content: space-between;
-    }
-
-    
-
-    .heart-container {
-        position: relative;
-        max-width: 42px;
-        max-height: 42px;
-        /* overflow: hidden; */
-    }
-
-    .heart {
-        position: static;
-        cursor: pointer;
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-        transition: opacity 0.3s ease-in-out;
-    }
-
-    .heart-black {
-        opacity: 1;
-    }
-
-    .heart-red {
-        position: absolute;
-        opacity: 0;
-    }
-
-    .heart-container.active .heart-black {
-        opacity: 0;
-    }
-
-    .heart-container.active .heart-red {
-        opacity: 1;
-    }
-
-    .accordion {
-        margin-top: 20px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .accordion-item {
-        border-bottom: 1px solid #ddd;
-    }
-
-    .accordion-header {
-        padding: 15px;
-        font-size: 16px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        padding: 0 15px;
-        /* Горизонтальный padding */
-        font-size: 14px;
-        transition: max-height 0.3s ease, padding 0.3s ease;
-        /* Плавное изменение высоты и padding */
-    }
-
-    .accordion-header::after {
-        content: '\002B';
-        font-size: 20px;
-    }
-
-    .accordion-header.active::after {
-        content: '\2212';
+    p {
+        color: black
     }
 </style>
 <div class="product-page">
@@ -439,7 +102,7 @@
         </div>
     </div>
 </div>
-</body>
+
 <script>
     const thumbnails = document.querySelectorAll('.thumbnail-images img');
     const mainImage = document.querySelector('.main-image img');
@@ -506,7 +169,8 @@
             const accordionContent = header.nextElementSibling;
 
             if (header.classList.contains('active')) {
-                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px'; // Устанавливаем высоту контента
+                accordionContent.style.maxHeight = accordionContent.scrollHeight +
+                    'px'; // Устанавливаем высоту контента
                 accordionContent.style.paddingTop = '15px'; // Добавляем padding сверху при открытии
                 accordionContent.style.paddingBottom = '15px'; // Добавляем padding снизу при открытии
             } else {
@@ -518,4 +182,4 @@
     });
 </script>
 
-</html>
+<x-footer></x-footer>
