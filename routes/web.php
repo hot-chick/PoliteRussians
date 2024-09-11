@@ -24,3 +24,11 @@ Route::get('/catalog', function () {
 Route::get('/product', function () {
     return view('product');
 });
+
+Route::get('/shops', function () {
+    return view('shops');
+});
+
+Route::get('/lookbook', function () {
+    return view('lookbook');
+});

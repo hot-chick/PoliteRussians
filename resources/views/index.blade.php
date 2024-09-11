@@ -41,6 +41,67 @@
         </a>
     </div>
 </div>
+<div class="about">
+    <h1>Вежливые русские</h1>
+</div>
+<div class="products">
+    <a href="/product">
+        <div class="card">
+            <img src="/img/product.png" alt="продукт">
+            <p>Платье миди шоколадного цвета</p>
+            <p>12 980 Р</p>
+        </div>
+    </a>
+    <a href="/product">
+        <div class="card">
+            <img src="/img/product.png" alt="продукт">
+            <p>Платье миди шоколадного цвета</p>
+            <p>12 980 Р</p>
+        </div>
+    </a>
+    <a href="/product">
+        <div class="card">
+            <img src="/img/product.png" alt="продукт">
+            <p>Платье миди шоколадного цвета</p>
+            <p>12 980 Р</p>
+        </div>
+    </a>
+    <a href="/product">
+        <div class="card">
+            <img src="/img/product.png" alt="продукт">
+            <p>Платье миди шоколадного цвета</p>
+            <p>12 980 Р</p>
+        </div>
+    </a>
+    <a href="/product">
+        <div class="card">
+            <img src="/img/product.png" alt="продукт">
+            <p>Платье миди шоколадного цвета</p>
+            <p>12 980 Р</p>
+        </div>
+    </a>
+    <a href="/product">
+        <div class="card">
+            <img src="/img/product.png" alt="продукт">
+            <p>Платье миди шоколадного цвета</p>
+            <p>12 980 Р</p>
+        </div>
+    </a>
+    <a href="/product">
+        <div class="card">
+            <img src="/img/product.png" alt="продукт">
+            <p>Платье миди шоколадного цвета</p>
+            <p>12 980 Р</p>
+        </div>
+    </a>
+    <a href="/product">
+        <div class="card">
+            <img src="/img/product.png" alt="продукт">
+            <p>Платье миди шоколадного цвета</p>
+            <p>12 980 Р</p>
+        </div>
+    </a>
+</div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');

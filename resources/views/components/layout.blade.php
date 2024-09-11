@@ -15,10 +15,21 @@
         <div class="header_wrapper">
             <nav>
                 <ul>
-                    <li><a href="/catalog">Каталог</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown_catalog" href="/catalog">Каталог</a>
+                        <div class="dropdown-content">
+                            <ul>
+                                <li><a href="/catalog/dresses">Платья</a></li>
+                                <li><a href="/catalog/tops">Топы</a></li>
+                                <li><a href="/catalog/pants">Брюки</a></li>
+                                <li><a href="/catalog/outerwear">Верхняя одежда</a></li>
+                                <li><a href="/catalog/shoes">Обувь</a></li>
+                                <li><a href="/catalog/accessories">Аксессуары</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     <li><a href="/">Новинки</a></li>
-                    <li><a href="/">Lookbook</a></li>
-                    <li><a href="/">Магазины</a></li>
+                    <li><a href="/shops">Магазины</a></li>
                 </ul>
             </nav>
             <a href="/" class="logo"><img style="transition: 0.4s ease" src="./img/LOGOW.png"

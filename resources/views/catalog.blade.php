@@ -21,6 +21,16 @@
     p {
         color: black
     }
+
+    header:hover {
+        background-color: rgb(231, 231, 231);
+        border-bottom: 1px solid rgb(231, 231, 231);
+        color: black;
+    }
+
+    .dropdown-content {
+        background-color: rgb(231, 231, 231);
+    }
 </style>
 <div class="container">
     <div class="filter">
