@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Category;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -11,9 +12,10 @@ class layout extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $categories;
+    public function __construct ()
     {
-        //
+        $this->categories = Category::all();
     }
 
     /**

@@ -3,10 +3,10 @@
         <div class="footer-column">
             <h4>Каталог</h4>
             <ul>
-                <li><a href="#">Смотреть все</a></li>
-                <li><a href="#">Новинки</a></li>
-                <li><a href="#">Lookbook</a></li>
-                <li><a href="#">Магазины</a></li>
+                <li><a href="/catalog">Смотреть все</a></li>
+                <!-- <li><a href="#">Новинки</a></li> -->
+                <!-- <li><a href="#">Lookbook</a></li> -->
+                <li><a href="/shops">Магазины</a></li>
             </ul>
         </div>
         <div class="footer-column">
@@ -21,9 +21,9 @@
         <div class="footer-column">
             <h4>О компании</h4>
             <ul>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Контакты</a></li>
-                <li><a href="#">Магазины</a></li>
+                <li><a href="/about_us">О нас</a></li>
+                <li><a href="/contacts">Контакты</a></li>
+                <li><a href="/shops">Магазины</a></li>
             </ul>
         </div>
         <div class="footer-column">

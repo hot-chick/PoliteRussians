@@ -331,7 +331,7 @@ header img {
 
 .filter {
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
 }
 
 .filter p {
@@ -832,4 +832,19 @@ p {
     flex-direction: column;
     width: 68%;
     margin: 0 auto;
+}
+
+.about_us {
+    text-align: center;
+    height: 50vh;
+}
+
+.about_us h1 {
+    font-weight: 300;
+    font-size: 46px;
+}
+
+.about_us h2 {
+    font-size: 32px;
+    font-weight: 300;
 }

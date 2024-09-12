@@ -34,7 +34,7 @@
 </style>
 <div class="container">
     <div class="filter">
-        <span>Все товары (102 изделия)</span>
+        <!-- <span>Все товары (102 изделия)</span> -->
         <div class="filter_sort">
             <div class="sort">
                 <img src="/img/arrow_down.png" alt="">
@@ -43,54 +43,30 @@
 
             <div class="sort">
                 <img src="/img/filter.png" alt="">
-                <p>Фильтры</p>
+                <p>Фильтр</p>
             </div>
         </div>
     </div>
+    <div class="categories">
+        <!-- @foreach($products as $product)
+        <p>{{$product->title}}</p>
+        @endforeach -->
+    </div>
 
     <div class="products">
-        <a href="/product">
+        @foreach($products as $product)
+        <!-- Проверяем, есть ли у продукта хотя бы одна фотография -->
+        @if($product->photos->isNotEmpty())
+        <a href="{{ route('product', $product->id) }}">
             <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
+                <!-- Выводим первую фотографию продукта -->
+                <img src="{{ asset($product->photos->first()->photo_url) }}" alt="Продукт">
+                <p>{{ $product->title }}</p>
+                <p>{{ $product->price }} Р</p>
             </div>
         </a>
-        <a href="/product">
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-        </a>
-        <a href="/product">
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-        </a>
-        <a href="/product">
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-        </a>
-        <a href="/product">
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-        </a>
-        <a href="/product">
-            <div class="card">
-                <img src="/img/product.png" alt="продукт">
-                <p>Платье миди шоколадного цвета</p>
-                <p>12 980 Р</p>
-            </div>
-        </a>
+        @endif
+        @endforeach
     </div>
 </div>
 <script>

@@ -36,20 +36,29 @@
     <!-- Левая колонка: изображения продукта -->
     <div class="product-images">
         <div class="main-image">
+            <!-- Проверка наличия изображений продукта -->
+            @if($product->photos->isNotEmpty())
+            <!-- Выводим первое изображение продукта -->
+            <img src="{{ asset($product->photos->first()->photo_url) }}" alt="Основное изображение продукта">
+            @else
+            <!-- Если изображений нет, используем изображение по умолчанию -->
             <img src="/img/product.png" alt="Основное изображение продукта">
+            @endif
         </div>
         <div class="thumbnail-images">
-            <img src="/img/product.png" alt="Миниатюра 1">
-            <img src="/img/category2.png" alt="Миниатюра 2">
-            <img src="/img/category2.png" alt="Миниатюра 3">
+            <!-- Цикл для отображения всех миниатюр продукта -->
+            @foreach($product->photos as $photo)
+            <img src="{{ asset($photo->photo_url) }}" alt="Миниатюра {{ $loop->iteration }}">
+            @endforeach
         </div>
     </div>
 
     <!-- Правая колонка: информация о продукте -->
     <div class="product-info">
         <div class="product-name-title">
-            <h1>Костюмная юбка миди бордового цвета</h1>
-            <p class="price">12 980 Р</p>
+            <!-- Отображение названия и цены продукта -->
+            <h1>{{ $product->title }}</h1>
+            <p class="price">{{ $product->price }} Р</p>
         </div>
 
         <div class="product-description">
@@ -108,7 +117,6 @@
                     <p>Информация о материалах и уходе...</p>
                 </div>
             </div>
-            <!-- Добавьте дополнительные секции аккордеона, если нужно -->
         </div>
     </div>
 </div>

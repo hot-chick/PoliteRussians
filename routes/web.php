@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\ProductController;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
-Route::get('/catalog', function () {
-    return view('catalog');
-});
-
 Route::get('/product', function () {
     return view('product');
 });
@@ -32,3 +28,19 @@ Route::get('/shops', function () {
 Route::get('/lookbook', function () {
     return view('lookbook');
 });
+
+Route::get('/about_us', function () {
+    return view('about_us');
+});
+
+Route::get('/contacts', function () {
+    return view('contacts');
+});
+
+Route::get('/', [CategoryController::class, 'index']);
+
+Route::get('/catalog/{id}', [CatalogController::class, 'show'])->name('catalog');
+
+Route::get('/product/{id}', [ProductController::class, 'product_show'])->name('product');
+
+Route::get('/catalog', [CatalogController::class, 'allproducts']);

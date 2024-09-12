@@ -41,66 +41,19 @@
         </a>
     </div>
 </div>
-<div class="about">
-    <h1>Вежливые русские</h1>
-</div>
 <div class="products">
+    @foreach($products as $product)
+    <!-- Проверка наличия хотя бы одной фотографии у продукта -->
+    @if($product->photos->isNotEmpty())
     <a href="/product">
         <div class="card">
-            <img src="/img/product.png" alt="продукт">
-            <p>Платье миди шоколадного цвета</p>
-            <p>12 980 Р</p>
+            <img src="{{ asset($product->photos->first()->photo_url) }}" alt="продукт">
+            <p>{{ $product->title }}</p>
+            <p>{{ $product->price }} Р</p>
         </div>
     </a>
-    <a href="/product">
-        <div class="card">
-            <img src="/img/product.png" alt="продукт">
-            <p>Платье миди шоколадного цвета</p>
-            <p>12 980 Р</p>
-        </div>
-    </a>
-    <a href="/product">
-        <div class="card">
-            <img src="/img/product.png" alt="продукт">
-            <p>Платье миди шоколадного цвета</p>
-            <p>12 980 Р</p>
-        </div>
-    </a>
-    <a href="/product">
-        <div class="card">
-            <img src="/img/product.png" alt="продукт">
-            <p>Платье миди шоколадного цвета</p>
-            <p>12 980 Р</p>
-        </div>
-    </a>
-    <a href="/product">
-        <div class="card">
-            <img src="/img/product.png" alt="продукт">
-            <p>Платье миди шоколадного цвета</p>
-            <p>12 980 Р</p>
-        </div>
-    </a>
-    <a href="/product">
-        <div class="card">
-            <img src="/img/product.png" alt="продукт">
-            <p>Платье миди шоколадного цвета</p>
-            <p>12 980 Р</p>
-        </div>
-    </a>
-    <a href="/product">
-        <div class="card">
-            <img src="/img/product.png" alt="продукт">
-            <p>Платье миди шоколадного цвета</p>
-            <p>12 980 Р</p>
-        </div>
-    </a>
-    <a href="/product">
-        <div class="card">
-            <img src="/img/product.png" alt="продукт">
-            <p>Платье миди шоколадного цвета</p>
-            <p>12 980 Р</p>
-        </div>
-    </a>
+    @endif
+    @endforeach
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {

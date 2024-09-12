@@ -19,20 +19,17 @@
                         <a class="dropdown_catalog" href="/catalog">Каталог</a>
                         <div class="dropdown-content">
                             <ul>
-                                <li><a href="/catalog/dresses">Платья</a></li>
-                                <li><a href="/catalog/tops">Топы</a></li>
-                                <li><a href="/catalog/pants">Брюки</a></li>
-                                <li><a href="/catalog/outerwear">Верхняя одежда</a></li>
-                                <li><a href="/catalog/shoes">Обувь</a></li>
-                                <li><a href="/catalog/accessories">Аксессуары</a></li>
+                                @foreach($categories as $category)
+                                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </li>
-                    <li><a href="/">Новинки</a></li>
+                    <!-- <li><a href="/">Новинки</a></li> -->
                     <li><a href="/shops">Магазины</a></li>
                 </ul>
             </nav>
-            <a href="/" class="logo"><img style="transition: 0.4s ease" src="./img/LOGOW.png"
+            <a href="/" class="logo"><img src="/img/LOGOW.png"
                     alt=""></a>
             <div class="user_menu">
                 <div class="search">
