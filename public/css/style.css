@@ -848,3 +848,180 @@ p {
     font-size: 32px;
     font-weight: 300;
 }
+
+.pulse {
+    margin-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    animation: pulseAnimation 2s infinite;
+    background: linear-gradient(45deg, #ff1010, #1e90ff);
+    background-size: 200% 200%;
+}
+
+@keyframes pulseAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.product-buttons {
+    display: flex;
+    gap: 20px;
+    /* Расстояние между кнопками */
+}
+
+.heart-container {
+    position: relative;
+}
+
+.heart-box {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    /* Размер квадратика */
+    height: 50px;
+    /* Размер квадратика */
+    background-color: #ffffff;
+    /* Цвет фона квадратика */
+    border-radius: 0;
+    border: 1px solid black;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.heart {
+    position: absolute;
+    width: 30px;
+    /* Размер сердечка */
+    height: 30px;
+    /* Размер сердечка */
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out;
+    /* Плавное изменение прозрачности */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.heart-black {
+    opacity: 1;
+    /* Видимо по умолчанию */
+}
+
+.heart-red {
+    opacity: 0;
+    /* Скрыто по умолчанию */
+}
+
+.heart-box.clicked .heart-black {
+    opacity: 0;
+    /* Скрываем черное сердечко */
+}
+
+.heart-box.clicked .heart-red {
+    opacity: 1;
+    /* Показываем красное сердечко */
+}
+
+.contacts {
+    padding-top: 50px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.contacts h1 {
+    text-align: center;
+    font-size: 46px;
+}
+
+.contacts h3 {
+    font-size: 24px;
+}
+
+.contacts p {
+    font-size: 18px;
+}
+
+.wishlist {
+    padding: 20px;
+    text-align: center;
+}
+
+.wishlist h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.products-grid {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    position: relative;
+    text-align: left;
+    overflow: hidden;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.remove-from-wishlist {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.remove-from-wishlist img {
+    width: 30px;
+    height: 30px;
+}
+
+.remove-from-wishlist:hover {
+    opacity: 0.8;
+}
+
+.cart {
+    padding: 20px;
+    text-align: center;
+}
+
+.cart h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 10px 40px;
+    margin-top: 20px;
+    color: #fff;
+    background-color: #828181;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: black;
+    transition: 0.3s ease;
+}

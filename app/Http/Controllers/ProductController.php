@@ -9,7 +9,8 @@ class ProductController extends Controller
 {
     public function product_show($id)
     {
-        $product = Product::with('photos')->findOrFail($id); // Загружаем продукт с фотографиями
-        return view('product', compact('product')); // Передаем продукт в представление
+        $product = Product::with(['photos', 'sizes'])->findOrFail($id); // Загружаем продукт с фотографиями и размерами
+        $isInWishlist = in_array($id, session()->get('wishlist', []));
+        return view('product', compact('product', 'isInWishlist')); // Передаем переменную isInWishlist
     }
 }

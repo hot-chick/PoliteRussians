@@ -9,6 +9,12 @@ class Size extends Model
 {
     protected $fillable = [
         'id',
-        'title'
+        'title'  // Убедитесь, что это имя соответствует вашему столбцу в базе данных
     ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_sizes', 'size_id', 'product_id');
+    }
 }
+

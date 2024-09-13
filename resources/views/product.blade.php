@@ -23,7 +23,7 @@
     }
 
     header:hover {
-        background-color: rgb(231, 231, 231);
+        background-color: rgb(219, 219, 219);
         border-bottom: 1px solid rgb(231, 231, 231);
         color: black;
     }
@@ -37,18 +37,18 @@
     <div class="product-images">
         <div class="main-image">
             <!-- Проверка наличия изображений продукта -->
-            @if($product->photos->isNotEmpty())
-            <!-- Выводим первое изображение продукта -->
-            <img src="{{ asset($product->photos->first()->photo_url) }}" alt="Основное изображение продукта">
+            @if ($product->photos->isNotEmpty())
+                <!-- Выводим первое изображение продукта -->
+                <img src="{{ asset($product->photos->first()->photo_url) }}" alt="Основное изображение продукта">
             @else
-            <!-- Если изображений нет, используем изображение по умолчанию -->
-            <img src="/img/product.png" alt="Основное изображение продукта">
+                <!-- Если изображений нет, используем изображение по умолчанию -->
+                <img src="/img/product.png" alt="Основное изображение продукта">
             @endif
         </div>
         <div class="thumbnail-images">
             <!-- Цикл для отображения всех миниатюр продукта -->
-            @foreach($product->photos as $photo)
-            <img src="{{ asset($photo->photo_url) }}" alt="Миниатюра {{ $loop->iteration }}">
+            @foreach ($product->photos as $photo)
+                <img src="{{ asset($photo->photo_url) }}" alt="Миниатюра {{ $loop->iteration }}">
             @endforeach
         </div>
     </div>
@@ -69,50 +69,50 @@
         <div class="custom-select-wrapper">
             <div class="custom-select-trigger">Выберите размер</div>
             <div class="custom-options">
-                <span class="custom-option" data-value="XS">XS</span>
-                <span class="custom-option" data-value="S">S</span>
-                <span class="custom-option" data-value="M">M</span>
-                <span class="custom-option" data-value="L">L</span>
-                <span class="custom-option" data-value="XL">XL</span>
-                <span class="custom-option" data-value="S/M">S/M</span>
-                <span class="custom-option" data-value="M/L">M/L</span>
-                <span class="custom-option" data-value="L/XL">L/XL</span>
+                @foreach ($product->sizes as $size)
+                    <span class="custom-option" data-value="{{ $size->title }}">{{ $size->title }}</span>
+                @endforeach
             </div>
             <select id="product-size" class="custom-select">
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
-                <option value="S/M">S/M</option>
-                <option value="M/L">M/L</option>
-                <option value="L/XL">L/XL</option>
+                @foreach ($product->sizes as $size)
+                    <option value="{{ $size->title }}">{{ $size->title }}</option>
+                @endforeach
             </select>
         </div>
 
         <div class="product-buttons">
-            <button class="add-to-cart">Добавить в корзину</button>
+            <!-- Кнопка добавления в корзину -->
+            <button class="add-to-cart" data-product-id="{{ $product->id }}">Добавить в корзину</button>
             <div class="heart-container">
-                <img class="heart heart-black" src="/img/heart_black.png" alt="heart">
-                <img class="heart heart-red" src="/img/filled_heart_red.png" alt="heart">
+                <div class="heart-box" data-product-id="{{ $product->id }}"
+                    class="{{ $isInWishlist ? 'clicked' : '' }}">
+                    <img class="heart heart-black" src="/img/heart_black.png" alt="heart">
+                    <img class="heart heart-red" src="/img/filled_heart_red.png" alt="heart">
+                </div>
             </div>
         </div>
 
         <div class="accordion">
             <div class="accordion-item">
-                <div class="accordion-header">Описание</div>
+                <div class="accordion-header">Артикул</div>
                 <div class="accordion-content">
-                    <p>Это описание продукта...</p>
+                    <p>{{ $product->description }}</p>
                 </div>
             </div>
             <div class="accordion-item">
-                <div class="accordion-header">Размер и посадка</div>
+                <div class="accordion-header">Обмеры</div>
                 <div class="accordion-content">
-                    <p>Информация о размере и посадке...</p>
+                    <p>{{ $product->description }}</p>
                 </div>
             </div>
             <div class="accordion-item">
-                <div class="accordion-header">Материалы и уход</div>
+                <div class="accordion-header">Состав</div>
+                <div class="accordion-content">
+                    {{-- <p>{{ $product->composition }}</p> --}}
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">Уход за изделием</div>
                 <div class="accordion-content">
                     <p>Информация о материалах и уходе...</p>
                 </div>
@@ -167,8 +167,43 @@
         });
     });
 
-    document.querySelector('.heart-container').addEventListener('click', function() {
-        this.classList.toggle('active');
+    document.addEventListener('DOMContentLoaded', () => {
+        const heartBoxes = document.querySelectorAll('.heart-box');
+
+        heartBoxes.forEach(box => {
+            const productId = box.dataset.productId;
+            // Проверка состояния из сессии
+            const isInWishlist =
+                {{ json_encode(in_array($product->id, session()->get('wishlist', []))) }};
+
+            if (isInWishlist) {
+                box.classList.add('clicked');
+            }
+
+            box.addEventListener('click', () => {
+                box.classList.toggle('clicked');
+
+                fetch('/wishlist/toggle', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector(
+                                'meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            productId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log('Product added to wishlist.');
+                        } else {
+                            console.error('Error adding product to wishlist.');
+                        }
+                    });
+            });
+        });
     });
 
     const accordionHeaders = document.querySelectorAll('.accordion-header');
@@ -196,6 +231,39 @@
                 accordionContent.style.paddingTop = 0; // Устанавливаем padding сверху в 0
                 accordionContent.style.paddingBottom = 0; // Устанавливаем padding снизу в 0
             }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const addToCartButton = document.querySelector('.add-to-cart');
+
+        addToCartButton.addEventListener('click', () => {
+            const productId = addToCartButton.dataset.productId;
+            const selectedSize = document.querySelector('#product-size').value;
+
+            fetch('/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                            .getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        productId,
+                        size: selectedSize
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('Товар добавлен в корзину.');
+                        window.location
+                            .reload(); // Перезагрузка страницы после добавления в корзину
+                    } else {
+                        console.error('Ошибка при добавлении товара в корзину.');
+                    }
+                })
+                .catch(error => console.error('Ошибка:', error));
         });
     });
 </script>

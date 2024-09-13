@@ -41,18 +41,22 @@
         </a>
     </div>
 </div>
+<div class="pulse">
+    <h1>STAR FIGHTING PROMOTION 4 ПРОФЕССИОНАЛЬНЫЙ ТУРНИР ПО ПРАВИЛАМ ММА "СИЛА БАТЫРА" <br>
+        27 СЕНТЯБРЯ. ТИНЬКОФФ ХОЛЛ START: 19:00</h1>
+</div>
 <div class="products">
-    @foreach($products as $product)
-    <!-- Проверка наличия хотя бы одной фотографии у продукта -->
-    @if($product->photos->isNotEmpty())
-    <a href="/product">
-        <div class="card">
-            <img src="{{ asset($product->photos->first()->photo_url) }}" alt="продукт">
-            <p>{{ $product->title }}</p>
-            <p>{{ $product->price }} Р</p>
-        </div>
-    </a>
-    @endif
+    @foreach ($products as $product)
+        <!-- Проверка наличия хотя бы одной фотографии у продукта -->
+        @if ($product->photos->isNotEmpty())
+            <a href="/product">
+                <div class="card">
+                    <img src="{{ asset($product->photos->first()->photo_url) }}" alt="продукт">
+                    <p>{{ $product->title }}</p>
+                    <p>{{ $product->price }} Р</p>
+                </div>
+            </a>
+        @endif
     @endforeach
 </div>
 <script>

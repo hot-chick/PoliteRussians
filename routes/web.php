@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CartController;
 use App\Models\Category;
 
 /*
@@ -37,6 +39,10 @@ Route::get('/contacts', function () {
     return view('contacts');
 });
 
+Route::get('/cart', function () {
+    return view('cart');
+});
+
 Route::get('/', [CategoryController::class, 'index']);
 
 Route::get('/catalog/{id}', [CatalogController::class, 'show'])->name('catalog');
@@ -44,3 +50,11 @@ Route::get('/catalog/{id}', [CatalogController::class, 'show'])->name('catalog')
 Route::get('/product/{id}', [ProductController::class, 'product_show'])->name('product');
 
 Route::get('/catalog', [CatalogController::class, 'allproducts']);
+
+Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+
+Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
