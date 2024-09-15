@@ -6,6 +6,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 use App\Models\Category;
 
 /*
@@ -39,15 +40,29 @@ Route::get('/contacts', function () {
     return view('contacts');
 });
 
-Route::get('/cart', function () {
-    return view('cart');
+Route::get('/delivery', function () {
+    return view('delivery');
+});
+
+Route::get('/dolyami', function () {
+    return view('dolyami');
+});
+
+Route::get('/giftcard', function () {
+    return view('giftcard');
 });
 
 Route::get('/', [CategoryController::class, 'index']);
 
 Route::get('/catalog/{id}', [CatalogController::class, 'show'])->name('catalog');
 
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+// Маршрут для отображения продукта по ID
 Route::get('/product/{id}', [ProductController::class, 'product_show'])->name('product');
+
+// Маршрут для отображения продукта по составной статье
+Route::get('/product/byArticle/{composite_article}', [ProductController::class, 'showByCompositeArticle'])->name('product.byArticle');
 
 Route::get('/catalog', [CatalogController::class, 'allproducts']);
 
@@ -57,4 +72,16 @@ Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.in
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+
+Route::get('/cart/summary', [CartController::class, 'summary'])->name('cart.summary');
+
+Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
+
+Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');

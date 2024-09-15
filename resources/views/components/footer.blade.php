@@ -6,16 +6,15 @@
                 <li><a href="/catalog">Смотреть все</a></li>
                 <!-- <li><a href="#">Новинки</a></li> -->
                 <!-- <li><a href="#">Lookbook</a></li> -->
-                <li><a href="/shops">Магазины</a></li>
+                <!-- <li><a href="/shops">Магазины</a></li> -->
             </ul>
         </div>
         <div class="footer-column">
             <h4>Покупателям</h4>
             <ul>
-                <li><a href="#">Доставка</a></li>
-                <li><a href="#">Условия возврата</a></li>
-                <li><a href="#">Оплата "Долями"</a></li>
-                <li><a href="#">Подарочная карта</a></li>
+                <li><a href="/delivery">Доставка</a></li>
+                <!-- <li><a href="/dolyami">Оплата "Долями"</a></li> -->
+                <li><a href="/giftcard">Подарочная карта</a></li>
             </ul>
         </div>
         <div class="footer-column">
@@ -43,8 +42,8 @@
     <div class="footer-bottom2">
         <p>&copy PoliteRussians все права защищены</p>
         <div class="socials">
-            <a href="/"><img src="/img/icons_telegram.png" alt=""></a>
-            <a href="/"><img src="/img/icons_instagram.png" alt=""></a>
+            <a target="_blank" href="https://t.me/VRpolite"><img src="/img/icons_telegram.png" alt="telegram"></a>
+            <a target="_blank" href="https://www.instagram.com/polite.russians.ru?igsh=MXVyNTFwZTBuM2ZmNA=="><img src="/img/icons_instagram.png" alt="instagram"></a>
         </div>
     </div>
 </footer>

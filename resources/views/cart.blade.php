@@ -23,36 +23,175 @@
     }
 
     header:hover {
-        background-color: rgb(231, 231, 231);
+        background-color: rgb(219, 219, 219);
         border-bottom: 1px solid rgb(231, 231, 231);
         color: black;
     }
 
     .dropdown-content {
-        background-color: rgb(231, 231, 231);
+        background-color: rgb(219, 219, 219);
+    }
+
+    @media (max-width: 768px) {
+        header {
+            background-color: rgb(219, 219, 219);
+            height: 80px;
+        }
+
+    }
+
+    h1 {
+        width: 100%;
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 20px;
     }
 </style>
+<h1>Корзина</h1>
 <div class="cart">
-    <h1>Корзина</h1>
-
-    @if ($products->isEmpty())
-        <p>Корзина пуста. Вы пока ничего не добавили в корзину.</p>
-        <a href="/catalog" class="btn btn-primary">В каталог</a>
+    @if (session('cart') && count(session('cart')) === 0)
+    <p>Корзина пуста. Вы пока ничего не добавили в корзину.</p>
+    <a href="/catalog" class="btn btn-primary">В каталог</a>
     @else
-        @foreach ($products as $product)
-            <div class="cart-item">
-                <!-- Отображаем заголовок товара и его размер -->
-                <p>Товар: {{ $product->title }} - Размер: {{ $product->size }}</p>
-                <form action="{{ route('cart.remove') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                    <input type="hidden" name="size" value="{{ $product->size }}">
-                    <button class="btn-primary" type="submit">Удалить</button>
-                </form>
+    <div class="products-grid">
+        @php
+        $totalPrice = 0;
+        $cartItems = [];
+
+        // Группируем товары по ID
+        foreach (session('cart', []) as $item) {
+        $cartItems[$item['product_id']][] = $item;
+        }
+        @endphp
+
+        @foreach ($cartItems as $productId => $items)
+        @php
+        $product = \App\Models\Product::find($productId);
+        if ($product) {
+        $totalPrice += $product->price * count($items); // Суммируем цену с учетом количества
+        }
+        @endphp
+
+        @if ($product && $product->photos->isNotEmpty())
+        <div class="card">
+            <a href="{{ route('product', $product->id) }}">
+                <img src="{{ asset($product->photos->first()->photo_url) }}" alt="{{ $product->title }}">
+            </a>
+            <p>{{ $product->title }}</p>
+            <p>{{ $product->price }} Р</p>
+            @php
+            $size = $items[0]['size']; // Все товары имеют одинаковый размер
+            @endphp
+            <p>Размер: {{ $size }}</p>
+            <div class="quantity-controls">
+                <p>Количество:</p>
+                <p class="quantity"> {{ count($items) }}</p>
             </div>
+            <button class="add-to-cart" data-product-id="{{ $product->id }}">Удалить</button>
+        </div>
+        @endif
         @endforeach
+    </div>
+
+    <div class="cart-summary">
+        <p>Итого к оплате: <strong>{{ $totalPrice }} Р</strong></p>
+        <a href="/checkout" class="btn btn-primary">Оформить заказ</a>
+    </div>
     @endif
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const quantityButtons = document.querySelectorAll('.quantity-btn');
+        const cartSummary = document.querySelector('.cart-summary p strong');
 
+        function updateCart(productId, quantity) {
+            fetch('/cart/update', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        productId: productId,
+                        quantity: quantity
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateCartSummary();
+                    } else {
+                        console.error('Ошибка при обновлении количества товара.');
+                    }
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+
+        function updateCartSummary() {
+            fetch('/cart/summary')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        cartSummary.textContent = `${data.totalPrice} Р`;
+                    } else {
+                        console.error('Ошибка при обновлении суммы корзины.');
+                    }
+                })
+                .catch(error => console.error('Ошибка:', error));
+        }
+
+        quantityButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.getAttribute('data-product-id');
+                const action = button.getAttribute('data-action');
+                const quantitySpan = button.parentElement.querySelector('.quantity');
+
+                let quantity = parseInt(quantitySpan.textContent);
+
+                if (action === 'increase') {
+                    quantity += 1;
+                } else if (action === 'decrease' && quantity > 1) {
+                    quantity -= 1;
+                }
+
+                // Обновляем количество на клиенте
+                quantitySpan.textContent = quantity;
+
+                // Обновляем корзину на сервере
+                updateCart(productId, quantity);
+            });
+        });
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.getAttribute('data-product-id');
+
+                fetch('/cart/remove', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify({
+                            productId: productId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            button.closest('.card').remove();
+                            updateCartSummary();
+                        } else {
+                            console.error('Ошибка при удалении товара.');
+                        }
+                    })
+                    .catch(error => console.error('Ошибка:', error));
+            });
+        });
+
+        // Инициализация суммы корзины при загрузке страницы
+        updateCartSummary();
+    });
+</script>
 
 <x-footer></x-footer>

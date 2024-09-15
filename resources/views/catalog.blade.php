@@ -23,35 +23,49 @@
     }
 
     header:hover {
-        background-color: rgb(231, 231, 231);
+        background-color: rgb(219, 219, 219);
         border-bottom: 1px solid rgb(231, 231, 231);
         color: black;
     }
 
     .dropdown-content {
-        background-color: rgb(231, 231, 231);
+        background-color: rgb(219, 219, 219);
     }
+
+    @media (max-width: 768px) {
+        header {
+            background-color: rgb(219, 219, 219);
+            height: 80px;
+        }
+
+        .filter {
+            margin-right: 60%;
+        }
+
+        .filter_sort {
+            width: 20%;
+            gap: 20px;
+        }
+    }
+
+    /* Общий стиль для контейнера сортировки */
+    
 </style>
 <div class="container">
     <div class="filter">
-        <!-- <span>Все товары (102 изделия)</span> -->
         <div class="filter_sort">
-            <div class="sort">
-                <img src="/img/arrow_down.png" alt="">
-                <p>Сортировка</p>
-            </div>
-
-            <div class="sort">
-                <img src="/img/filter.png" alt="">
-                <p>Фильтр</p>
-            </div>
+            <form method="GET" action="{{ route('products.index') }}" class="sort-form">
+                <div class="sort">
+                    <p>Сортировка</p>
+                    <select name="sort" onchange="this.form.submit()" class="customm-select">
+                        <option value="asc" {{ request('sort') === 'asc' ? 'selected' : '' }}>По возрастанию</option>
+                        <option value="desc" {{ request('sort') === 'desc' ? 'selected' : '' }}>По убыванию</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="categories">
-        <!-- @foreach($products as $product)
-        <p>{{$product->title}}</p>
-        @endforeach -->
-    </div>
+
 
     <div class="products">
         @foreach($products as $product)

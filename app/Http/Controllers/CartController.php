@@ -9,21 +9,19 @@ class CartController extends Controller
 {
     public function add(Request $request)
     {
-        // Получаем ID товара и выбранный размер из запроса
         $productId = $request->input('productId');
         $size = $request->input('size');
-
-        if (!$productId || !$size) {
-            return response()->json(['success' => false, 'message' => 'Не указаны все параметры.'], 400);
-        }
 
         // Получаем текущую корзину из сессии
         $cart = session()->get('cart', []);
 
-        // Добавляем товар в корзину с ID продукта и размером
-        $cart[] = ['product_id' => $productId, 'size' => $size];
+        // Добавляем товар в корзину
+        $cart[] = [
+            'product_id' => $productId,
+            'size' => $size
+        ];
 
-        // Сохраняем обновленную корзину в сессии
+        // Сохраняем корзину в сессии
         session()->put('cart', $cart);
 
         return response()->json(['success' => true]);
@@ -50,21 +48,56 @@ class CartController extends Controller
         return view('cart', compact('products'));
     }
 
-    public function remove(Request $request)
+    public function update(Request $request)
     {
-        $productId = $request->input('product_id');
-        $size = $request->input('size');
+        $productId = $request->input('productId');
+        $quantity = $request->input('quantity');
 
         $cart = session()->get('cart', []);
+        $updatedCart = [];
 
-        // Фильтруем корзину, удаляя товар с соответствующим ID и размером
-        $updatedCart = array_filter($cart, function ($item) use ($productId, $size) {
-            return !($item['product_id'] == $productId && $item['size'] == $size);
-        });
+        foreach ($cart as $item) {
+            if ($item['product_id'] == $productId) {
+                if ($quantity > 0) {
+                    $item['quantity'] = $quantity;
+                    $updatedCart[] = $item;
+                }
+            } else {
+                $updatedCart[] = $item;
+            }
+        }
 
-        // Обновляем корзину в сессии
         session()->put('cart', $updatedCart);
 
-        return redirect()->back()->with('success', 'Товар удален из корзины.');
+        return response()->json(['success' => true]);
+    }
+
+    public function remove(Request $request)
+    {
+        $productId = $request->input('productId');
+
+        $cart = session()->get('cart', []);
+        $updatedCart = array_filter($cart, function ($item) use ($productId) {
+            return $item['product_id'] != $productId;
+        });
+
+        session()->put('cart', $updatedCart);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function summary()
+    {
+        $cart = session()->get('cart', []);
+        $totalPrice = 0;
+
+        foreach ($cart as $item) {
+            $product = \App\Models\Product::find($item['product_id']);
+            if ($product) {
+                $totalPrice += $product->price * $item['quantity'];
+            }
+        }
+
+        return response()->json(['success' => true, 'totalPrice' => $totalPrice]);
     }
 }

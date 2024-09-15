@@ -23,22 +23,37 @@
     }
 
     header:hover {
-        background-color: rgb(231, 231, 231);
+        background-color: rgb(219, 219, 219);
         border-bottom: 1px solid rgb(231, 231, 231);
         color: black;
     }
 
     .dropdown-content {
-        background-color: rgb(231, 231, 231);
+        background-color: rgb(219, 219, 219);
+    }
+
+    @media (max-width: 768px) {
+        header {
+            background-color: rgb(219, 219, 219);
+            height: 80px;
+        }
     }
 </style>
 
 <div class="contacts">
-    <h1>Контакты</h1>
-    <h3>Интернет магазин</h3>
-    <p>Телефон</p>
-    <p>Почта</p>
-    <p>Режим работы</p>
+    <h1>Контактная информация</h1>
+    <h3>Телефон: <a href="tel:88003017307">88003017307</a></h3>
+    <h3>Почта: <a href="mailto:polite.russians.ru@yandex.ru">polite.russians.ru@yandex.ru</a></h3>
+    <p>ИП Аслямов Алексей Валерьевич</p>
+    <p>ИНН 027605219202 </p>
+    <p>ОГРНИП 317028000075498</p>
+    <p>Юр.адрес: 450501, РБ, район Уфимский,
+        д. Стуколкино, ул. Сосновая, д.9, кв.2</p>
+    <p>расч. счет 40802810306000060443</p>
+    <p>Башкирское отделение №8598</p>
+    <p>ПАО Сбербанк</p>
+    <p>Кор. счет 30101810300000000601</p>
+    <p>БИК 048073601</p>
 </div>
 
 

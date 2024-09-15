@@ -15,23 +15,28 @@
 <body>
     <header>
         <div class="header_wrapper">
+            <div class="menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <a href="/" class="logo"><img src="/img/LOGOW.png" alt=""></a>
             <nav>
-                <ul>
+                <ul class="menu">
                     <li class="dropdown">
-                        <a class="dropdown_catalog" href="/catalog">Каталог</a>
+                        <span class="dropdown_catalog">Каталог</span>
                         <div class="dropdown-content">
                             <ul>
+                                <li><a href="/catalog">Смотреть все</a></li>
                                 @foreach ($categories as $category)
-                                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                     </li>
-                    <!-- <li><a href="/">Новинки</a></li> -->
                     <li><a href="/shops">Магазины</a></li>
                 </ul>
             </nav>
-            <a href="/" class="logo"><img src="/img/LOGOW.png" alt=""></a>
             <div class="user_menu">
                 <div class="search">
                     <img src="/img/search_white.png" alt="Поиск">
@@ -41,4 +46,36 @@
                 <a href="/cart"><img src="/img/paper_bag.png" alt="Корзина"></a>
             </div>
         </div>
+        <nav class="mobile-menu" id="mobile-menu">
+            <ul>
+                <li><a href="/catalog">Смотреть все</a></li>
+                @foreach ($categories as $category)
+                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                @endforeach
+                <li><a href="/shops">Магазины</a></li>
+                <li><a href="/wishlist">Избранное</a></li>
+                <li><a href="/cart">Корзина</a></li>
+            </ul>
+        </nav>
     </header>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Открытие/закрытие мобильного меню
+            menuToggle.addEventListener('click', function() {
+                menuToggle.classList.toggle('open');
+                mobileMenu.classList.toggle('open');
+            });
+
+            // Закрытие меню при клике за пределами
+            document.addEventListener('click', function(e) {
+                if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenu.classList.remove('open');
+                    menuToggle.classList.remove('open');
+                }
+            });
+        });
+    </script>

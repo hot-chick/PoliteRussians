@@ -27,6 +27,7 @@ body {
 header {
     position: sticky;
     top: 0;
+    width: 100%;
     transition: background-color 0.4s, color 0.4s;
     background-color: transparent;
     color: rgb(231, 231, 231);
@@ -35,7 +36,7 @@ header {
 
 .header_wrapper {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     padding: 24px;
     margin: 0 auto;
     justify-content: space-between;
@@ -131,11 +132,15 @@ header img {
     position: relative;
 }
 
+.dropdown_catalog {
+    cursor: pointer;
+}
+
 .dropdown-content {
     opacity: 0;
     visibility: hidden;
     position: absolute;
-    top: 100%;
+    top: 190%;
     left: 0;
     width: 110vw;
     background-color: white;
@@ -173,6 +178,103 @@ header img {
     transition: color 0.3s ease;
 }
 
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    /* width: 100vw; */
+    background-color: #fff;
+    z-index: 100;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Меню отображается как колонка */
+.mobile-menu ul {
+    display: flex;
+    flex-direction: column;
+    /* Устанавливаем вертикальное направление */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: flex-start;
+}
+
+.mobile-menu ul li {
+    padding: 10px 0;
+}
+
+.mobile-menu ul li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+/* Стили для гамбургера */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    cursor: pointer;
+    margin-left: -100%;
+}
+
+.menu-toggle span {
+    background-color: #fff;
+    height: 3px;
+    border-radius: 5px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.menu-toggle.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Показываем мобильное меню и гамбургер при ширине экрана меньше 768px */
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+    }
+
+    .user_menu {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .mobile-menu.open {
+        display: block;
+    }
+}
+
+/* Обычное десктопное меню скрыто на мобильных устройствах */
+@media (min-width: 769px) {
+    nav ul {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .mobile-menu {
+
+        display: none;
+    }
+}
+
 .bgvideo {
     position: absolute;
     right: 0;
@@ -189,6 +291,7 @@ header img {
 .logo {
     position: absolute;
     left: 47%;
+    top: 10%;
     transform: translateX(-50%);
 }
 
@@ -345,7 +448,7 @@ header img {
 
 .filter_sort {
     display: flex;
-    width: 20%;
+    /* width: 15%; */
     justify-content: space-between;
 }
 
@@ -358,6 +461,46 @@ header img {
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+.sort {
+    display: flex;
+    align-items: center;
+    /* gap: 10px; */
+}
+
+/* Стили для customm-select */
+.customm-select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    width: 150px;
+    transition: border-color 0.3s ease;
+}
+
+/* Ховер эффект */
+.customm-select:hover {
+    border-color: #888;
+}
+
+/* Когда select находится в фокусе */
+.customm-select:focus {
+    outline: none;
+    border-color: #555;
+}
+
+/* Стили для стрелки внутри select */
+.customm-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('/img/arrow_down.png');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
 }
 
 /* Контейнер для всех карточек товаров */
@@ -629,6 +772,7 @@ header img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* padding-bottom: -45px; */
 }
 
 .accordion-content {
@@ -835,8 +979,8 @@ p {
 }
 
 .about_us {
+    display: block;
     text-align: center;
-    height: 50vh;
 }
 
 .about_us h1 {
@@ -855,8 +999,34 @@ p {
     padding-bottom: 30px;
     text-align: center;
     animation: pulseAnimation 2s infinite;
-    background: linear-gradient(45deg, #ff1010, #1e90ff);
+    background: linear-gradient(45deg, #ff1010, #095dcc);
     background-size: 200% 200%;
+    font-size: 36px;
+    line-height: 14px;
+}
+
+.pulse h1 {
+    font-size: 24px;
+    color: white;
+}
+
+.Batyr {
+    color: #1e90ff;
+    /* Основной цвет текста */
+    text-shadow: 0 0 20px rgba(30, 144, 255, 1), 0 0 20px rgba(30, 144, 255, 1), 0 0 30px rgba(30, 144, 255, 0.4);
+}
+
+.START {
+    color: #1e90ff;
+    /* Основной цвет текста */
+    text-shadow: 0 0 20px rgba(30, 144, 255, 1), 0 0 20px rgba(30, 144, 255, 1), 0 0 30px rgba(30, 144, 255, 0.4);
+    /* Эффект свечения */
+}
+
+@media (max-width: 768px) {
+    .pulse h1 {
+        font-size: 18px;
+    }
 }
 
 @keyframes pulseAnimation {
@@ -872,6 +1042,7 @@ p {
         background-position: 0% 50%;
     }
 }
+
 
 .product-buttons {
     display: flex;
@@ -1004,6 +1175,10 @@ p {
 .cart {
     padding: 20px;
     text-align: center;
+    display: flex;
+    align-items: flex-start;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .cart h1 {
@@ -1024,4 +1199,92 @@ p {
 .btn-primary:hover {
     background-color: black;
     transition: 0.3s ease;
+}
+
+.cart-summary {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.cart-summary p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.cart-summary .btn {
+    margin-top: 10px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quantity-btn {
+    background-color: #000000;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.quantity {
+    display: flex;
+    font-size: 16px;
+    width: 30px;
+    text-align: center;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card .price {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.checkout {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-section {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.order-summary {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
