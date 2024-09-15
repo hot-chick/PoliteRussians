@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:wght@100;400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="/css/style.css">
     <title>PoliteRussians</title>
 
@@ -29,7 +29,7 @@
                             <ul>
                                 <li><a href="/catalog">Смотреть все</a></li>
                                 @foreach ($categories as $category)
-                                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -50,7 +50,7 @@
             <ul>
                 <li><a href="/catalog">Смотреть все</a></li>
                 @foreach ($categories as $category)
-                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                 @endforeach
                 <li><a href="/shops">Магазины</a></li>
                 <li><a href="/wishlist">Избранное</a></li>

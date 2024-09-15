@@ -38,6 +38,10 @@
             height: 80px;
         }
     }
+
+    .wishlist h1{
+        font-weight: normal;
+    }
 </style>
 <div class="wishlist">
     @if ($products->isEmpty())

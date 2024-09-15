@@ -109,7 +109,7 @@
             <div class="accordion-item">
                 <div class="accordion-header">Обмеры</div>
                 <div class="accordion-content">
-                    <!-- <p>{{ $product->description }}</p> -->
+                   
                 </div>
             </div>
             <div class="accordion-item">

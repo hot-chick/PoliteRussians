@@ -38,6 +38,14 @@
             height: 80px;
         }
     }
+
+    input{
+        opacity: 0.7;
+    }
+
+    input:hover{
+        opacity: 1;
+    }
 </style>
 <div class="checkout">
     <h1>Оформление заказа</h1>
@@ -46,24 +54,33 @@
         @csrf
         <div class="form-section">
             <h2>Ваши данные</h2>
-            <div class="form-group">
-                <label for="name">Имя:</label>
-                <input type="text" id="name" name="name" required>
+            <div class="first">
+                <div class="form-group">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Фамилия:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+
+            <div class="second">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон:</label>
+                    <input type="text" id="phone" name="phone" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="phone">Телефон:</label>
-                <input type="text" id="phone" name="phone" required>
-            </div>
+
             <div class="form-group">
                 <label for="address">Адрес доставки:</label>
                 <input type="text" id="address" name="address" required>
             </div>
         </div>
-
         <div class="form-section">
             <h2>Способ доставки</h2>
             <div class="form-group">
@@ -75,8 +92,9 @@
         <div class="form-section">
             <h2>Способ оплаты</h2>
             <div class="form-group">
-                <label><input type="radio" name="payment" value="card" checked> Картой</label>
-                <label><input type="radio" name="payment" value="cash"> Наличные</label>
+                <label><input disabled type="radio" name="payment" value="card"> Оплата онлайн</label>
+                <label><input disabled type="radio" name="payment" value="card"> Оплата "Долями"</label>
+                <label><input type="radio" name="payment" value="cash" checked> При получении</label>
             </div>
         </div>
 
@@ -84,26 +102,26 @@
             <h2>Ваш заказ</h2>
             <div class="products-grid">
                 @php
-                $totalPrice = 0;
+                    $totalPrice = 0;
                 @endphp
 
                 @foreach (session('cart', []) as $item)
-                @php
-                $product = \App\Models\Product::find($item['product_id']);
-                @endphp
+                    @php
+                        $product = \App\Models\Product::find($item['product_id']);
+                    @endphp
 
-                @if ($product && $product->photos->isNotEmpty())
-                
-                <div class="card">
-                    <a href="{{ route('product', $product->id) }}">
-                        <img src="{{ asset($product->photos->first()->photo_url) }}" alt="{{ $product->title }}">
-                    </a>
-                    <p>{{ $product->title }}</p>
-                    <p>{{ $product->price }} Р</p>
-                    <p>Размер: {{ $item['size'] }}</p>
-                   
-                </div>
-                @endif
+                    @if ($product && $product->photos->isNotEmpty())
+                        <div class="card">
+                            <a href="{{ route('product', $product->id) }}">
+                                <img src="{{ asset($product->photos->first()->photo_url) }}"
+                                    alt="{{ $product->title }}">
+                            </a>
+                            <p>{{ $product->title }}</p>
+                            <p>{{ $product->price }} Р</p>
+                            <p>Размер: {{ $item['size'] }}</p>
+
+                        </div>
+                    @endif
                 @endforeach
             </div>
 

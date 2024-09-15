@@ -22,6 +22,7 @@
 </div>
 <div class="content">
     <div class="category">
+        
         <a href="/" class="category-item">
             <img src="/img/category2.png" alt="Категория">
             <span>Футболки</span>
