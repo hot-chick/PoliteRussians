@@ -47,6 +47,14 @@
             height: 80px;
         }
     }
+
+    .wishlist-count {
+        color: black;
+    }
+
+    .cart-count {
+        color: black;
+    }
 </style>
 <div class="delivery">
     <div class="text">

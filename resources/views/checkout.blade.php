@@ -39,12 +39,20 @@
         }
     }
 
-    input{
+    input {
         opacity: 0.7;
     }
 
-    input:hover{
+    input:hover {
         opacity: 1;
+    }
+
+    .wishlist-count {
+        color: black;
+    }
+
+    .cart-count {
+        color: black;
     }
 </style>
 <div class="checkout">
@@ -102,26 +110,26 @@
             <h2>Ваш заказ</h2>
             <div class="products-grid">
                 @php
-                    $totalPrice = 0;
+                $totalPrice = 0;
                 @endphp
 
                 @foreach (session('cart', []) as $item)
-                    @php
-                        $product = \App\Models\Product::find($item['product_id']);
-                    @endphp
+                @php
+                $product = \App\Models\Product::find($item['product_id']);
+                @endphp
 
-                    @if ($product && $product->photos->isNotEmpty())
-                        <div class="card">
-                            <a href="{{ route('product', $product->id) }}">
-                                <img src="{{ asset($product->photos->first()->photo_url) }}"
-                                    alt="{{ $product->title }}">
-                            </a>
-                            <p>{{ $product->title }}</p>
-                            <p>{{ $product->price }} Р</p>
-                            <p>Размер: {{ $item['size'] }}</p>
+                @if ($product && $product->photos->isNotEmpty())
+                <div class="card">
+                    <a href="{{ route('product', $product->id) }}">
+                        <img src="{{ asset($product->photos->first()->photo_url) }}"
+                            alt="{{ $product->title }}">
+                    </a>
+                    <p>{{ $product->title }}</p>
+                    <p>{{ $product->price }} Р</p>
+                    <p>Размер: {{ $item['size'] }}</p>
 
-                        </div>
-                    @endif
+                </div>
+                @endif
                 @endforeach
             </div>
 

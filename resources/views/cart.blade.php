@@ -46,6 +46,16 @@
         font-size: 36px;
         margin-bottom: 20px;
     }
+
+    .wishlist-count {
+        color: black;
+    }
+
+    .cart-count {
+        color: black;
+    }
+
+    
 </style>
 <h1>Корзина</h1>
 <div class="cart">

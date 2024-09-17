@@ -4,7 +4,6 @@
     font-size: 16px;
 }
 
-@import url('https://fonts.google.com/share?selection.family=Manrope:wght@200..800');
 
 a {
     text-decoration: none;
@@ -244,17 +243,13 @@ header img {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* .badge {
-    background-color: red;
+.wishlist-count {
     color: white;
-    border-radius: 50%;
-    padding: 5px 10px;
-    font-size: 12px;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    transform: translate(50%, -50%);
-} */
+}
+
+.cart-count {
+    color: white;
+}
 
 /* Показываем мобильное меню и гамбургер при ширине экрана меньше 768px */
 @media (max-width: 768px) {
@@ -476,44 +471,45 @@ header img {
     align-items: center;
 }
 
-.sort {
-    display: flex;
-    align-items: center;
-    /* gap: 10px; */
-}
-
-/* Стили для customm-select */
+/* Стили для основного select */
 .customm-select {
+    font-family: 'Manrope', sans-serif;
     padding: 10px;
     border: 1px solid #ccc;
     font-size: 16px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     color: #333;
     cursor: pointer;
     width: 150px;
     transition: border-color 0.3s ease;
-}
-
-/* Ховер эффект */
-.customm-select:hover {
-    border-color: #888;
-}
-
-/* Когда select находится в фокусе */
-.customm-select:focus {
-    outline: none;
-    border-color: #555;
-}
-
-/* Стили для стрелки внутри select */
-.customm-select {
     -webkit-appearance: none;
+    /* Убираем стандартную стрелку */
     -moz-appearance: none;
+    /* Убираем стандартную стрелку в Firefox */
     appearance: none;
     background-image: url('/img/arrow_down.png');
+    /* Добавляем свою стрелку */
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 12px;
+}
+
+.choices__inner {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    font-family: 'Manrope', sans-serif;
+}
+
+.choices__list--dropdown .choices__item--selectable {
+    background-color: #fff;
+    /* Белый фон для опций */
+    color: #333;
+    /* Цвет текста опций */
+}
+
+.choices__list--dropdown .choices__item--selectable:hover {
+    background-color: #f1f1f1;
+    /* Ховер для опций */
 }
 
 /* Контейнер для всех карточек товаров */
@@ -1217,7 +1213,7 @@ p {
 .cart {
     padding: 20px;
     text-align: center;
-    display: flex;
+    /* display: flex; */
     align-items: flex-start;
     width: 80%;
     margin: 0 auto;

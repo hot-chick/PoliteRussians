@@ -38,6 +38,14 @@
             height: 80px;
         }
     }
+
+    .wishlist-count {
+        color: black;
+    }
+
+    .cart-count {
+        color: black;
+    }
 </style>
 <div class="checkout-success">
     <h1>Спасибо за ваш заказ!</h1>

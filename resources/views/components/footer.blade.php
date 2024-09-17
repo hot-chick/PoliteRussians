@@ -1,4 +1,10 @@
 <footer class="site-footer">
+    <style>
+        a {
+            font-family: "Manrope", serif;
+            font-weight: normal;
+        }
+    </style>
     <div class="footer-container">
         <div class="footer-column">
             <h4>Каталог</h4>
@@ -48,5 +54,6 @@
     </div>
 </footer>
 </body>
+
 
 </html>

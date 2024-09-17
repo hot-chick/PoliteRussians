@@ -43,6 +43,14 @@
         width: 80%;
         margin: 0 auto;
     }
+
+    .wishlist-count {
+        color: black;
+    }
+
+    .cart-count {
+        color: black;
+    }
 </style>
 <div class="delivery">
     <div class="text">

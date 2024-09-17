@@ -8,6 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/style.css">
     <title>PoliteRussians</title>
 
@@ -30,7 +32,7 @@
                             <ul>
                                 <li><a href="/catalog">Смотреть все</a></li>
                                 @foreach ($categories as $category)
-                                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -43,12 +45,12 @@
                     <img src="/img/search_white.png" alt="Поиск">
                     <p>Поиск</p>
                 </div>
-            
+
                 <a href="/wishlist">
                     <img src="/img/heart.png" alt="Список желаемого">
                     <span class="wishlist-count">{{ count(session()->get('wishlist', [])) }}</span>
                 </a>
-            
+
                 <a href="/cart">
                     <img src="/img/paper_bag.png" alt="Корзина">
                     <span class="cart-count">{{ count(session()->get('cart', [])) }}</span>
@@ -59,7 +61,7 @@
             <ul>
                 <li><a href="/catalog">Смотреть все</a></li>
                 @foreach ($categories as $category)
-                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                 @endforeach
                 <li><a href="/shops">Магазины</a></li>
                 <li><a href="/wishlist">Избранное</a></li>

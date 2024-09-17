@@ -39,34 +39,42 @@
         }
     }
 
-    .wishlist h1{
+    .wishlist h1 {
         font-weight: normal;
+    }
+
+    .wishlist-count {
+        color: black;
+    }
+
+    .cart-count {
+        color: black;
     }
 </style>
 <div class="wishlist">
     @if ($products->isEmpty())
-        <h1>Список избранного</h1>
-        <p>Здесь вы можете сохранять товары, которые вам понравились, 
+    <h1>Список избранного</h1>
+    <p>Здесь вы можете сохранять товары, которые вам понравились,
         чтобы вернуться к ним позже и обдумать покупку.</p>
-        <a href="/catalog" class="btn btn-primary">В каталог</a>
+    <a href="/catalog" class="btn btn-primary">В каталог</a>
     @else
-        <h1>Ваш список избранного</h1>
-        <div class="products-grid">
-            @foreach ($products as $product)
-                @if ($product->photos->isNotEmpty())
-                    <div class="card">
-                        <a href="{{ route('product', $product->id) }}">
-                            <img src="{{ asset($product->photos->first()->photo_url) }}" alt="{{ $product->title }}">
-                        </a>
-                        <p>{{ $product->title }}</p>
-                        <p>{{ $product->price }} Р</p>
-                        <div class="remove-from-wishlist" data-product-id="{{ $product->id }}">
-                            <img src="/img/filled_heart_red.png" alt="Remove from wishlist">
-                        </div>
-                    </div>
-                @endif
-            @endforeach
+    <h1>Ваш список избранного</h1>
+    <div class="products-grid">
+        @foreach ($products as $product)
+        @if ($product->photos->isNotEmpty())
+        <div class="card">
+            <a href="{{ route('product', $product->id) }}">
+                <img src="{{ asset($product->photos->first()->photo_url) }}" alt="{{ $product->title }}">
+            </a>
+            <p>{{ $product->title }}</p>
+            <p>{{ $product->price }} Р</p>
+            <div class="remove-from-wishlist" data-product-id="{{ $product->id }}">
+                <img src="/img/filled_heart_red.png" alt="Remove from wishlist">
+            </div>
         </div>
+        @endif
+        @endforeach
+    </div>
     @endif
 </div>
 

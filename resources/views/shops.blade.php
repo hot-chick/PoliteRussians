@@ -38,6 +38,14 @@
             height: 80px;
         }
     }
+
+    .wishlist-count {
+        color: black;
+    }
+
+    .cart-count {
+        color: black;
+    }
 </style>
 <div class="shops_container">
     <h1 class="shopsh1">Список магазинов</h1>
