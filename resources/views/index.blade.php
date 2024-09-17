@@ -1,4 +1,4 @@
-<x-layout></x-layout>
+<x-Layout></x-Layout>
 <style>
     .container {
         height: 59vh;
@@ -22,31 +22,12 @@
 </div>
 <div class="content">
     <div class="category">
-        
-        <a href="/" class="category-item">
-            <img src="/img/category2.png" alt="Категория">
-            <span>Футболки</span>
-        </a>
-        <a href="/" class="category-item">
-            <img src="/img/category2.png" alt="Категория">
-            <span>Футболки</span>
-        </a>
-        <a href="/" class="category-item">
-            <img src="/img/category2.png" alt="Категория">
-            <span>Футболки</span>
-        </a>
-        <a href="/" class="category-item">
-            <img src="/img/category2.png" alt="Категория">
-            <span>Футболки</span>
-        </a>
-        <a href="/" class="category-item">
-            <img src="/img/category2.png" alt="Категория">
-            <span>Футболки</span>
-        </a>
-        <a href="/" class="category-item">
-            <img src="/img/category2.png" alt="Категория">
-            <span>Футболки</span>
-        </a>
+        @foreach ($categories as $category)
+            <a href="{{ route('catalog', $category->id) }}" class="category-item">
+                <img src="/img/category2.png" alt="Категория">
+                <span>{{ $category->title }}</span>
+            </a>
+        @endforeach
     </div>
 </div>
 <div class="pulse">
@@ -59,16 +40,16 @@
 </div>
 <div class="products">
     @foreach ($products as $product)
-    <!-- Проверка наличия хотя бы одной фотографии у продукта -->
-    @if ($product->photos->isNotEmpty())
-    <a href="{{ route('product', $product->id) }}">
-        <div class="card">
-            <img src="{{ asset($product->photos->first()->photo_url) }}" alt="продукт">
-            <p>{{ $product->title }}</p>
-            <p>{{ $product->price }} Р</p>
-        </div>
-    </a>
-    @endif
+        <!-- Проверка наличия хотя бы одной фотографии у продукта -->
+        @if ($product->photos->isNotEmpty())
+            <a href="{{ route('product', $product->id) }}">
+                <div class="card">
+                    <img src="{{ asset($product->photos->first()->photo_url) }}" alt="продукт">
+                    <p>{{ $product->title }}</p>
+                    <p>{{ $product->price }} Р</p>
+                </div>
+            </a>
+        @endif
     @endforeach
 </div>
 <script>

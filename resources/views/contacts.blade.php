@@ -1,4 +1,4 @@
-<x-layout></x-layout>
+<x-Layout></x-Layout>
 <style>
     header {
         background-color: #fff;
@@ -44,6 +44,8 @@
     <h1>Контактная информация</h1>
     <h3>Телефон: <a href="tel:88003017307">88003017307</a></h3>
     <h3>Почта: <a href="mailto:polite.russians.ru@yandex.ru">polite.russians.ru@yandex.ru</a></h3>
+    <br>
+    <h3>Реквизиты</h3>
     <p>ИП Аслямов Алексей Валерьевич</p>
     <p>ИНН 027605219202 </p>
     <p>ОГРНИП 317028000075498</p>

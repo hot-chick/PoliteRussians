@@ -7,22 +7,30 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class layout extends Component
+class Layout extends Component
 {
-    /**
-     * Create a new component instance.
-     */
     public $categories;
-    public function __construct ()
+    public $wishlistCount;
+    public $cartCount;
+
+    public function __construct()
     {
+        // Получаем категории
         $this->categories = Category::all();
+
+        // Получаем количество товаров в избранном (wishlist)
+        $this->wishlistCount = count(session()->get('wishlist', []));
+
+        // Получаем количество товаров в корзине (cart)
+        $this->cartCount = count(session()->get('cart', []));
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
     public function render(): View|Closure|string
     {
-        return view('components.layout');
+        return view('components.layout', [
+            'categories' => $this->categories,
+            'wishlistCount' => $this->wishlistCount,
+            'cartCount' => $this->cartCount,
+        ]);
     }
 }

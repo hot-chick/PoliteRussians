@@ -5,8 +5,6 @@
 }
 
 @import url('https://fonts.google.com/share?selection.family=Manrope:wght@200..800');
-@import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
-
 
 a {
     text-decoration: none;
@@ -22,7 +20,7 @@ body {
     margin: 0;
     font-family: "Manrope", serif;
     position: relative;
-    height: 100vh;
+    /* height: 200vh; */
 }
 
 /* Хедер */
@@ -246,6 +244,18 @@ header img {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
+/* .badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 12px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transform: translate(50%, -50%);
+} */
+
 /* Показываем мобильное меню и гамбургер при ширине экрана меньше 768px */
 @media (max-width: 768px) {
     .menu {
@@ -281,7 +291,7 @@ header img {
 .bgvideo {
     position: absolute;
     right: 0;
-    bottom: 150px;
+    top: 0;
     min-width: 100%;
     max-height: 100%;
     width: auto;
@@ -293,7 +303,7 @@ header img {
 
 .logo {
     position: absolute;
-    left: 47%;
+    left: 50%;
     top: 10%;
     transform: translateX(-50%);
 }
@@ -548,7 +558,7 @@ header img {
     }
 }
 
-.card p{
+.card p {
     font-weight: 400;
 }
 
@@ -606,12 +616,12 @@ header img {
 }
 
 .product-description {
-    
+
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.product-description p{
+.product-description p {
     font-weight: 400;
 }
 
@@ -1020,7 +1030,7 @@ p {
     background: linear-gradient(45deg, #ff1010, #095dcc);
     background-size: 200% 200%;
     font-size: 36px;
-    line-height: 14px;
+    line-height: 16px;
 }
 
 .pulse h1 {
@@ -1028,7 +1038,7 @@ p {
     color: white;
 }
 
-.STAR{
+.STAR {
     font-size: 24px;
     font-family: "arial", serif;
 }
@@ -1041,7 +1051,7 @@ p {
     text-shadow: 0 0 20px rgba(30, 144, 255, 1), 0 0 20px rgba(30, 144, 255, 1), 0 0 30px rgba(30, 144, 255, 0.4);
 }
 
-.MMA{
+.MMA {
     font-size: 24px;
     /* font-family: "arial", serif; */
 }
@@ -1324,10 +1334,6 @@ input[type="email"] {
     padding: 20px;
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.form-section input{
-    /* width: ; */
 }
 
 .second {

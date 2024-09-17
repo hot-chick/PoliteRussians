@@ -1,4 +1,4 @@
-<x-layout></x-layout>
+<x-Layout></x-Layout>
 <style>
     header {
         background-color: #fff;
@@ -285,6 +285,7 @@
         .catch(error => console.error('Ошибка:', error));
     });
 });
+
 </script>
 
 <x-footer></x-footer>

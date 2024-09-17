@@ -1,4 +1,4 @@
-<x-layout></x-layout>
+<x-Layout></x-Layout>
 <style>
     header {
         background-color: #fff;

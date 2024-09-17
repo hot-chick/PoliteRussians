@@ -36,4 +36,5 @@ class WishlistController extends Controller
 
         return view('wishlist', compact('products'));
     }
+
 }
