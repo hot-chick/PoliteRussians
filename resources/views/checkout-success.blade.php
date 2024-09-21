@@ -46,6 +46,12 @@
     .cart-count {
         color: black;
     }
+
+    
+    .dropdown_catalog {
+        cursor: pointer;
+        color: black;
+    }
 </style>
 <div class="checkout-success">
     <h1>Спасибо за ваш заказ!</h1>

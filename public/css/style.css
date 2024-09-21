@@ -133,6 +133,7 @@ header img {
 
 .dropdown_catalog {
     cursor: pointer;
+    color: white;
 }
 
 .dropdown-content {
@@ -183,7 +184,7 @@ header img {
     top: 100%;
     left: 0;
     /* width: 100vw; */
-    background-color: #fff;
+    background-color: rgb(231, 231, 231);
     z-index: 100;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -267,6 +268,16 @@ header img {
 
     .mobile-menu.open {
         display: block;
+    }
+
+    header.scrolled {
+        background-color: rgb(231, 231, 231);
+        color: black;
+    }
+
+    header:hover {
+        background-color: rgb(231, 231, 231);
+        color: black;
     }
 }
 
@@ -825,7 +836,7 @@ p {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: 1300px;
+    width: 90%;
     margin: 50px auto;
     gap: 20px;
     border-bottom: 1px solid rgb(231, 231, 231);
@@ -889,7 +900,7 @@ p {
 .footer-bottom {
     display: flex;
     flex-wrap: wrap;
-    max-width: 1300px;
+    width: 90%;
     line-height: 50px;
     margin: 0 auto;
     gap: 20px;
@@ -904,7 +915,7 @@ p {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-width: 1300px;
+    width: 90%;
     line-height: 50px;
     margin: 0 auto;
     gap: 20px;

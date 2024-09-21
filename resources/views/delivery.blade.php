@@ -48,6 +48,10 @@
         }
     }
 
+    .dropdown_catalog {
+        cursor: pointer;
+        color: black;
+    }
     .wishlist-count {
         color: black;
     }

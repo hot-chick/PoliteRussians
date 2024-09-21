@@ -56,6 +56,10 @@
     }
 
     
+    .dropdown_catalog {
+        cursor: pointer;
+        color: black;
+    }
 </style>
 <h1>Корзина</h1>
 <div class="cart">

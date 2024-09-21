@@ -60,6 +60,11 @@
         color: black;
     }
 
+    
+    .dropdown_catalog {
+        cursor: pointer;
+        color: black;
+    }
     /* Общий стиль для контейнера сортировки */
 </style>
 <div class="container">

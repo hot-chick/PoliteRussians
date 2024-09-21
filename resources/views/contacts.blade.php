@@ -43,6 +43,10 @@
         color: black;
     }
 
+    .dropdown_catalog {
+        cursor: pointer;
+        color: black;
+    }
     .cart-count {
         color: black;
     }

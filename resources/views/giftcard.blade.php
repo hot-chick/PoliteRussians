@@ -44,6 +44,10 @@
         margin: 0 auto;
     }
 
+    .dropdown_catalog {
+        cursor: pointer;
+        color: black;
+    }
     .wishlist-count {
         color: black;
     }
