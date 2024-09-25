@@ -4,22 +4,29 @@
             font-family: "Manrope", serif;
             font-weight: normal;
         }
+
+        @media (max-width: 768px) {
+            .footer-column button {
+                height: fit-content;
+            }
+
+            .footer-column p {
+                width: 100%;
+            }
+        }
     </style>
+
     <div class="footer-container">
         <div class="footer-column">
             <h4>Каталог</h4>
             <ul>
                 <li><a href="/catalog">Смотреть все</a></li>
-                <!-- <li><a href="#">Новинки</a></li> -->
-                <!-- <li><a href="#">Lookbook</a></li> -->
-                <!-- <li><a href="/shops">Магазины</a></li> -->
             </ul>
         </div>
         <div class="footer-column">
             <h4>Покупателям</h4>
             <ul>
                 <li><a href="/delivery">Доставка</a></li>
-                <!-- <li><a href="/dolyami">Оплата "Долями"</a></li> -->
                 <li><a href="/giftcard">Подарочная карта</a></li>
             </ul>
         </div>
@@ -32,8 +39,9 @@
             </ul>
         </div>
         <div class="footer-column">
-            <form class="sendaway" action="/sendaway" method="POST">
-                <input placeholder="Введите ваш e-mail" type="email">
+            <form class="sendaway" action="{{ route('subscribe') }}" method="POST">
+                @csrf
+                <input placeholder="E-mail" type="email" name="email" required>
                 <button type="submit">Подписаться на наши новости</button>
             </form>
             <p>Нажимая кнопку «подписаться», вы даёте согласие на рекламную рассылку и обработку персональных данных в

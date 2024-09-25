@@ -7,35 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap">
-    <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon">
-    <link rel="icon" href="/img/favicon.png" type="image/x-icon">
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&">
+
+    <link rel="shortcut icon" href="/img/favicon.jpeg" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.jpeg" type="image/x-icon">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://api-maps.yandex.ru/2.1/?apikey=95d7b5bc-89bf-49b2-95ac-9e329e11ec37&lang=ru_RU" type="text/javascript">
     </script>
     <title>PoliteRussians</title>
-    <script type="text/javascript">
-        // Функция ymaps.ready() будет вызвана, когда
-        // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
-        ymaps.ready(init);
-
-        function init() {
-            // Создание карты.
-            var myMap = new ymaps.Map("map", {
-                // Координаты центра карты.
-                // Порядок по умолчанию: «широта, долгота».
-                // Чтобы не определять координаты центра карты вручную,
-                // воспользуйтесь инструментом Определение координат.
-                center: [55.76, 37.64],
-                // Уровень масштабирования. Допустимые значения:
-                // от 0 (весь мир) до 19.
-                zoom: 7
-            });
-        }
-    </script>
 </head>
 
 <body>
+
     <header>
         <div class="header_wrapper">
             <div class="menu-toggle" id="mobile-menu-toggle">
@@ -63,7 +46,8 @@
             <div class="user_menu">
                 <div class="search">
                     <img src="/img/search_white.png" alt="Поиск">
-                    <p>Поиск</p>
+                    <input type="text" id="search" placeholder="Поиск...">
+                    <div id="search-results" class="search-results"></div>
                 </div>
 
                 <a href="/wishlist">
@@ -89,24 +73,131 @@
             </ul>
         </nav>
     </header>
+    @if(session('success'))
+    <div class="alert alert-success">
+        <span>{{ session('success') }}</span>
+        <button class="close-alert">&times;</button>
+    </div>
+    @endif
 
+    @if(session('error'))
+    <div class="alert alert-error">
+        <span>{{ session('error') }}</span>
+        <button class="close-alert">&times;</button>
+    </div>
+    @endif
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+
+            if (!searchInput || !searchResults) {
+                console.error('Search input or results container not found.');
+                return;
+            }
+
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value;
+
+                if (query.length > 2) {
+                    console.log(`Отправка запроса: /search?query=${query}`);
+
+                    fetch(`/search?query=${query}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.length === 0) {
+                                console.warn('No results found');
+                            } else {
+                                console.log('Полученные данные:', data);
+                                // Выводим результаты
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Ошибка при выполнении поиска:', error);
+                        });
+                } else {
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
+                }
+            });
+        });
+
+
+        document.getElementById('search').addEventListener('input', function() {
+            let query = this.value;
+
+            if (query.length >= 2) {
+                fetch(`/search?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let resultsContainer = document.getElementById('search-results');
+                        resultsContainer.innerHTML = '';
+
+                        if (data.length > 0) {
+                            data.forEach(product => {
+                                let resultItem = document.createElement('div');
+                                resultItem.textContent = `${product.title} (${product.article})`;
+                                resultItem.addEventListener('click', () => {
+                                    window.location.href = `/product/${product.id}`;
+                                });
+                                resultsContainer.appendChild(resultItem);
+                            });
+                            resultsContainer.style.display = 'block'; // Показываем результаты
+                        } else {
+                            resultsContainer.innerHTML = '<div>Ничего не найдено</div>';
+                            resultsContainer.style.display = 'block'; // Показываем результаты
+                        }
+                    })
+                    .catch(error => console.error('Ошибка при выполнении поиска:', error));
+            } else {
+                document.getElementById('search-results').innerHTML = '';
+                document.getElementById('search-results').style.display = 'none'; // Скрываем результаты
+            }
+        });
+
+        // Обработчик клика по документу для скрытия результатов при клике вне поиска
+        document.addEventListener('click', function(e) {
+            const searchField = document.getElementById('search');
+            const resultsContainer = document.getElementById('search-results');
+
+            // Если клик произошел вне поля поиска или результатов, скрываем список
+            if (!searchField.contains(e.target) && !resultsContainer.contains(e.target)) {
+                resultsContainer.innerHTML = ''; // Очищаем результаты
+                resultsContainer.style.display = 'none'; // Скрываем контейнер
+            }
+        });
+
+
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('mobile-menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
 
-            // Открытие/закрытие мобильного меню
             menuToggle.addEventListener('click', function() {
                 menuToggle.classList.toggle('open');
                 mobileMenu.classList.toggle('open');
             });
 
-            // Закрытие меню при клике за пределами
             document.addEventListener('click', function(e) {
                 if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
                     mobileMenu.classList.remove('open');
                     menuToggle.classList.remove('open');
                 }
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close-alert');
+
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.style.display = 'none';
+                });
             });
         });
     </script>

@@ -23,7 +23,7 @@
     }
 
     header:hover {
-        background-color: rgb(219, 219, 219);
+        background-color: rgb(231, 231, 231);
         border-bottom: 1px solid rgb(231, 231, 231);
         color: black;
     }
@@ -34,12 +34,12 @@
 
     @media (max-width: 768px) {
         header {
-            background-color: rgb(219, 219, 219);
+            background-color: rgb(231, 231, 231);
             height: 80px;
         }
 
         .filter {
-            margin-right: 60%;
+            margin-right: 70%;
         }
 
         .filter_sort {
@@ -92,7 +92,7 @@
         <a href="{{ route('product', $product->id) }}">
             <div class="card">
                 <!-- Выводим первую фотографию продукта -->
-                <img src="{{ asset($product->photos->first()->photo_url) }}" alt="Продукт">
+                <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="Продукт">
                 <p>{{ $product->title }}</p>
                 <p>{{ $product->price }} Р</p>
             </div>

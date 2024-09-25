@@ -23,13 +23,13 @@
     }
 
     header:hover {
-        background-color: rgb(219, 219, 219);
+        background-color: rgb(231, 231, 231);
         border-bottom: 1px solid rgb(231, 231, 231);
         color: black;
     }
 
     .dropdown-content {
-        background-color: rgb(219, 219, 219);
+        background-color: rgb(231, 231, 231);
     }
 
     .delivery {
@@ -43,7 +43,7 @@
 
     @media (max-width: 768px) {
         header {
-            background-color: rgb(219, 219, 219);
+            background-color: rgb(231, 231, 231);
             height: 80px;
         }
     }

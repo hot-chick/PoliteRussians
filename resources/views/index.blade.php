@@ -9,47 +9,53 @@
 
     @media (max-width: 768px) {
         header {
-            background-color: rgb(219, 219, 219);
             height: 80px;
+        }
+
+        .category {
+            display: none;
+        }
+
+        .pulse {
+            margin-top: -50px;
         }
     }
 </style>
-<video autoplay loop muted class="bgvideo" id="bgvideo">
-    <source src="/video/index.mp4" type="video/mp4">
-</video>
+<img class="indeximg" src="/img/index.jpg" alt="index">
 <div class="container">
 
 </div>
 <div class="content">
     <div class="category">
         @foreach ($categories as $category)
-            <a href="{{ route('catalog', $category->id) }}" class="category-item">
-                <img src="/img/category2.png" alt="Категория">
-                <span>{{ $category->title }}</span>
-            </a>
+            @if ($category->id != 14)
+                <a href="{{ route('catalog', $category->id) }}" class="category-item">
+                    <img src="{{ asset($category->photo_url) }}" loading="lazy" alt="{{ $category->title }}">
+                    <span>{{ $category->title }}</span>
+                </a>
+            @endif
         @endforeach
     </div>
 </div>
 <div class="pulse">
-    <h1 class="STAR">STAR FIGHTING PROMOTION 4</h1><br>
-    <h1 class="MMA"> ПРОФЕССИОНАЛЬНЫЙ ТУРНИР ПО ПРАВИЛАМ ММА</h1><br>
+    <h1 class="STAR">STAR FIGHTING PROMOTION 4</h1>
+    <h1 class="MMA"> ПРОФЕССИОНАЛЬНЫЙ ТУРНИР ПО ПРАВИЛАМ ММА</h1>
     <h1 class="Batyr">
         <<СИЛА БАТЫРА>>
-    </h1><br>
+    </h1>
     <h1 class="START">27 СЕНТЯБРЯ. ТИНЬКОФФ ХОЛЛ START: 19:00</h1>
 </div>
 <div class="products">
     @foreach ($products as $product)
-        <!-- Проверка наличия хотя бы одной фотографии у продукта -->
-        @if ($product->photos->isNotEmpty())
-            <a href="{{ route('product', $product->id) }}">
-                <div class="card">
-                    <img src="{{ asset($product->photos->first()->photo_url) }}" alt="продукт">
-                    <p>{{ $product->title }}</p>
-                    <p>{{ $product->price }} Р</p>
-                </div>
-            </a>
-        @endif
+    @if ($product->photos->isNotEmpty())
+    <a href="{{ route('product', $product->id) }}">
+        <div class="card">
+            <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="продукт">
+            <p>{{ $product->title }}</p>
+            <p>{{ $product->price }} Р</p>
+        </div>
+    </a>
+    @endif
     @endforeach
 </div>
 <script>
@@ -57,7 +63,7 @@
         const header = document.querySelector('header');
 
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) { // Если прокрутка более чем на 50px
+            if (window.scrollY > 20) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
