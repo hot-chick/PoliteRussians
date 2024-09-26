@@ -55,19 +55,19 @@
         color: black;
     }
 
-    
+
     .dropdown_catalog {
         cursor: pointer;
         color: black;
     }
 
-    h1{
+    h1 {
         font-weight: 500;
     }
 </style>
 <h1>Корзина</h1>
 <div class="cart">
-    @if (session('cart') && count(session('cart')) === 0)
+    @if (!session('cart') || count(session('cart')) === 0)
     <p>Корзина пуста. Вы пока ничего не добавили в корзину.</p>
     <a href="/catalog" class="btn btn-primary">В каталог</a>
     @else
@@ -96,7 +96,7 @@
                 <img src="{{ asset($product->photos->first()->photo_url) }}" alt="{{ $product->title }}">
             </a>
             <p>{{ $product->title }}</p>
-            <p>{{ $product->price }} Р</p>
+            <p>{{ $product->price }} ₽</p>
             @php
             $size = $items[0]['size']; // Все товары имеют одинаковый размер
             @endphp
@@ -112,7 +112,7 @@
     </div>
 
     <div class="cart-summary">
-        <p>Итого к оплате: <strong>{{ $totalPrice }} Р</strong></p>
+        <p>Итого к оплате: <strong>{{ $totalPrice }} ₽</strong></p>
         <a href="/checkout" class="btn btn-primary">Оформить заказ</a>
     </div>
     @endif
@@ -197,8 +197,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            button.closest('.card').remove();
-                            updateCartSummary();
+                            window.location.reload(); // Перезагрузка страницы после успешного удаления
                         } else {
                             console.error('Ошибка при удалении товара.');
                         }

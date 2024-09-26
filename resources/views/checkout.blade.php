@@ -150,7 +150,7 @@
                         <img src="{{ asset($product->photos->first()->photo_url) }}" alt="{{ $product->title }}">
                     </a>
                     <p>{{ $product->title }}</p>
-                    <p>{{ $product->price }} Р</p>
+                    <p>{{ $product->price }} ₽</p>
                     <p>Размер: {{ $item['size'] }}</p>
 
                     @php
@@ -162,8 +162,12 @@
             </div>
 
             <div class="cart-summary">
-                <p>Итого к оплате: <strong>{{ $totalPrice }} Р</strong></p>
+                <p>Итого к оплате: <strong id="total-price">{{ $totalPrice }} ₽</strong></p>
+                <input type="text" id="promo-code" placeholder="Введите промокод">
+                <button class="btn btn-primary" id="apply-promo">Применить промокод</button>
+                <p id="discount-message"></p> <!-- Сообщения об ошибке или успехе -->
             </div>
+
         </div>
 
         <!-- Кнопка отправки формы -->
@@ -180,24 +184,25 @@
             zoom: 9
         });
 
-        // Получаем данные о пунктах выдачи из PHP
-        const points = @json($points); // Передаем данные о точках в JavaScript
-
-        points.forEach(point => {
-            if (point.latitude && point.longitude) {
-                var placemark = new ymaps.Placemark([point.latitude, point.longitude], {
-                    balloonContent: `<div>${point.name}</div><button class="choose-point-btn" onclick="choosePickupPoint('${point.name}', this)">Выбрать пункт</button>` // Кнопка "Выбрать пункт"
+        // Асинхронная загрузка данных о пунктах выдачи
+        fetch('{{ route('get.delivery.points') }}')
+            .then(response => response.json())
+            .then(points => {
+                points.forEach(point => {
+                    if (point.latitude && point.longitude) {
+                        var placemark = new ymaps.Placemark([point.latitude, point.longitude], {
+                            balloonContent: `<div>${point.name}</div><button class="choose-point-btn" onclick="choosePickupPoint('${point.name}', this)">Выбрать пункт</button>` // Кнопка "Выбрать пункт"
+                        });
+                        myMap.geoObjects.add(placemark);
+                    }
                 });
-                myMap.geoObjects.add(placemark);
-                placemark.events.add('click', function() {
-                    document.getElementById('selected-point-id').value = point.name; // Сохраняем имя выбранного пункта
-                });
-            }
-        });
+            })
+            .catch(error => {
+                console.error('Ошибка при загрузке пунктов выдачи:', error);
+            });
     }
 
     function choosePickupPoint(pointName, button) {
-        // Делаем кнопку зеленой при выборе
         const buttons = document.querySelectorAll('.choose-point-btn');
         buttons.forEach(btn => btn.style.backgroundColor = ''); // Сбрасываем цвет для всех кнопок
         button.style.backgroundColor = 'chartreuse'; // Делаем выбранную кнопку зеленой
@@ -214,6 +219,53 @@
             document.getElementById('address-container').style.display = 'block'; // Показываем адрес
         }
     }
+
+
+    document.getElementById('apply-promo').addEventListener('click', function() {
+    const promoCode = document.getElementById('promo-code').value;
+    const totalPriceElement = document.getElementById('total-price');
+    const discountMessage = document.getElementById('discount-message');
+    let totalPrice = parseFloat("{{ $totalPrice }}"); // Начальная цена
+
+    // Переменная для отслеживания, применён ли промокод
+    let promoApplied = false;
+
+    if (promoApplied) {
+        discountMessage.innerHTML = 'Вы уже применили промокод';
+        return;
+    }
+
+    if (promoCode) {
+        fetch('{{ route('apply.promo') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Добавляем CSRF токен
+            },
+            body: JSON.stringify({
+                promo_code: promoCode
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const discount = data.discount; // Получаем скидку
+                const discountedPrice = totalPrice - (totalPrice * discount / 100);
+                totalPriceElement.innerHTML = `${discountedPrice.toFixed(2)} ₽`; // Обновляем цену
+                discountMessage.innerHTML = `Промокод применён. Скидка ${discount}%`;
+                promoApplied = true; // Отмечаем, что промокод применён
+            } else {
+                discountMessage.innerHTML = 'Неверный промокод';
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            discountMessage.innerHTML = 'Произошла ошибка. Попробуйте снова.';
+        });
+    } else {
+        discountMessage.innerHTML = 'Введите промокод';
+    }
+});
 </script>
 
 <x-footer></x-footer>

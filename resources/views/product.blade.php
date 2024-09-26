@@ -75,7 +75,7 @@
         <div class="product-name-title">
             <!-- Отображение названия и цены продукта -->
             <h1>{{ $product->title }}</h1>
-            <p class="price">{{ $product->price }} Р</p>
+            <p class="price">{{ $product->price }} ₽</p>
         </div>
 
         <div class="product-description">
@@ -92,8 +92,9 @@
                 @endforeach
             </div>
             <select id="product-size" class="custom-select">
+                <option value="" disabled selected>Выберите размер</option> <!-- Пустой вариант -->
                 @foreach ($product->sizes as $size)
-                <option value="{{ $size->title }}">{{ $size->title }}</option>
+                    <option value="{{ $size->title }}">{{ $size->title }}</option>
                 @endforeach
             </select>
         </div>
@@ -139,162 +140,155 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 1. Обработчик для миниатюр изображений
-        const thumbnails = document.querySelectorAll('.thumbnail-images img');
-        const mainImage = document.querySelector('.main-image img');
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Обработчик для миниатюр изображений
+    const thumbnails = document.querySelectorAll('.thumbnail-images img');
+    const mainImage = document.querySelector('.main-image img');
 
-        thumbnails.forEach(thumbnail => {
-            thumbnail.addEventListener('click', () => {
-                // Меняем основное изображение
-                mainImage.src = thumbnail.src;
+    thumbnails.forEach(thumbnail => {
+        thumbnail.addEventListener('click', () => {
+            // Меняем основное изображение
+            mainImage.src = thumbnail.src;
 
-                // Удаляем класс "active" у всех миниатюр
-                thumbnails.forEach(img => img.classList.remove('active'));
+            // Удаляем класс "active" у всех миниатюр
+            thumbnails.forEach(img => img.classList.remove('active'));
 
-                // Добавляем класс "active" к нажатой миниатюре
-                thumbnail.classList.add('active');
-            });
+            // Добавляем класс "active" к нажатой миниатюре
+            thumbnail.classList.add('active');
         });
-
-        // 2. Обработчик для выпадающего списка размеров
-        const selectWrapper = document.querySelector('.custom-select-wrapper');
-        const trigger = selectWrapper.querySelector('.custom-select-trigger');
-        const options = selectWrapper.querySelectorAll('.custom-option');
-        const hiddenSelect = selectWrapper.querySelector('.custom-select');
-
-        trigger.addEventListener('click', function() {
-            const optionsList = selectWrapper.querySelector('.custom-options');
-            optionsList.classList.toggle('open');
-        });
-
-        options.forEach(option => {
-            option.addEventListener('click', function() {
-                trigger.textContent = this.textContent;
-                hiddenSelect.value = this.getAttribute('data-value');
-
-                options.forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-
-                selectWrapper.querySelector('.custom-options').classList.remove('open');
-            });
-        });
-
-        document.addEventListener('click', function(e) {
-            if (!selectWrapper.contains(e.target)) {
-                selectWrapper.querySelector('.custom-options').classList.remove('open');
-            }
-        });
-
-        // 3. Обработчик для wishlist
-        const heartBoxes = document.querySelectorAll('.heart-box');
-
-        heartBoxes.forEach(box => {
-            const productId = box.dataset.productId;
-            // Проверка состояния из сессии (PHP код нужно обернуть в Blade директиву)
-            const isInWishlist = @json(in_array($product-> id, session()-> get('wishlist', [])));
-
-            if (isInWishlist) {
-                box.classList.add('clicked');
-            }
-
-            box.addEventListener('click', () => {
-                box.classList.toggle('clicked');
-
-                fetch('/wishlist/toggle', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        },
-                        body: JSON.stringify({
-                            productId
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            console.log('Product added to wishlist.');
-                        } else {
-                            console.error('Error adding product to wishlist.');
-                        }
-                    });
-            });
-        });
-
-        // 4. Обработчик для аккордеона
-        const accordionHeaders = document.querySelectorAll('.accordion-header');
-        accordionHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const currentlyActiveHeader = document.querySelector('.accordion-header.active');
-                if (currentlyActiveHeader && currentlyActiveHeader !== header) {
-                    currentlyActiveHeader.classList.toggle('active');
-                    const activeContent = currentlyActiveHeader.nextElementSibling;
-                    activeContent.style.maxHeight = 0;
-                    activeContent.style.paddingTop = 0;
-                    activeContent.style.paddingBottom = 0;
-                }
-
-                header.classList.toggle('active');
-                const accordionContent = header.nextElementSibling;
-
-                if (header.classList.contains('active')) {
-                    accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
-                    accordionContent.style.paddingTop = '15px';
-                    accordionContent.style.paddingBottom = '15px';
-                } else {
-                    accordionContent.style.maxHeight = 0;
-                    accordionContent.style.paddingTop = 0;
-                    accordionContent.style.paddingBottom = 0;
-                }
-            });
-        });
-
-        // 5. Обработчик для добавления в корзину
-
     });
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log('JavaScript загружен');
-        const addToCartButton = document.querySelector('.add-to-cart');
 
-        addToCartButton.addEventListener('click', () => {
-            console.log('Кнопка нажата');
-            const productId = addToCartButton.dataset.productId;
-            const sizeSelect = document.querySelector('#product-size');
-            const selectedSize = sizeSelect ? sizeSelect.value : null;
+    // 2. Обработчик для выпадающего списка размеров
+    const selectWrapper = document.querySelector('.custom-select-wrapper');
+    const trigger = selectWrapper.querySelector('.custom-select-trigger');
+    const options = selectWrapper.querySelectorAll('.custom-option');
+    const hiddenSelect = selectWrapper.querySelector('.custom-select');
 
-            if (sizeSelect && !selectedSize) {
-                alert('Пожалуйста, выберите размер перед добавлением в корзину.');
-                return;
-            }
+    trigger.addEventListener('click', function() {
+        const optionsList = selectWrapper.querySelector('.custom-options');
+        optionsList.classList.toggle('open');
+    });
 
-            fetch('/cart/add', {
+    options.forEach(option => {
+        option.addEventListener('click', function() {
+            trigger.textContent = this.textContent;
+            hiddenSelect.value = this.getAttribute('data-value');
+
+            options.forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+
+            selectWrapper.querySelector('.custom-options').classList.remove('open');
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!selectWrapper.contains(e.target)) {
+            selectWrapper.querySelector('.custom-options').classList.remove('open');
+        }
+    });
+
+    // 3. Обработчик для wishlist
+    const heartBoxes = document.querySelectorAll('.heart-box');
+
+    heartBoxes.forEach(box => {
+        const productId = box.dataset.productId;
+        // Проверка состояния из сессии (PHP код нужно обернуть в Blade директиву)
+        const isInWishlist = @json(in_array($product->id, session()->get('wishlist', [])));
+
+        if (isInWishlist) {
+            box.classList.add('clicked');
+        }
+
+        box.addEventListener('click', () => {
+            box.classList.toggle('clicked');
+
+            fetch('/wishlist/toggle', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                     },
                     body: JSON.stringify({
-                        productId: productId,
-                        size: selectedSize
+                        productId
                     })
                 })
-                .then(response => {
-                    console.log('Ответ от сервера:', response);
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    console.log('Данные от сервера:', data);
                     if (data.success) {
-                        console.log('Товар добавлен в корзину.');
-                        window.location.reload();
+                        console.log('Product added to wishlist.');
                     } else {
-                        console.error('Ошибка при добавлении товара в корзину:', data.message);
+                        console.error('Error adding product to wishlist.');
                     }
-                })
-                .catch(error => console.error('Ошибка:', error));
+                });
         });
     });
+
+    // 4. Обработчик для аккордеона
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const currentlyActiveHeader = document.querySelector('.accordion-header.active');
+            if (currentlyActiveHeader && currentlyActiveHeader !== header) {
+                currentlyActiveHeader.classList.toggle('active');
+                const activeContent = currentlyActiveHeader.nextElementSibling;
+                activeContent.style.maxHeight = 0;
+                activeContent.style.paddingTop = 0;
+                activeContent.style.paddingBottom = 0;
+            }
+
+            header.classList.toggle('active');
+            const accordionContent = header.nextElementSibling;
+
+            if (header.classList.contains('active')) {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                accordionContent.style.paddingTop = '15px';
+                accordionContent.style.paddingBottom = '15px';
+            } else {
+                accordionContent.style.maxHeight = 0;
+                accordionContent.style.paddingTop = 0;
+                accordionContent.style.paddingBottom = 0;
+            }
+        });
+    });
+
+    // 5. Обработчик для добавления в корзину
+    const addToCartButton = document.querySelector('.add-to-cart');
+    const sizeSelect = document.querySelector('#product-size');
+
+    addToCartButton.addEventListener('click', function() {
+        const productId = addToCartButton.dataset.productId;
+        const selectedSize = sizeSelect.value;
+
+        // Проверка: Если значение размера пустое, показываем предупреждение
+        if (!selectedSize) {
+            alert('Пожалуйста, выберите размер перед добавлением в корзину.');
+            return;
+        }
+
+        // Отправка данных на сервер
+        fetch('/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                productId: productId,
+                size: selectedSize
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Товар добавлен в корзину.');
+                window.location.reload();
+            } else {
+                console.error('Ошибка при добавлении товара в корзину:', data.message);
+            }
+        })
+        .catch(error => console.error('Ошибка:', error));
+    });
+});
 
 
    

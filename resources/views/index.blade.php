@@ -52,7 +52,7 @@
         <div class="card">
             <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="продукт">
             <p>{{ $product->title }}</p>
-            <p>{{ $product->price }} Р</p>
+            <p>{{ $product->price }} ₽</p>
         </div>
     </a>
     @endif

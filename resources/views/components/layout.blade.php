@@ -115,7 +115,6 @@
                                 console.warn('No results found');
                             } else {
                                 console.log('Полученные данные:', data);
-                                // Выводим результаты
                             }
                         })
                         .catch(error => {
@@ -148,16 +147,16 @@
                                 });
                                 resultsContainer.appendChild(resultItem);
                             });
-                            resultsContainer.style.display = 'block'; // Показываем результаты
+                            resultsContainer.style.display = 'block';
                         } else {
                             resultsContainer.innerHTML = '<div>Ничего не найдено</div>';
-                            resultsContainer.style.display = 'block'; // Показываем результаты
+                            resultsContainer.style.display = 'block';
                         }
                     })
                     .catch(error => console.error('Ошибка при выполнении поиска:', error));
             } else {
                 document.getElementById('search-results').innerHTML = '';
-                document.getElementById('search-results').style.display = 'none'; // Скрываем результаты
+                document.getElementById('search-results').style.display = 'none';
             }
         });
 

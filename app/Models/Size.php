@@ -9,7 +9,7 @@ class Size extends Model
 {
     protected $fillable = [
         'id',
-        'title'  // Убедитесь, что это имя соответствует вашему столбцу в базе данных
+        'title'
     ];
 
     public function products()

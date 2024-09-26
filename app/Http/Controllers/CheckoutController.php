@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 
 class CheckoutController extends Controller
 {
@@ -43,7 +44,8 @@ class CheckoutController extends Controller
     }
 
     public function getDeliveryPoints()
-    {
+{
+    return Cache::remember('cdek_delivery_points', 3600, function () {
         $data = [
             'grant_type' => 'client_credentials',
             'client_id' => 'AYbysMJOhZ7SYdkQ1SdnDGZLjmBXL1dd',
@@ -70,7 +72,8 @@ class CheckoutController extends Controller
                 'name' => $point['name'] ?? 'Без имени'
             ];
         }, $deliveryPoints);
-    }
+    });
+}
 
     public function success()
     {

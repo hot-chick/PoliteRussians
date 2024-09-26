@@ -65,7 +65,6 @@
         cursor: pointer;
         color: black;
     }
-    /* Общий стиль для контейнера сортировки */
 </style>
 <div class="container">
     <div class="filter">
@@ -87,14 +86,12 @@
 
     <div class="products">
         @foreach($products as $product)
-        <!-- Проверяем, есть ли у продукта хотя бы одна фотография -->
         @if($product->photos->isNotEmpty())
         <a href="{{ route('product', $product->id) }}">
             <div class="card">
-                <!-- Выводим первую фотографию продукта -->
                 <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="Продукт">
                 <p>{{ $product->title }}</p>
-                <p>{{ $product->price }} Р</p>
+                <p>{{ $product->price }} ₽</p>
             </div>
         </a>
         @endif

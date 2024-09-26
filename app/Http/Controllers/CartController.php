@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Promo;
 
 class CartController extends Controller
 {
@@ -99,5 +100,28 @@ class CartController extends Controller
         }
 
         return response()->json(['success' => true, 'totalPrice' => $totalPrice]);
+    }
+
+    public function applyPromo(Request $request)
+    {
+        // Валидация данных
+        $request->validate([
+            'promo_code' => 'required|string'
+        ]);
+
+        // Поиск промокода в базе данных
+        $promo = Promo::where('title', $request->promo_code)->first();
+
+        if ($promo) {
+            return response()->json([
+                'success' => true,
+                'discount' => $promo->discount
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Неверный промокод'
+            ]);
+        }
     }
 }
