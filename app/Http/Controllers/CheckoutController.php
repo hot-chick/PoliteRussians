@@ -70,7 +70,7 @@ class CheckoutController extends Controller
         Mail::to($orderData['email'])->send(new OrderConfirmation($orderData));
 
         // Send email to the fixed email address
-        Mail::to('zaitkulov4@gmail.com')->send(new OrderConfirmation($orderData));
+        Mail::to('polite.russians.ru@yandex.ru')->send(new OrderConfirmation($orderData));
 
         // Clear the cart after processing the order
         Session::forget('cart');
