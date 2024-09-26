@@ -128,7 +128,7 @@ header img {
     height: 30px;
 }
 
-.menu{
+.menu {
     padding-top: 10px;
 }
 
@@ -251,7 +251,7 @@ header img {
 }
 
 .menu-toggle.open span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(6.5px, 6.5px);
 }
 
 .menu-toggle.open span:nth-child(2) {
@@ -259,7 +259,7 @@ header img {
 }
 
 .menu-toggle.open span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: rotate(-45deg) translate(6.5px, -6.5px);
 }
 
 .wishlist-count {
@@ -856,7 +856,7 @@ p {
     border-bottom: 1px solid rgb(231, 231, 231);
 }
 
-.footer_logo{
+.footer_logo {
     max-width: 200px;
     margin-bottom: 20px;
 }
@@ -1407,7 +1407,7 @@ h2 {
     color: #000;
 }
 
-.search input{
+.search input {
     border-bottom: 1px solid black;
 }
 

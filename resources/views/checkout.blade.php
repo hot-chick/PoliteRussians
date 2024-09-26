@@ -104,7 +104,7 @@
             </div>
         </div>
         <div class="form-group" id="address-container" style="display: none; margin-bottom: 20px;">
-            <input type="text" id="address" name="address" placeholder="Адрес доставки" required>
+            <input type="text" id="address" name="address" placeholder="Адрес доставки">
         </div>
         <div id="map-container" style="display: none; margin-bottom: 20px;">
             <div id="map" style="width: 100%; height: 400px"></div>
@@ -147,7 +147,7 @@
                 @if ($product && $product->photos->isNotEmpty())
                 <div class="card">
                     <a href="{{ route('product', $product->id) }}">
-                        <img src="{{ asset($product->photos->first()->photo_url) }}" alt="{{ $product->title }}">
+                        <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="{{ $product->title }}">
                     </a>
                     <p>{{ $product->title }}</p>
                     <p>{{ $product->price }} ₽</p>
@@ -164,60 +164,80 @@
             <div class="cart-summary">
                 <p>Итого к оплате: <strong id="total-price">{{ $totalPrice }} ₽</strong></p>
                 <input type="text" id="promo-code" placeholder="Введите промокод">
-                <button class="btn btn-primary" id="apply-promo">Применить промокод</button>
+                <button type="button" class="btn btn-primary" id="apply-promo">Применить промокод</button>
                 <p id="discount-message"></p> <!-- Сообщения об ошибке или успехе -->
             </div>
 
         </div>
-
+        <input type="hidden" id="promo-code-hidden" name="promo_code" value="">
         <!-- Кнопка отправки формы -->
         <button type="submit" class="btn btn-primary">Оформить заказ</button>
     </form>
 </div>
 
 <script type="text/javascript">
-    ymaps.ready(init);
+    function toggleDeliveryMethod(method) {
+        if (method === 'courier') {
+            document.getElementById('address-container').style.display = 'block';
+            document.getElementById('address').setAttribute('required', 'required');
+            document.getElementById('map-container').style.display = 'none';
+        } else if (method === 'pickup') {
+            document.getElementById('address-container').style.display = 'none';
+            document.getElementById('address').removeAttribute('required');
+            document.getElementById('map-container').style.display = 'block';
 
-    function init() {
-        var myMap = new ymaps.Map("map", {
-            center: [54.74, 55.96], // Центр карты (Уфа)
-            zoom: 9
-        });
-
-        // Асинхронная загрузка данных о пунктах выдачи
-        fetch('{{ route('get.delivery.points') }}')
-            .then(response => response.json())
-            .then(points => {
-                points.forEach(point => {
-                    if (point.latitude && point.longitude) {
-                        var placemark = new ymaps.Placemark([point.latitude, point.longitude], {
-                            balloonContent: `<div>${point.name}</div><button class="choose-point-btn" onclick="choosePickupPoint('${point.name}', this)">Выбрать пункт</button>` // Кнопка "Выбрать пункт"
-                        });
-                        myMap.geoObjects.add(placemark);
-                    }
-                });
-            })
-            .catch(error => {
-                console.error('Ошибка при загрузке пунктов выдачи:', error);
-            });
+            // Загружаем карту только при выборе самовывоза
+            if (!window.mapInitialized) {
+                ymaps.ready(initMap);
+                window.mapInitialized = true;
+            }
+        }
     }
+
+
+    function initMap() {
+    var myMap = new ymaps.Map("map", {
+        center: [54.74, 55.96], 
+        zoom: 9
+    });
+    // Загружаем пункты самовывоза
+    loadPickupPoints(myMap);
+}
+
+function loadPickupPoints(map) {
+    fetch('{{ route('get.delivery.points') }}')
+        .then(response => response.json())
+        .then(points => {
+            points.forEach(point => {
+                if (point.latitude && point.longitude) {
+                    var placemark = new ymaps.Placemark([point.latitude, point.longitude], {
+                        balloonContent: `<div>${point.name}</div><button type="button" class="choose-point-btn" onclick="choosePickupPoint('${point.name}', this)">Выбрать пункт</button>`
+                    });
+                    map.geoObjects.add(placemark);
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке пунктов выдачи:', error);
+        });
+}
 
     function choosePickupPoint(pointName, button) {
-        const buttons = document.querySelectorAll('.choose-point-btn');
-        buttons.forEach(btn => btn.style.backgroundColor = ''); // Сбрасываем цвет для всех кнопок
-        button.style.backgroundColor = 'chartreuse'; // Делаем выбранную кнопку зеленой
-        document.getElementById('selected-point').innerText = `Выбран пункт: ${pointName}`;
-        document.getElementById('selected-point-id').value = pointName; // Сохраняем имя выбранного пункта
-    }
+        // Отключаем стандартное поведение кнопки
+        event.preventDefault();
 
-    function toggleDeliveryMethod(method) {
-        if (method === 'pickup') {
-            document.getElementById('map-container').style.display = 'block';
-            document.getElementById('address-container').style.display = 'none'; // Скрываем адрес
-        } else {
-            document.getElementById('map-container').style.display = 'none';
-            document.getElementById('address-container').style.display = 'block'; // Показываем адрес
-        }
+        // Сбрасываем цвет для всех кнопок
+        const buttons = document.querySelectorAll('.choose-point-btn');
+        buttons.forEach(btn => btn.style.backgroundColor = '');
+
+        // Меняем цвет выбранной кнопки на зеленый
+        button.style.backgroundColor = 'chartreuse';
+
+        // Обновляем информацию о выбранном пункте
+        document.getElementById('selected-point').innerText = `Выбран пункт: ${pointName}`;
+
+        // Сохраняем имя выбранного пункта в скрытое поле формы
+        document.getElementById('selected-point-id').value = pointName;
     }
 
 
@@ -225,35 +245,28 @@
     const promoCode = document.getElementById('promo-code').value;
     const totalPriceElement = document.getElementById('total-price');
     const discountMessage = document.getElementById('discount-message');
-    let totalPrice = parseFloat("{{ $totalPrice }}"); // Начальная цена
-
-    // Переменная для отслеживания, применён ли промокод
-    let promoApplied = false;
-
-    if (promoApplied) {
-        discountMessage.innerHTML = 'Вы уже применили промокод';
-        return;
-    }
+    let totalPrice = parseFloat("{{ $totalPrice }}");
 
     if (promoCode) {
         fetch('{{ route('apply.promo') }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Добавляем CSRF токен
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
-            body: JSON.stringify({
-                promo_code: promoCode
-            })
+            body: JSON.stringify({ promo_code: promoCode })
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const discount = data.discount; // Получаем скидку
+                const discount = data.discount;
                 const discountedPrice = totalPrice - (totalPrice * discount / 100);
-                totalPriceElement.innerHTML = `${discountedPrice.toFixed(2)} ₽`; // Обновляем цену
+                totalPriceElement.innerHTML = `${discountedPrice.toFixed(2)} ₽`;
+
+                // Обновляем скрытое поле с промокодом
+                document.getElementById('promo-code-hidden').value = promoCode;
+
                 discountMessage.innerHTML = `Промокод применён. Скидка ${discount}%`;
-                promoApplied = true; // Отмечаем, что промокод применён
             } else {
                 discountMessage.innerHTML = 'Неверный промокод';
             }

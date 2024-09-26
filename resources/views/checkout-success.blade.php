@@ -52,6 +52,11 @@
         cursor: pointer;
         color: black;
     }
+
+    .checkout-success{
+        width: 90%;
+        margin: 0 auto;
+    }
 </style>
 <div class="checkout-success">
     <h1>Спасибо за ваш заказ!</h1>

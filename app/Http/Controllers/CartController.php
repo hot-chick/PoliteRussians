@@ -104,23 +104,24 @@ class CartController extends Controller
 
     public function applyPromo(Request $request)
     {
-        // Валидация данных
         $request->validate([
-            'promo_code' => 'required|string'
+            'promo_code' => 'required|string',
         ]);
 
-        // Поиск промокода в базе данных
-        $promo = Promo::where('title', $request->promo_code)->first();
+        $promo = \App\Models\Promo::where('title', $request->input('promo_code'))->first();
 
         if ($promo) {
+            // Сохранить промокод и скидку в сессии
+            session(['promo_code' => $promo->title, 'discount' => $promo->discount]);
+
             return response()->json([
                 'success' => true,
-                'discount' => $promo->discount
+                'discount' => $promo->discount,
             ]);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Неверный промокод'
+                'message' => 'Неверный промокод',
             ]);
         }
     }
