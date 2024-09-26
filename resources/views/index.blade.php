@@ -17,11 +17,11 @@
         }
 
         .pulse {
-            margin-top: -50px;
+            margin-top: -100px;
         }
     }
 </style>
-<img class="indeximg" src="/img/index.jpg" alt="index">
+<img class="indeximg" src="/img/index.webp" alt="index">
 <div class="container">
 
 </div>
@@ -46,7 +46,7 @@
     <h1 class="START">27 СЕНТЯБРЯ. ТИНЬКОФФ ХОЛЛ START: 19:00</h1>
 </div>
 <div class="products">
-    @foreach ($products as $product)
+    @foreach ($products->take(8) as $product)
     @if ($product->photos->isNotEmpty())
     <a href="{{ route('product', $product->id) }}">
         <div class="card">

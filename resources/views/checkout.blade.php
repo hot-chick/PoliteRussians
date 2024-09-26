@@ -94,7 +94,7 @@
             <h2>Способ доставки</h2>
             <div class="delivery-options">
                 <label>
-                    <input type="radio" name="delivery" value="courier" checked onclick="toggleDeliveryMethod('courier')">
+                    <input type="radio" name="delivery" value="courier" onclick="toggleDeliveryMethod('courier')">
                     Доставка курьером
                 </label>
                 <label>
@@ -103,10 +103,10 @@
                 </label>
             </div>
         </div>
-        <div class="form-group" id="address-container" style="display: none;">
+        <div class="form-group" id="address-container" style="display: none; margin-bottom: 20px;">
             <input type="text" id="address" name="address" placeholder="Адрес доставки" required>
         </div>
-        <div id="map-container" style="display: none;">
+        <div id="map-container" style="display: none; margin-bottom: 20px;">
             <div id="map" style="width: 100%; height: 400px"></div>
             <div id="selected-point"></div>
         </div>

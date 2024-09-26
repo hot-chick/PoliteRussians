@@ -29,7 +29,7 @@
     }
 
     .dropdown-content {
-        background-color: rgb(219, 219, 219);
+        background-color: rgb(231, 231, 231);
     }
 
     @media (max-width: 768px) {

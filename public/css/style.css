@@ -26,12 +26,12 @@ body {
     left: 0;
     max-width: 100%;
     z-index: -5;
-    content: url('/img/index.jpg');
+    content: url('/img/index.webp');
 }
 
 @media (max-width: 768px) {
     .indeximg {
-        content: url('/img/index-mobile.jpg');
+        content: url('/img/index-mobile.webp');
         position: absolute;
         top: 0px;
         left: 0;
@@ -126,6 +126,10 @@ ul a:hover::after {
 header img {
     max-width: 125px;
     height: 30px;
+}
+
+.menu{
+    padding-top: 10px;
 }
 
 .user_menu img {
@@ -239,7 +243,7 @@ header img {
 }
 
 .menu-toggle span {
-    background-color: #fff;
+    background-color: #000;
     height: 3px;
     border-radius: 5px;
     width: 100%;
@@ -284,7 +288,7 @@ header img {
     }
 
     header.scrolled {
-        background-color: rgb(231, 231, 231);
+        background-color: transparent;
         color: black;
     }
 
@@ -308,7 +312,7 @@ header img {
 .logo {
     position: absolute;
     left: 50%;
-    top: 10%;
+    top: 12%;
     transform: translateX(-50%);
 }
 
@@ -507,6 +511,8 @@ header img {
     grid-template-columns: repeat(4, 1fr);
     gap: 0px;
     margin-top: 50px;
+    align-items: center;
+    justify-items: center;
 }
 
 .card {
@@ -848,6 +854,11 @@ p {
     margin: 0 auto;
     gap: 20px;
     border-bottom: 1px solid rgb(231, 231, 231);
+}
+
+.footer_logo{
+    max-width: 200px;
+    margin-bottom: 20px;
 }
 
 .footer-bottom a {
@@ -1398,6 +1409,11 @@ h2 {
 
 .search input{
     border-bottom: 1px solid black;
+}
+
+.search-input::placeholder {
+    color: black; /* Белый цвет с минимальной прозрачностью */
+    opacity: 1; /* Убираем прозрачность */
 }
 
 .search-results {

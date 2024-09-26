@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&">
 
     <link rel="shortcut icon" href="/img/favicon.jpeg" type="image/x-icon">
     <link rel="icon" href="/img/favicon.jpeg" type="image/x-icon">
     <link rel="stylesheet" href="/css/style.css">
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=95d7b5bc-89bf-49b2-95ac-9e329e11ec37&lang=ru_RU" type="text/javascript">
-    </script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=95d7b5bc-89bf-49b2-95ac-9e329e11ec37&lang=ru_RU"
+        type="text/javascript"></script>
     <title>PoliteRussians</title>
 </head>
 
@@ -35,18 +34,20 @@
                             <ul>
                                 <li><a href="/catalog">Смотреть все</a></li>
                                 @foreach ($categories as $category)
-                                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                     </li>
                     <li><a href="/shops">Магазины</a></li>
+                    <li><a href="/contacts">Контакты</a></li>
+                    <li><a href="/about_us">О нас</a></li>
                 </ul>
             </nav>
             <div class="user_menu">
                 <div class="search">
                     <img src="/img/search_white.png" alt="Поиск">
-                    <input type="text" id="search" placeholder="Поиск...">
+                    <input class="search-input" type="text" id="search" placeholder="Поиск...">
                     <div id="search-results" class="search-results"></div>
                 </div>
 
@@ -65,7 +66,7 @@
             <ul>
                 <li><a href="/catalog">Смотреть все</a></li>
                 @foreach ($categories as $category)
-                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                 @endforeach
                 <li><a href="/shops">Магазины</a></li>
                 <li><a href="/wishlist">Избранное</a></li>
@@ -73,18 +74,18 @@
             </ul>
         </nav>
     </header>
-    @if(session('success'))
-    <div class="alert alert-success">
-        <span>{{ session('success') }}</span>
-        <button class="close-alert">&times;</button>
-    </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            <span>{{ session('success') }}</span>
+            <button class="close-alert">&times;</button>
+        </div>
     @endif
 
-    @if(session('error'))
-    <div class="alert alert-error">
-        <span>{{ session('error') }}</span>
-        <button class="close-alert">&times;</button>
-    </div>
+    @if (session('error'))
+        <div class="alert alert-error">
+            <span>{{ session('error') }}</span>
+            <button class="close-alert">&times;</button>
+        </div>
     @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {
