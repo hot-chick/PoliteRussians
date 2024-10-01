@@ -17,7 +17,6 @@
 </head>
 
 <body>
-
     <header>
         <div class="header_wrapper">
             <div class="menu-toggle" id="mobile-menu-toggle">
@@ -25,7 +24,19 @@
                 <span></span>
                 <span></span>
             </div>
-            <a href="/" class="logo"><img src="/img/LOGOW.png" alt=""></a>
+            <a href="/" class="logo"><img src="/img/LOGOW.png" alt="logo"></a>
+            <div class="mobile_counts">
+                <a href="/wishlist">
+                    <img src="/img/heart.png" alt="Список желаемого">
+                    <span class="wishlist-count">{{ count(session()->get('wishlist', [])) }}</span>
+                </a>
+
+                <a href="/cart">
+                    <img src="/img/paper_bag.png" alt="Корзина">
+                    <span class="cart-count">{{ count(session()->get('cart', [])) }}</span>
+                </a>
+            </div>
+
             <nav>
                 <ul class="menu">
                     <li class="dropdown">
@@ -34,13 +45,12 @@
                             <ul>
                                 <li><a href="/catalog">Смотреть все</a></li>
                                 @foreach ($categories as $category)
-                                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                     </li>
                     <li><a href="/shops">Магазины</a></li>
-                    <li><a href="/contacts">Контакты</a></li>
                     <li><a href="/about_us">О нас</a></li>
                 </ul>
             </nav>
@@ -66,26 +76,24 @@
             <ul>
                 <li><a href="/catalog">Смотреть все</a></li>
                 @foreach ($categories as $category)
-                    <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
+                <li><a href="{{ route('catalog', $category->id) }}">{{ $category->title }}</a></li>
                 @endforeach
                 <li><a href="/shops">Магазины</a></li>
-                <li><a href="/wishlist">Избранное</a></li>
-                <li><a href="/cart">Корзина</a></li>
             </ul>
         </nav>
     </header>
     @if (session('success'))
-        <div class="alert alert-success">
-            <span>{{ session('success') }}</span>
-            <button class="close-alert">&times;</button>
-        </div>
+    <div class="alert alert-success">
+        <span>{{ session('success') }}</span>
+        <button class="close-alert">&times;</button>
+    </div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-error">
-            <span>{{ session('error') }}</span>
-            <button class="close-alert">&times;</button>
-        </div>
+    <div class="alert alert-error">
+        <span>{{ session('error') }}</span>
+        <button class="close-alert">&times;</button>
+    </div>
     @endif
     <script>
         document.addEventListener('DOMContentLoaded', function() {

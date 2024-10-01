@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        console.log('Product added to wishlist.');
+                        window.location.reload();
                     } else {
                         console.error('Error adding product to wishlist.');
                     }

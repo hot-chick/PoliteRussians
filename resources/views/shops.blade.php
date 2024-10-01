@@ -47,46 +47,49 @@
         cursor: pointer;
         color: black;
     }
+
     .cart-count {
         color: black;
     }
 </style>
 <div class="shops_container">
     <h1 class="shopsh1">Список магазинов</h1>
-    <div class="shops">
-        <div class="shops_cart">
-            <img src="/img/shops/ecat.png" alt="Екатеринбург">
-            <div class="shops_ecat_info">
-                <h2>Адрес точки г. Екатеринбург:</h2>
-                <p>ТРЦ «Гринвич»</p>
-                <p>Универмаг «Hi-Light”</p>
-                <p>ул. 8 марта, 46</p>
-                <p>С 10.00-22.00 ежедневно </p>
-            </div>
-        </div>
-
-        <div class="shops_cart">
-            <img src="/img/shops/mosc.png" alt="Москва">
-            <div class="shops_mosc_info">
-                <h2>Адрес точки г. Москва:</h2>
-                <p>ТЦ Метрополис</p>
-                <p>Универмаг «Artfiera”</p>
-                <p>Ленинградское ш., 16Ac4 2 этаж</p>
-                <p>С 10.00-23.00 ежедневно</p>
-            </div>
-        </div>
-
-        <div class="shops_cart">
-            <img src="/img/shops/ufa.png" alt="Уфа">
-            <div class="shops_ufa_info">
-                <h2>Адрес точки г. Уфа:</h2>
-                <p>Универмаг «Фабрика»</p>
-                <p>ул. Чернышевского, 88</p>
-                <p>2 этаж</p>
-                <p>С 10.00-22.00 ежедневно</p>
-            </div>
-        </div>
+    <div id="map-container">
+        <div id="map" style="width: 85%; height: 600px; margin: 0 auto;"></div>
+        <div id="selected-point"></div>
     </div>
-
 </div>
+<script type="text/javascript">
+    function initMap() {
+        var myMap = new ymaps.Map("map", {
+            center: [55.75, 37.57], // Центр карты (Москва)
+            zoom: 5
+        });
+
+        // Добавляем точки
+        var points = [{
+                coords: [56.8290, 60.5988],
+                name: 'Екатеринбург, ТРЦ «Гринвич» <br> Универмаг «Hi-Light” <br> ул. 8 марта, 46 <br> С 10.00-22.00 ежедневно'
+            },
+            {
+                coords: [55.8225, 37.4967],
+                name: 'Москва, ТЦ Метрополис <br> Универмаг «Artfiera” <br> Ленинградское ш., 16Ac4 2 этаж <br> С 10.00-23.00 ежедневно'
+            },
+            {
+                coords: [54.7286, 55.9468],
+                name: 'Уфа, Универмаг «Фабрика» <br>  ул. Чернышевского, 88 2 этаж <br> С 10.00-22.00 ежедневно'
+            }
+        ];
+
+        points.forEach(function(point) {
+            var placemark = new ymaps.Placemark(point.coords, {
+                balloonContent: point.name
+            });
+
+            myMap.geoObjects.add(placemark);
+        });
+    }
+
+    ymaps.ready(initMap);
+</script>
 <x-footer></x-footer>

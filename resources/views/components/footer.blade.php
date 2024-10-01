@@ -6,43 +6,42 @@
         }
 
         @media (max-width: 768px) {
-            .footer-column button {
-                height: fit-content;
-            }
-
             .footer-column p {
                 width: 100%;
+            }
+
+            .footer-column img {
+                width: 80%;
+            }
+
+            .footer-bottom {
+                gap: 30px;
+            }
+
+            .footer_contacts {
+                gap: 10px;
+            }
+
+            .footer_privacy {
+                gap: 10px;
             }
         }
     </style>
 
     <div class="footer-container">
         <div class="footer-column">
-            <h4>Каталог</h4>
-            <ul>
-                <li><a href="/catalog">Смотреть все</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
             <h4>Покупателям</h4>
             <ul>
                 <li><a href="/delivery">Доставка</a></li>
                 <li><a href="/giftcard">Подарочная карта</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>О компании</h4>
-            <ul>
-                <li><a href="/about_us">О нас</a></li>
                 <li><a href="/contacts">Контакты</a></li>
-                <li><a href="/shops">Магазины</a></li>
             </ul>
         </div>
         <div class="footer-column">
             <a href="/"><img class="footer_logo" src="/img/LOGO.png" alt="logo"></a>
             <ul>
                 <li>
-                    <a href="tel:88003017307">88003017307</a>
+                    <a href="tel:88003017307">8(800)301-73-07</a>
                 </li>
                 <li>
                     <a href="mailto:polite.russians.ru@yandex.ru">polite.russians.ru@yandex.ru</a>
@@ -51,9 +50,19 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <a href="/">Публичная оферта</a>
-        <a href="/">Политика конфиденциальности</a>
-        <a href="/">Пользовательское соглашение</a>
+        <div class="footer_privacy">
+            <a href="/">Публичная оферта </a>
+            <a href="/privacy_policy">Политика конфиденциальности </a>
+            <a href="/">Пользовательское соглашение </a>
+        </div>
+        <div class="off">
+            <p>Информация на сайте не является публичной офертой</p>
+        </div>
+        <div class="footer_contacts">
+            <p>ИП Аслямов Алексей Валерьевич</p>
+            <p>ИНН 027605219202</p>
+            <p>ОГРНИП 317028000075498</p>
+        </div>
     </div>
     <div class="footer-bottom2">
         <p>&copy PoliteRussians все права защищены</p>

@@ -62,6 +62,7 @@
     }
 </style>
 <div class="checkout">
+    
     <h1>Оформление заказа</h1>
 
     <form id="checkout-form" action="{{ route('checkout.process') }}" method="POST">

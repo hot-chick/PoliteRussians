@@ -32,12 +32,7 @@
         background-color: rgb(231, 231, 231);
     }
 
-    @media (max-width: 768px) {
-        header {
-            background-color: rgb(231, 231, 231);
-            height: 80px;
-        }
-    }
+
 
     .wishlist-count {
         color: black;
@@ -51,12 +46,68 @@
         cursor: pointer;
         color: black;
     }
+
+    .brand {
+        display: flex;
+        /* flex-wrap: wrap; */
+        gap: 20px;
+    }
+
+    .brand h2 {
+        text-align: left;
+        /* color: white; */
+        font-size: 24px;
+    }
+
+    .brand img {
+        width: 100%;
+        max-height: 70vh;
+    }
+
+    .about_us {
+        width: 85%;
+        /* background-color: black; */
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        header {
+            background-color: rgb(231, 231, 231);
+            height: 80px;
+        }
+
+        .brand h2 {
+            font-size: 20px;
+        }
+
+        .brand {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .brand img {
+            width: 100%;
+            height: auto;
+        }
+
+        .about_us {
+            width: 85%;
+            /* background-color: black; */
+            margin: 0 auto;
+        }
+    }
 </style>
 
 <div class="about_us">
-    <h1>О нас</h1>
-    <h2>Так случилось, что вместе с рождением мы получаем не только имя, но и национальность. Мы рождаемся башкирами, татарами, русскими, бурятами, украинцами, белорусами, чеченцами, чувашами, 196 национальностей в России, и каждый из нас уважает традиции и корни своего народа. Но весь мир называет всех нас русскими. Мы не возражаем, мы Вежливая нация.
-        Вежливые русские – люди разных национальностей, но с одним сердцем, ибо у нас общая история и достижения.</h2>
+    <h1 style="font-size: 36px;">О бренде</h1>
+    <div class="brand">
+        <img src="/img/about_us.png" alt="about_us">
+        <h2>Так случилось, что вместе с рождением мы получаем не только имя, но и национальность. Мы рождаемся башкирами, татарами, русскими, бурятами, украинцами, белорусами, чеченцами, чувашами, 196 национальностей в России, и каждый из нас уважает традиции и корни своего народа. Но весь мир называет всех нас русскими. Мы не возражаем, мы Вежливая нация.
+            Вежливые русские – люди разных национальностей, но с одним сердцем, ибо у нас общая история и достижения.</h2>
+
+    </div>
+
 </div>
 
 <x-footer></x-footer>

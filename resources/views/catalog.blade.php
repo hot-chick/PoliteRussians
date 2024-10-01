@@ -39,7 +39,7 @@
         }
 
         .filter {
-            margin-right: 70%;
+            margin-right: 65%;
         }
 
         .filter_sort {

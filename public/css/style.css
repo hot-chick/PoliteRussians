@@ -238,8 +238,8 @@ header img {
     width: 30px;
     height: 22px;
     cursor: pointer;
-    margin-left: -100%;
-    margin-top: 15px;
+    margin-left: -90%;
+    margin-top: 10px;
 }
 
 .menu-toggle span {
@@ -270,7 +270,25 @@ header img {
     color: black;
 }
 
+.mobile_counts {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    .mobile_counts {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 18px;
+        gap: 10px;
+    }
+
+    .mobile_counts img {
+        width: 27px;
+        height: auto;
+    }
+
     .menu {
         display: none;
     }
@@ -296,9 +314,12 @@ header img {
         background-color: rgb(231, 231, 231);
         color: black;
     }
+
 }
 
 @media (min-width: 769px) {
+
+
     nav ul {
         display: flex;
         flex-direction: row;
@@ -309,10 +330,11 @@ header img {
     }
 }
 
+
 .logo {
     position: absolute;
     left: 50%;
-    top: 13%;
+    top: 15%;
     transform: translateX(-50%);
 }
 
@@ -438,13 +460,14 @@ header img {
 }
 
 .container {
-    width: 85%;
+    width: 90%;
     margin: 30px auto;
 }
 
 .filter {
     display: flex;
     justify-content: end;
+    margin-right: 3%;
 }
 
 .filter p {
@@ -510,9 +533,9 @@ header img {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0px;
-    margin-top: 50px;
     align-items: center;
     justify-items: center;
+    margin-top: 50px;
 }
 
 .card {
@@ -527,7 +550,7 @@ header img {
 .card img {
     margin-bottom: 15px;
     width: fit-content;
-    max-height: 400px;
+    max-height: 500px;
     transition: transform 0.3s ease;
 }
 
@@ -547,8 +570,7 @@ header img {
 
 .product-page {
     display: flex;
-    max-width: 1320px;
-    width: 100%;
+    width: 85%;
     gap: 100px;
     padding: 20px;
     box-sizing: border-box;
@@ -792,13 +814,13 @@ p {
     flex-wrap: wrap;
     justify-content: space-between;
     width: 90%;
-    margin: 50px auto;
+    margin: 0 auto;
+    margin-top: 50px;
+    border-top: 1px solid rgb(231, 231, 231);
     border-bottom: 1px solid rgb(231, 231, 231);
     padding: 20px 0px;
-}
-
-.footer-column {
-    flex: 1 1 150px;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .footer-column p {
@@ -835,25 +857,26 @@ p {
     color: #bbb;
 }
 
-.footer-socials a {
-    margin-right: 15px;
-}
-
-.footer-socials img {
-    width: 20px;
-    height: 20px;
-    filter: invert(1);
-    transition: filter 0.3s ease;
-}
-
 .footer-bottom {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     width: 90%;
-    line-height: 50px;
-    margin: 0 auto;
+    margin: 0px auto;
     gap: 20px;
     border-bottom: 1px solid rgb(231, 231, 231);
+}
+
+.footer_contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer_privacy {
+    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .footer_logo {
@@ -933,35 +956,6 @@ p {
     }
 }
 
-.shops img {
-    max-width: 40%;
-}
-
-.shopsh1 {
-    padding: 20px 0;
-    font-size: 32px;
-    font-weight: normal;
-}
-
-.shops {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.shops_cart {
-    display: flex;
-    gap: 20px;
-}
-
-.shops_container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 68%;
-    margin: 0 auto;
-}
-
 .about_us {
     display: block;
     width: 80%;
@@ -977,48 +971,6 @@ p {
 .about_us h2 {
     font-size: 32px;
     font-weight: 300;
-}
-
-.pulse {
-    margin-top: 30px;
-    padding-top: 20px;
-    padding-bottom: 15px;
-    text-align: center;
-    background: linear-gradient(45deg, #ff1010, #095dcc);
-    line-height: 1;
-    height: fit-content;
-}
-
-.pulse h1 {
-    color: white;
-}
-
-.STAR {
-    font-size: 20px;
-    font-family: "arial", serif;
-}
-
-.Batyr {
-    color: #1e90ff;
-    font-family: "arial", serif;
-    font-size: 32px;
-    text-shadow: 0 0 20px rgba(30, 144, 255, 1), 0 0 20px rgba(30, 144, 255, 1), 0 0 30px rgba(30, 144, 255, 0.4);
-}
-
-.MMA {
-    font-size: 20px;
-}
-
-.START {
-    font-size: 20px;
-    color: #1e90ff;
-    text-shadow: 0 0 20px rgba(30, 144, 255, 1), 0 0 20px rgba(30, 144, 255, 1), 0 0 30px rgba(30, 144, 255, 0.4);
-}
-
-@media (max-width: 768px) {
-    .pulse h1 {
-        font-size: 18px;
-    }
 }
 
 .product-buttons {
@@ -1070,14 +1022,14 @@ p {
 }
 
 .contacts {
-    padding-top: 50px;
-    width: 80%;
+    padding-top: 25px;
+    width: 85%;
     margin: 0 auto;
 }
 
 .contacts h1 {
     text-align: center;
-    font-size: 46px;
+    font-size: 34px;
 }
 
 .contacts h3 {

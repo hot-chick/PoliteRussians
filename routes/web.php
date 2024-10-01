@@ -54,6 +54,10 @@ Route::get('/giftcard', function () {
     return view('giftcard');
 });
 
+Route::get('/privacy_policy', function () {
+    return view('privacy_policy');
+});
+
 Route::get('/', [CategoryController::class, 'index']);
 
 Route::get('/catalog/{id}', [CatalogController::class, 'show'])->name('catalog');
