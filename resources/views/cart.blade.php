@@ -37,7 +37,6 @@
             background-color: rgb(231, 231, 231);
             height: 80px;
         }
-
     }
 
     h1 {

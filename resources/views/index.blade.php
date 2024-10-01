@@ -1,10 +1,7 @@
 <x-Layout></x-Layout>
 <style>
     .container {
-        height: 59vh;
-        padding: 20px;
-        width: 85%;
-        margin: 30px auto;
+        height: 65vh;
     }
 
     @media (max-width: 768px) {
@@ -20,11 +17,16 @@
             margin-top: -100px;
         }
     }
+
+    .whitebox{
+        height: 10vh;
+    }
 </style>
 <img class="indeximg" src="/img/index.webp" alt="index">
 <div class="container">
 
 </div>
+
 <div class="content">
     <div class="category">
         @foreach ($categories as $category)
@@ -37,27 +39,26 @@
         @endforeach
     </div>
 </div>
-<div class="pulse">
-    <h1 class="STAR">STAR FIGHTING PROMOTION 4</h1>
-    <h1 class="MMA"> ПРОФЕССИОНАЛЬНЫЙ ТУРНИР ПО ПРАВИЛАМ ММА</h1>
-    <h1 class="Batyr">
-        <<СИЛА БАТЫРА>>
-    </h1>
-    <h1 class="START">27 СЕНТЯБРЯ. ТИНЬКОФФ ХОЛЛ START: 19:00</h1>
+
+<div class="whitebox">
+
 </div>
+
 <div class="products">
     @foreach ($products->take(8) as $product)
-    @if ($product->photos->isNotEmpty())
-    <a href="{{ route('product', $product->id) }}">
-        <div class="card">
-            <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="продукт">
-            <p>{{ $product->title }}</p>
-            <p>{{ $product->price }} ₽</p>
-        </div>
-    </a>
-    @endif
+        @if ($product->photos->isNotEmpty())
+            <a href="{{ route('product', $product->id) }}">
+                <div class="card">
+                    <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="продукт">
+                    <p>{{ $product->title }}</p>
+                    <p>{{ $product->price }} ₽</p>
+                </div>
+            </a>
+        @endif
     @endforeach
 </div>
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const header = document.querySelector('header');
