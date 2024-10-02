@@ -58,6 +58,9 @@
         margin: 0 auto;
     }
 </style>
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/checkout-success"> Успешный заказ</a>
+</div>
 <div class="checkout-success">
     <h1>Спасибо за ваш заказ!</h1>
     <p>Ваш заказ был успешно оформлен. Мы свяжемся с вами в ближайшее время для подтверждения.</p>

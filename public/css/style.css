@@ -1224,6 +1224,11 @@ h2 {
     justify-content: space-between;
 }
 
+.form-groupthird{
+    display: flex;
+    gap: 30px;
+}
+
 .form-group {
     display: flex;
     gap: 20px;
@@ -1385,4 +1390,10 @@ h2 {
 
 .search-results div:hover {
     background-color: rgb(231, 231, 231);
+}
+
+.seolinks{
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 7.5%;
 }

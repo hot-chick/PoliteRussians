@@ -54,9 +54,17 @@
     
     .delivery{
         width: 95%;
-        margin: 0 auto;
+        margin: 40px auto;
+    }
+
+    .seolinks{
+        margin-top: 10px;
+        margin-left: 7.2%;
     }
 </style>
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/privacy_policy"> Политика конфиденциальности</a>
+</div>
 <div class="container">
     <div class="delivery">
         <div class="text">

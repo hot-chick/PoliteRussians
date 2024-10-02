@@ -61,8 +61,11 @@
         color: black;
     }
 </style>
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/checkout"> Оформление заказа</a>
+</div>
 <div class="checkout">
-    
+
     <h1>Оформление заказа</h1>
 
     <form id="checkout-form" action="{{ route('checkout.process') }}" method="POST">
@@ -76,7 +79,7 @@
                     <input type="text" id="name" name="name" placeholder="Имя" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" id="lastname" name="lastname" placeholder="Фамилию" required>
+                    <input type="text" id="lastname" name="lastname" placeholder="Фамилия" required>
                 </div>
             </div>
             <div class="second">
@@ -85,6 +88,13 @@
                 </div>
                 <div class="form-group">
                     <input type="text" id="phone" name="phone" placeholder="Телефон" required>
+                </div>
+            </div>
+            <div class="third">
+                <div class="form-groupthird">
+                    <input type="checkbox" id="checkboxloyal" name="checkboxloyal" required>
+                    <p>Я соглашаюсь с <a href="/privacy_policy">политикой конфиденциальности</a> для регистрации.</p>
+                    
                 </div>
             </div>
 
@@ -137,28 +147,29 @@
             <h2>Ваш заказ</h2>
             <div class="products-grid">
                 @php
-                $totalPrice = 0;
+                    $totalPrice = 0;
                 @endphp
 
                 @foreach (session('cart', []) as $item)
-                @php
-                $product = \App\Models\Product::find($item['product_id']);
-                @endphp
-
-                @if ($product && $product->photos->isNotEmpty())
-                <div class="card">
-                    <a href="{{ route('product', $product->id) }}">
-                        <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="{{ $product->title }}">
-                    </a>
-                    <p>{{ $product->title }}</p>
-                    <p>{{ $product->price }} ₽</p>
-                    <p>Размер: {{ $item['size'] }}</p>
-
                     @php
-                    $totalPrice += $product->price;
+                        $product = \App\Models\Product::find($item['product_id']);
                     @endphp
-                </div>
-                @endif
+
+                    @if ($product && $product->photos->isNotEmpty())
+                        <div class="card">
+                            <a href="{{ route('product', $product->id) }}">
+                                <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy"
+                                    alt="{{ $product->title }}">
+                            </a>
+                            <p>{{ $product->title }}</p>
+                            <p>{{ $product->price }} ₽</p>
+                            <p>Размер: {{ $item['size'] }}</p>
+
+                            @php
+                                $totalPrice += $product->price;
+                            @endphp
+                        </div>
+                    @endif
                 @endforeach
             </div>
 
@@ -197,31 +208,31 @@
 
 
     function initMap() {
-    var myMap = new ymaps.Map("map", {
-        center: [54.74, 55.96], 
-        zoom: 9
-    });
-    // Загружаем пункты самовывоза
-    loadPickupPoints(myMap);
-}
-
-function loadPickupPoints(map) {
-    fetch('{{ route('get.delivery.points') }}')
-        .then(response => response.json())
-        .then(points => {
-            points.forEach(point => {
-                if (point.latitude && point.longitude) {
-                    var placemark = new ymaps.Placemark([point.latitude, point.longitude], {
-                        balloonContent: `<div>${point.name}</div><button type="button" class="choose-point-btn" onclick="choosePickupPoint('${point.name}', this)">Выбрать пункт</button>`
-                    });
-                    map.geoObjects.add(placemark);
-                }
-            });
-        })
-        .catch(error => {
-            console.error('Ошибка при загрузке пунктов выдачи:', error);
+        var myMap = new ymaps.Map("map", {
+            center: [54.74, 55.96],
+            zoom: 9
         });
-}
+        // Загружаем пункты самовывоза
+        loadPickupPoints(myMap);
+    }
+
+    function loadPickupPoints(map) {
+        fetch('{{ route('get.delivery.points') }}')
+            .then(response => response.json())
+            .then(points => {
+                points.forEach(point => {
+                    if (point.latitude && point.longitude) {
+                        var placemark = new ymaps.Placemark([point.latitude, point.longitude], {
+                            balloonContent: `<div>${point.name}</div><button type="button" class="choose-point-btn" onclick="choosePickupPoint('${point.name}', this)">Выбрать пункт</button>`
+                        });
+                        map.geoObjects.add(placemark);
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Ошибка при загрузке пунктов выдачи:', error);
+            });
+    }
 
     function choosePickupPoint(pointName, button) {
         // Отключаем стандартное поведение кнопки
@@ -243,43 +254,45 @@ function loadPickupPoints(map) {
 
 
     document.getElementById('apply-promo').addEventListener('click', function() {
-    const promoCode = document.getElementById('promo-code').value;
-    const totalPriceElement = document.getElementById('total-price');
-    const discountMessage = document.getElementById('discount-message');
-    let totalPrice = parseFloat("{{ $totalPrice }}");
+        const promoCode = document.getElementById('promo-code').value;
+        const totalPriceElement = document.getElementById('total-price');
+        const discountMessage = document.getElementById('discount-message');
+        let totalPrice = parseFloat("{{ $totalPrice }}");
 
-    if (promoCode) {
-        fetch('{{ route('apply.promo') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ promo_code: promoCode })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const discount = data.discount;
-                const discountedPrice = totalPrice - (totalPrice * discount / 100);
-                totalPriceElement.innerHTML = `${discountedPrice.toFixed(2)} ₽`;
+        if (promoCode) {
+            fetch('{{ route('apply.promo') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        promo_code: promoCode
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const discount = data.discount;
+                        const discountedPrice = totalPrice - (totalPrice * discount / 100);
+                        totalPriceElement.innerHTML = `${discountedPrice.toFixed(2)} ₽`;
 
-                // Обновляем скрытое поле с промокодом
-                document.getElementById('promo-code-hidden').value = promoCode;
+                        // Обновляем скрытое поле с промокодом
+                        document.getElementById('promo-code-hidden').value = promoCode;
 
-                discountMessage.innerHTML = `Промокод применён. Скидка ${discount}%`;
-            } else {
-                discountMessage.innerHTML = 'Неверный промокод';
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка:', error);
-            discountMessage.innerHTML = 'Произошла ошибка. Попробуйте снова.';
-        });
-    } else {
-        discountMessage.innerHTML = 'Введите промокод';
-    }
-});
+                        discountMessage.innerHTML = `Промокод применён. Скидка ${discount}%`;
+                    } else {
+                        discountMessage.innerHTML = 'Неверный промокод';
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    discountMessage.innerHTML = 'Произошла ошибка. Попробуйте снова.';
+                });
+        } else {
+            discountMessage.innerHTML = 'Введите промокод';
+        }
+    });
 </script>
 
 <x-footer></x-footer>

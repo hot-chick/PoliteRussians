@@ -55,6 +55,9 @@
         color: black;
     }
 </style>
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/wishlist"> Список желаемого</a>
+</div>
 <div class="wishlist">
     @if ($products->isEmpty())
     <h1>Список избранного</h1>

@@ -37,6 +37,15 @@
             background-color: rgb(231, 231, 231);
             height: 80px;
         }
+
+        .product-page{
+            width: 100%;
+        }
+
+        .thumbnail-images img{
+            width: 50px;
+            height: 50px;
+        }
     }
 
     .wishlist-count {
@@ -52,6 +61,9 @@
         color: black;
     }
 </style>
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/catalog"> Каталог</a>/ <a class="seolinks1" href=""> Товар</a>
+</div>
 <div class="product-page">
     <!-- Левая колонка: изображения продукта -->
     <div class="product-images">

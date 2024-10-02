@@ -66,6 +66,9 @@
         color: black;
     }
 </style>
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/catalog"> Каталог</a>
+</div>
 <div class="container">
     <div class="filter">
         <div class="filter_sort">

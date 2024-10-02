@@ -52,6 +52,9 @@
         color: black;
     }
 </style>
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/shops"> Магазины</a>
+</div>
 <div class="shops_container">
     <h1 class="shopsh1">Список магазинов</h1>
     <div id="map-container">

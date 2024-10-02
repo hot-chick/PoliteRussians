@@ -63,8 +63,11 @@
     h1 {
         font-weight: 500;
     }
+
 </style>
+
 <h1>Корзина</h1>
+
 <div class="cart">
     @if (!session('cart') || count(session('cart')) === 0)
     <p>Корзина пуста. Вы пока ничего не добавили в корзину.</p>

@@ -41,7 +41,7 @@
 
     .delivery {
         width: 85%;
-        margin: 0 auto;
+        margin: 40px auto;
     }
 
     .dropdown_catalog {
@@ -60,6 +60,9 @@
         line-height: 1.5;
     }
 </style>
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/giftcard"> Подарочная карта</a>
+</div>
 <div class="delivery">
     <div class="text">
         <ul>

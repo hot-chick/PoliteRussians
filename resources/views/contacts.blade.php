@@ -51,7 +51,9 @@
         color: black;
     }
 </style>
-
+<div class="seolinks">
+    <a class="seolinks0" href="/">Главная </a>/ <a class="seolinks1" href="/contacts"> Контакты</a>
+</div>
 <div class="contacts">
     <h1>Контактная информация</h1>
     <h3>Телефон: <a href="tel:88003017307">88003017307</a></h3>
