@@ -108,7 +108,7 @@
                 <div class="third">
                     <div class="form-groupthird">
                         <input type="checkbox" id="checkboxloyal" name="checkboxloyal" required>
-                        <p>Я соглашаюсь с <a href="/privacy_policy">политикой конфиденциальности</a> для регистрации.
+                        <p>Я соглашаюсь с <a href="/privacy_policy" target="blank">политикой конфиденциальности</a> для регистрации.
                         </p>
                     </div>
                 </div>
@@ -205,6 +205,8 @@
                     <p>Итого к оплате: <strong id="total-price">{{ $totalPrice }} ₽</strong></p>
                     <input type="text" id="promo-code" placeholder="Введите промокод">
                     <input type="hidden" id="discount-hidden" name="discount" value="0">
+                    <input type="hidden" id="promo-code-hidden" name="promo_code" value="">
+                    <input type="hidden" id="total-price-hidden" name="total_price" value="{{ $totalPrice }}">
                     <button type="button" class="btn btn-primary" id="apply-promo">Применить промокод</button>
                 </div>
             </div>
@@ -293,7 +295,7 @@
                         totalPriceElement.innerHTML = `${discountedPrice.toFixed(2)} ₽`;
 
                         // Обновляем скрытые поля с промокодом и скидкой
-                        document.getElementById('promo-code-hidden').value = promoCode;
+                        document.getElementById('promo-code-hidden').value = promoCode; // убедитесь, что у вас есть это скрытое поле
                         document.getElementById('total-price-hidden').value = discountedPrice.toFixed(2);
                         document.getElementById('discount-hidden').value = discount;
 

@@ -83,10 +83,9 @@ class CheckoutController extends Controller
             }
         }
 
-        // Prepare order data
         $orderData = $request->only(['name', 'lastname', 'email', 'phone', 'address', 'delivery', 'payment', 'pickup_point']);
         $orderData['totalPrice'] = $totalPrice;
-        $orderData['discount'] = $discount;
+        $orderData['discount'] = $request->input('discount', 0); // Получаем скидку из запроса
         $orderData['products'] = $orderedProducts; // Adding the ordered products
 
         // Send email to customer

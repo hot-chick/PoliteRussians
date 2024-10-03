@@ -67,20 +67,20 @@
 <div class="product-page">
     <!-- Левая колонка: изображения продукта -->
     <div class="product-images">
-    <div class="thumbnail-images">
-        @foreach ($product->photos as $photo)
-            <img src="{{ asset($photo->photo_url) }}" alt="Миниатюра {{ $loop->iteration }}">
-        @endforeach
+        <div class="thumbnail-images">
+            @foreach ($product->photos as $photo)
+                <img src="{{ asset($photo->photo_url) }}" alt="Миниатюра {{ $loop->iteration }}">
+            @endforeach
+        </div>
+
+        <div class="main-image">
+            @if ($product->photos->isNotEmpty())
+                <img src="{{ asset($product->photos->first()->photo_url) }}" alt="Основное изображение продукта">
+            @else
+                <img src="/img/product.png" alt="Основное изображение продукта">
+            @endif
+        </div>
     </div>
-    
-    <div class="main-image">
-        @if ($product->photos->isNotEmpty())
-            <img src="{{ asset($product->photos->first()->photo_url) }}" alt="Основное изображение продукта">
-        @else
-            <img src="/img/product.png" alt="Основное изображение продукта">
-        @endif
-    </div>
-</div>
 
     <!-- Правая колонка: информация о продукте -->
     <div class="product-info">
@@ -92,7 +92,7 @@
 
         <div class="product-description">
             <p>{{ $product->description }}
-                <a href="{{ route('product.byArticle', $product->composite_article) }}">{{ $product->composite_article }}</a>
+                
             </p>
         </div>
 
@@ -150,7 +150,48 @@
         </div>
     </div>
 </div>
+<style>
+    .cross-sale{
+        display: flex;
+        flex-wrap: wrap;
+        width: 85%;
+        margin: 0 auto;
+    }
 
+    .carda{
+        margin: 0 auto;
+        max-width: 24%;
+    }
+
+    .cross-saleh1{
+        font-weight: 500;
+        text-align: center;
+    }
+
+    @media (max-width: 768px) {
+    .carda {
+        max-width: 49%;
+    }
+}
+</style>
+@if($crossSoleProducts->crossSoldProducts->isNotEmpty())
+<h2 class="cross-saleh1">Вместе с этим берут</h2>
+
+
+
+<div class="cross-sale">
+    @foreach($crossSoleProducts->crossSoldProducts as $crossProduct)
+    <a class="carda" href="{{ route('product', $crossProduct->id) }}">
+        <div class="card">
+            <img src="{{ asset($crossProduct->photos->first()->photo_url) }}" loading="lazy" alt="Продукт">
+            <p>{{ $crossProduct->title }}</p>
+            <p>{{ $crossProduct->price }} ₽</p>
+        </div>
+    </a>
+    @endforeach
+</div>
+
+@endif
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Обработчик для миниатюр изображений

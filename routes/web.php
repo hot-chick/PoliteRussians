@@ -7,9 +7,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\SearchController;
-use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +96,5 @@ Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.sho
 Route::post('/cart/remove', [CheckoutController::class, 'remove'])->name('cart.remove');
 
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
-
-Route::post('/subscribe', [NewsletterController::class, 'store'])->name('subscribe');
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');

@@ -35,4 +35,14 @@ class Product extends Model
     {
         return $this->belongsToMany(Size::class, 'product_sizes', 'product_id', 'size_id');
     }
+
+    public function crossSales()
+    {
+        return $this->hasMany(CrossSale::class, 'product_id');
+    }
+
+    public function crossSoldProducts()
+    {
+        return $this->hasManyThrough(Product::class, CrossSale::class, 'product_id', 'id', 'id', 'cross_sold_product_id');
+    }
 }

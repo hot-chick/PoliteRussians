@@ -11,7 +11,8 @@ class ProductController extends Controller
     {
         $product = Product::with(['photos', 'sizes'])->findOrFail($id);
         $isInWishlist = in_array($id, session()->get('wishlist', []));
-        return view('product', compact('product', 'isInWishlist'));
+        $crossSoleProducts = Product::with('crossSoldProducts')->find($id);
+        return view('product', compact('product', 'isInWishlist', 'crossSoleProducts'));
     }
 
     public function showByCompositeArticle($article)
@@ -35,7 +36,8 @@ class ProductController extends Controller
     }
 
 
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $query = $request->input('query');
         try {
             $products = Product::where('title', 'LIKE', "%$query%")
@@ -45,7 +47,7 @@ class ProductController extends Controller
                     $q->where('title', 'LIKE', "%$query%");
                 })
                 ->get();
-    
+
             return response()->json($products);
         } catch (\Exception $e) {
             \Log::error('Search error: ' . $e->getMessage());
