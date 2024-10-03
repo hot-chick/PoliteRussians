@@ -31,7 +31,7 @@
                     <span class="wishlist-count">{{ count(session()->get('wishlist', [])) }}</span>
                 </a>
 
-                <a href="/cart">
+                <a href="/checkout">
                     <img src="/img/paper_bag.png" alt="Корзина">
                     <span class="cart-count">{{ count(session()->get('cart', [])) }}</span>
                 </a>
@@ -66,7 +66,7 @@
                     <span class="wishlist-count">{{ count(session()->get('wishlist', [])) }}</span>
                 </a>
 
-                <a href="/cart">
+                <a href="/checkout">
                     <img src="/img/paper_bag.png" alt="Корзина">
                     <span class="cart-count">{{ count(session()->get('cart', [])) }}</span>
                 </a>

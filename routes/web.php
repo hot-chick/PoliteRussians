@@ -94,6 +94,10 @@ Route::post('/apply-promo', [CartController::class, 'applyPromo'])->name('apply.
 
 Route::get('/get-delivery-points', [CheckoutController::class, 'getDeliveryPoints'])->name('get.delivery.points');
 
+Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
+
+Route::post('/cart/remove', [CheckoutController::class, 'remove'])->name('cart.remove');
+
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
 Route::post('/subscribe', [NewsletterController::class, 'store'])->name('subscribe');

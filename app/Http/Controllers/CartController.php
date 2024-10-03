@@ -76,17 +76,20 @@ class CartController extends Controller
     public function remove(Request $request)
     {
         $productId = $request->input('productId');
-
         $cart = session()->get('cart', []);
-        $updatedCart = array_filter($cart, function ($item) use ($productId) {
-            return $item['product_id'] != $productId;
-        });
 
-        session()->put('cart', $updatedCart);
+        // Удаляем все элементы с данным product_id
+        foreach ($cart as $key => $item) {
+            if ($item['product_id'] == $productId) {
+                unset($cart[$key]);
+            }
+        }
+
+        // Перезаписываем сессию
+        session()->put('cart', array_values($cart));
 
         return response()->json(['success' => true]);
     }
-
     public function summary()
     {
         $cart = session()->get('cart', []);
@@ -125,6 +128,4 @@ class CartController extends Controller
             ]);
         }
     }
-
-    
 }

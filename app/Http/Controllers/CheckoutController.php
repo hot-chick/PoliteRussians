@@ -11,6 +11,24 @@ use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
+    public function remove(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $cart = session('cart', []);
+
+        // Удаляем товар из корзины
+        foreach ($cart as $key => $item) {
+            if ($item['product_id'] == $productId) {
+                unset($cart[$key]);
+                break; // Останавливаем цикл после удаления товара
+            }
+        }
+
+        // Перезаписываем сессию
+        session()->put('cart', array_values($cart));
+
+        return response()->json(['success' => true]);
+    }
     public function show()
     {
         // Get delivery points when showing the checkout page
@@ -40,8 +58,13 @@ class CheckoutController extends Controller
 
         foreach ($cartItems as $item) {
             $product = \App\Models\Product::find($item['product_id']);
+
             if ($product) {
-                $totalPrice += $product->price;
+                // Если 'quantity' не задан, установим его в 1 по умолчанию
+                $quantity = isset($item['quantity']) ? $item['quantity'] : 1;
+
+                $totalPrice += $product->price * $quantity; // Учитываем количество товаров
+
                 $orderedProducts[] = [
                     'title' => $product->title,
                     'price' => $product->price,
@@ -82,6 +105,7 @@ class CheckoutController extends Controller
     public function getDeliveryPoints()
     {
         return Cache::remember('cdek_delivery_points', 3600, function () {
+            // Получаем токен для доступа к API CDEK
             $data = [
                 'grant_type' => 'client_credentials',
                 'client_id' => 'AYbysMJOhZ7SYdkQ1SdnDGZLjmBXL1dd',
@@ -91,8 +115,12 @@ class CheckoutController extends Controller
             $response = Http::asForm()->post('https://api.cdek.ru/v2/oauth/token', $data);
             $auth = $response->json();
 
-            // Получение пунктов выдачи
-            $deliveryPointsResponse = Http::withToken($auth['access_token'])->get('https://api.cdek.ru/v2/deliverypoints');
+            // Добавляем фильтрацию по коду страны для России (RU)
+            $deliveryPointsResponse = Http::withToken($auth['access_token'])
+                ->get('https://api.cdek.ru/v2/deliverypoints', [
+                    'country_code' => 'RU' // Здесь передаем фильтр для России
+                ]);
+
             $deliveryPoints = $deliveryPointsResponse->json();
 
             // Проверяем, что массив не пустой
@@ -110,6 +138,7 @@ class CheckoutController extends Controller
             }, $deliveryPoints);
         });
     }
+
 
     public function success()
     {
