@@ -7,17 +7,27 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::get('/generate-sitemap', function() {
+    // Создаем объект карты сайта
+    Sitemap::create()
+        ->add(Url::create('/')->setPriority(1.0))
+        ->add(Url::create('about_us')->setPriority(1.0))
+        ->add(Url::create('/delivery')->setPriority(0.8))
+        ->add(Url::create('/giftcatd')->setPriority(0.8))
+        ->add(Url::create('/shops')->setPriority(1.0))
+        ->add(Url::create('/catalog')->setPriority(1.0))
+        ->add(Url::create('/products')->setPriority(0.8))
+        ->add(Url::create('/contacts')->setPriority(0.7))
+        // Добавляем динамические ссылки на продукты
+        ->add(Url::create('/product/{id}')->setPriority(0.6))
+        // Можете добавить сюда другие URL или динамически загружать страницы
+        ->writeToFile(public_path('sitemap.xml'));
+
+    return "Карта сайта успешно создана!";
+});
 
 Route::get('/product', function () {
     return view('product');

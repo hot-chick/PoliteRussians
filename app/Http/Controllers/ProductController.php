@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
 
 class ProductController extends Controller
 {
@@ -28,9 +29,12 @@ class ProductController extends Controller
     {
         $sort = $request->get('sort', 'asc');
 
-        $products = Product::with('photos')
-            ->orderBy('price', $sort)
-            ->get();
+        // Кэшируем товары с учетом сортировки
+        $products = Cache::remember("products_catalog_{$sort}", 60, function () use ($sort) {
+            return Product::with('photos')
+                ->orderBy('price', $sort)
+                ->get();
+        });
 
         return view('catalog', compact('products', 'sort'));
     }

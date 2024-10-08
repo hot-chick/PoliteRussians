@@ -1,2 +1,8 @@
 User-agent: *
-Disallow:
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /wishlist/
+Disallow: /privacy_policy/
+Allow: /
+
+Sitemap: https://politerussians.ru/sitemap.xml
