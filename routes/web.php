@@ -71,10 +71,8 @@ Route::get('/catalog/{id}', [CatalogController::class, 'show'])->name('catalog')
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
-// Маршрут для отображения продукта по ID
 Route::get('/product/{id}', [ProductController::class, 'product_show'])->name('product');
 
-// Маршрут для отображения продукта по составной статье
 Route::get('/product/byArticle/{composite_article}', [ProductController::class, 'showByCompositeArticle'])->name('product.byArticle');
 
 Route::get('/catalog', [CatalogController::class, 'allproducts']);

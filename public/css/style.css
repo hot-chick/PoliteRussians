@@ -46,11 +46,10 @@ header img {
 header {
     position: sticky;
     top: 0;
-    width: 100%;
-    transition: background-color 0.4s, color 0.4s;
-    background-color: transparent;
-    color: rgb(231, 231, 231);
     z-index: 1000;
+    background-color: transparent;
+    transition: background-color 0.4s, color 0.4s;
+    width: 100%;
 }
 
 .header_wrapper {
@@ -318,8 +317,6 @@ header img {
 }
 
 @media (min-width: 769px) {
-
-
     nav ul {
         display: flex;
         flex-direction: row;
@@ -458,6 +455,8 @@ header img {
         font-size: 14px;
     }
 }
+
+
 
 .container {
     width: 90%;
@@ -620,7 +619,6 @@ header img {
 }
 
 .product-description {
-
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -952,6 +950,10 @@ p {
         padding-top: 10px;
         width: 60%;
     }
+
+    .seolinks {
+        display: none;
+    }
 }
 
 .about_us {
@@ -1222,7 +1224,7 @@ h2 {
     justify-content: space-between;
 }
 
-.form-groupthird{
+.form-groupthird {
     display: flex;
     gap: 30px;
 }
@@ -1295,13 +1297,6 @@ h2 {
     margin-bottom: 10px;
 }
 
-.delivery-options,
-.payment-options {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-}
-
 .delivery-options label,
 .payment-options label {
     padding: 15px;
@@ -1325,6 +1320,34 @@ h2 {
     background-color: #000000;
     color: white;
     border-color: #000000;
+}
+
+.delivery-options,
+.payment-options {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.payment-options label {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+    .delivery-options,
+    .payment-options {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        max-width: fit-content;
+    }
+
+    .payment-options label {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+    }
 }
 
 .alert {
@@ -1390,8 +1413,43 @@ h2 {
     background-color: rgb(231, 231, 231);
 }
 
-.seolinks{
+.seolinks {
     position: absolute;
     margin-top: 20px;
     margin-left: 7.5%;
+}
+
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    z-index: 1000;
+    display: none;
+    /* Изначально скрыто */
+}
+
+.cookie-consent p {
+    margin: 0;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    display: inline-block;
+    color: white;
+}
+
+.cookie-consent .btn {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.cookie-consent .btn:hover {
+    background-color: #218838;
 }

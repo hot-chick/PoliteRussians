@@ -95,6 +95,10 @@
         <button class="close-alert">&times;</button>
     </div>
     @endif
+    <div id="cookie-consent" class="cookie-consent">
+        <p>Мы используем куки для улучшения работы сайта. Продолжая использовать наш сайт, вы соглашаетесь с использованием куки.</p>
+        <button id="accept-cookies" class="btn btn-primary">Принять</button>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search-input');
@@ -208,4 +212,40 @@
                 });
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Проверяем, дал ли пользователь уже согласие
+            if (!getCookie('cookie_consent')) {
+                document.getElementById('cookie-consent').style.display = 'block';
+            }
+
+            document.getElementById('accept-cookies').addEventListener('click', function() {
+                // Устанавливаем куки при согласии
+                setCookie('cookie_consent', 'accepted', 365);
+                document.getElementById('cookie-consent').style.display = 'none';
+            });
+        });
+
+        // Функция для установки куки
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        // Функция для получения значения куки
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
     </script>

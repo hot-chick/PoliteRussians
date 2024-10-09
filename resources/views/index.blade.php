@@ -1,16 +1,27 @@
 <x-Layout></x-Layout>
 <style>
-    .container {
-        height: 65vh;
-    }
-
     .products {
         width: 90%;
         margin: 50px auto;
+        overflow: auto;
+        /* Убедитесь, что контейнер может прокручиваться */
+    }
+
+    .container {
+        min-height: 65vh;
+        /* Используйте min-height вместо height, чтобы контент мог расширяться */
     }
 
     .whitebox {
         height: 10vh;
+    }
+
+    @media (max-width: 768px) {
+        .products {
+            margin-top: -50px;
+            overflow: auto;
+            /* Убедитесь, что на мобильных устройствах элементы можно прокручивать */
+        }
     }
 
     @media (max-width: 768px) {
@@ -25,10 +36,6 @@
         .products {
             width: 90%;
             margin-top: -50px;
-        }
-
-        .whitebox {
-            height: 7vh;
         }
     }
 </style>
