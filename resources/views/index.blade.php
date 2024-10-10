@@ -4,12 +4,10 @@
         width: 90%;
         margin: 50px auto;
         overflow: auto;
-        /* Убедитесь, что контейнер может прокручиваться */
     }
 
     .container {
-        min-height: 65vh;
-        /* Используйте min-height вместо height, чтобы контент мог расширяться */
+        min-height: 39vh;
     }
 
     .whitebox {
@@ -20,11 +18,9 @@
         .products {
             margin-top: -50px;
             overflow: auto;
-            /* Убедитесь, что на мобильных устройствах элементы можно прокручивать */
-        }
-    }
 
-    @media (max-width: 768px) {
+        }
+
         header {
             height: 80px;
         }
@@ -47,12 +43,12 @@
 <div class="content">
     <div class="category">
         @foreach ($categories as $category)
-        @if ($category->id != 14)
-        <a href="{{ route('catalog', $category->id) }}" class="category-item">
-            <img src="{{ asset($category->photo_url) }}" loading="lazy" alt="{{ $category->title }}">
-            <span>{{ $category->title }}</span>
-        </a>
-        @endif
+            @if ($category->id != 14)
+                <a href="{{ route('catalog', $category->id) }}" class="category-item">
+                    <img src="{{ asset($category->photo_url) }}" loading="lazy" alt="{{ $category->title }}">
+                    <span>{{ $category->title }}</span>
+                </a>
+            @endif
         @endforeach
     </div>
 </div>
@@ -63,15 +59,15 @@
 
 <div class="products">
     @foreach ($products->take(8) as $product)
-    @if ($product->photos->isNotEmpty())
-    <a href="{{ route('product', $product->id) }}">
-        <div class="card">
-            <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="продукт">
-            <p>{{ $product->title }}</p>
-            <p>{{ $product->price }} ₽</p>
-        </div>
-    </a>
-    @endif
+        @if ($product->photos->isNotEmpty())
+            <a href="{{ route('product', $product->id) }}">
+                <div class="card">
+                    <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="продукт">
+                    <p>{{ $product->title }}</p>
+                    <p>{{ $product->price }} ₽</p>
+                </div>
+            </a>
+        @endif
     @endforeach
 </div>
 

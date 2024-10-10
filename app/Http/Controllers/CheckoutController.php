@@ -114,10 +114,10 @@ class CheckoutController extends Controller
             $response = Http::asForm()->post('https://api.cdek.ru/v2/oauth/token', $data);
             $auth = $response->json();
 
-            // Добавляем фильтрацию по коду страны для России (RU)
+            // Получаем пункты доставки (фильтр по стране Россия)
             $deliveryPointsResponse = Http::withToken($auth['access_token'])
                 ->get('https://api.cdek.ru/v2/deliverypoints', [
-                    'country_code' => 'RU' // Здесь передаем фильтр для России
+                    'country_code' => 'RU' // Фильтр по России
                 ]);
 
             $deliveryPoints = $deliveryPointsResponse->json();
@@ -127,14 +127,16 @@ class CheckoutController extends Controller
                 return []; // Возвращаем пустой массив
             }
 
-            // Извлекаем только необходимые данные
+            // Фильтруем только пункты ПВЗ (исключаем постаматы и другие точки)
             return array_map(function ($point) {
                 return [
                     'latitude' => $point['location']['latitude'] ?? null,
                     'longitude' => $point['location']['longitude'] ?? null,
                     'name' => $point['name'] ?? 'Без имени'
                 ];
-            }, $deliveryPoints);
+            }, array_filter($deliveryPoints, function ($point) {
+                return isset($point['type']) && $point['type'] === 'PVZ'; // Фильтруем только PVZ
+            }));
         });
     }
 

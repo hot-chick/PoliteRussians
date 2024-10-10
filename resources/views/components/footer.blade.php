@@ -38,6 +38,14 @@
             </ul>
         </div>
         <div class="footer-column">
+            <h4>Информация</h4>
+            <ul>
+                <li><a href="/">Публичная оферта </a></li>
+                <li><a href="/privacy_policy">Политика конфиденциальности </a></li>
+                <li><a href="/">Пользовательское соглашение </a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
             <a href="/"><img class="footer_logo" src="/img/LOGO.png" alt="logo"></a>
             <ul>
                 <li>
@@ -50,11 +58,6 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <div class="footer_privacy">
-            <a href="/">Публичная оферта </a>
-            <a href="/privacy_policy">Политика конфиденциальности </a>
-            <a href="/">Пользовательское соглашение </a>
-        </div>
         <div class="off">
             <p>Информация на сайте не является публичной офертой</p>
         </div>

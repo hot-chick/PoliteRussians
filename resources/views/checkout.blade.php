@@ -108,7 +108,8 @@
                 <div class="third">
                     <div class="form-groupthird">
                         <input type="checkbox" id="checkboxloyal" name="checkboxloyal" required>
-                        <p>Я соглашаюсь с <a href="/privacy_policy" target="blank">политикой конфиденциальности</a> для регистрации.
+                        <p>Я соглашаюсь с <a href="/privacy_policy" target="blank">политикой конфиденциальности</a> для
+                            регистрации.
                         </p>
                     </div>
                 </div>
@@ -150,10 +151,10 @@
                         <input disabled type="radio" name="payment" value="card">
                         Оплата онлайн
                     </label>
-                    <label>
+                    {{-- <label>
                         <input disabled type="radio" name="payment" value="installments">
                         Оплата "Долями"
-                    </label>
+                    </label> --}}
                 </div>
             </div>
 
@@ -232,15 +233,22 @@
     function loadPickupPoints(map) {
         fetch('{{ route('get.delivery.points') }}')
             .then(response => response.json())
-            .then(points => {
-                points.forEach(point => {
-                    if (point.latitude && point.longitude) {
-                        var placemark = new ymaps.Placemark([point.latitude, point.longitude], {
-                            balloonContent: `<div>${point.name}</div><button type="button" class="choose-point-btn" onclick="choosePickupPoint('${point.name}', this)">Выбрать пункт</button>`
-                        });
-                        map.geoObjects.add(placemark);
-                    }
-                });
+            .then(data => {
+                // Преобразуем объект в массив
+                const points = Object.values(data);
+
+                if (Array.isArray(points)) {
+                    points.forEach(point => {
+                        if (point.latitude && point.longitude) {
+                            var placemark = new ymaps.Placemark([point.latitude, point.longitude], {
+                                balloonContent: `<div>${point.name}</div><button type="button" class="choose-point-btn" onclick="choosePickupPoint('${point.name}', this)">Выбрать пункт</button>`
+                            });
+                            map.geoObjects.add(placemark);
+                        }
+                    });
+                } else {
+                    console.error('Ответ не является массивом:', points);
+                }
             })
             .catch(error => {
                 console.error('Ошибка при загрузке пунктов выдачи:', error);
@@ -295,7 +303,8 @@
                         totalPriceElement.innerHTML = `${discountedPrice.toFixed(2)} ₽`;
 
                         // Обновляем скрытые поля с промокодом и скидкой
-                        document.getElementById('promo-code-hidden').value = promoCode; // убедитесь, что у вас есть это скрытое поле
+                        document.getElementById('promo-code-hidden').value =
+                            promoCode; // убедитесь, что у вас есть это скрытое поле
                         document.getElementById('total-price-hidden').value = discountedPrice.toFixed(2);
                         document.getElementById('discount-hidden').value = discount;
 
