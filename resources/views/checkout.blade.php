@@ -148,16 +148,18 @@
                         При получении
                     </label>
                     <label>
-                        <input disabled type="radio" name="payment" value="card">
+                        <input type="radio" name="payment" value="card" id="online-payment">
                         Оплата онлайн
                     </label>
-                    {{-- <label>
-                        <input disabled type="radio" name="payment" value="installments">
-                        Оплата "Долями"
-                    </label> --}}
                 </div>
             </div>
 
+            <form id="payment-form" action="{{ route('checkout.createPayment') }}" method="POST">
+                @csrf
+                <input type="hidden" name="total" value="{{ $totalPrice }}"> <!-- Общая сумма заказа -->
+                <input type="hidden" name="order_id" value="{{ $orderId }}"> <!-- Идентификатор заказа -->
+            </form>
+            
             <input type="hidden" id="selected-point-id" name="pickup_point" value="">
 
             <!-- Сводка заказа -->
@@ -386,6 +388,12 @@
 
         // Если всё в порядке, форма отправится
     }
+
+    document.getElementById('online-payment').addEventListener('change', function() {
+        if (this.checked) {
+            document.getElementById('payment-form').submit(); // Отправляем форму на сервер
+        }
+    });
 </script>
 
 <x-footer></x-footer>

@@ -1,5 +1,33 @@
 <x-Layout></x-Layout>
 <style>
+    .image-container {
+        position: relative;
+        width: 100%;
+        height: calc(100vh + 80px);
+        margin-top: -150px;
+        overflow: hidden;
+    }
+
+    .indeximg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .category-container {
+        position: absolute;
+        bottom: 20px; 
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 90%;
+        z-index: 5; 
+    }
+
     .products {
         width: 90%;
         margin: 50px auto;
@@ -7,70 +35,61 @@
     }
 
     .container {
-        min-height: 39vh;
+        min-height: 50vh;
+        padding: 20px;
     }
-
-    .whitebox {
-        height: 10vh;
-    }
-
+    
     @media (max-width: 768px) {
-        .products {
-            margin-top: -50px;
-            overflow: auto;
-
+        .indeximg {
+            content: url('/img/index-mobile.webp');
+            width: 100%;
+            height: auto;
         }
 
-        header {
-            height: 80px;
-        }
-
-        .category {
+        .category-container {
             display: none;
         }
 
         .products {
-            width: 90%;
-            margin-top: -50px;
+            width: 100%;
+            margin-top: -150px;
+            gap: 10px;
+        }
+
+        .card {
+            max-width: 180px;
         }
     }
 </style>
-<img class="indeximg" src="/img/index.webp" alt="index">
-<div class="container">
 
-</div>
+<div class="image-container">
+    <img class="indeximg" src="/img/index.webp" alt="index">
 
-<div class="content">
-    <div class="category">
+    <div class="category-container">
         @foreach ($categories as $category)
-            @if ($category->id != 14)
-                <a href="{{ route('catalog', $category->id) }}" class="category-item">
-                    <img src="{{ asset($category->photo_url) }}" loading="lazy" alt="{{ $category->title }}">
-                    <span>{{ $category->title }}</span>
-                </a>
-            @endif
+        @if ($category->id != 14)
+        <a href="{{ route('catalog', $category->id) }}" class="category-item">
+            <img src="{{ asset($category->photo_url) }}" loading="lazy" alt="{{ $category->title }}">
+            <span>{{ $category->title }}</span>
+        </a>
+        @endif
         @endforeach
     </div>
 </div>
 
-<div class="whitebox">
-
-</div>
-
 <div class="products">
     @foreach ($products->take(8) as $product)
-        @if ($product->photos->isNotEmpty())
-            <a href="{{ route('product', $product->id) }}">
-                <div class="card">
-                    <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="продукт">
-                    <p>{{ $product->title }}</p>
-                    <p>{{ $product->price }} ₽</p>
-                </div>
-            </a>
-        @endif
+    @if ($product->photos->isNotEmpty())
+    <a href="{{ route('product', $product->id) }}">
+        <div class="card">
+            <img src="{{ asset($product->photos->first()->photo_url) }}" loading="lazy" alt="продукт">
+            <p>{{ $product->title }}</p>
+            <p>{{ $product->price }} ₽</p>
+        </div>
+    </a>
+    @endif
     @endforeach
 </div>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

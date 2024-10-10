@@ -106,3 +106,7 @@ Route::post('/cart/remove', [CheckoutController::class, 'remove'])->name('cart.r
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+Route::post('/checkout/create-payment', [CheckoutController::class, 'createPayment'])->name('checkout.createPayment');
+
+Route::get('/payment-success', [CheckoutController::class, 'paymentSuccess'])->name('payment.success');

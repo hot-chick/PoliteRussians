@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
 use App\Mail\OrderConfirmation;
 use Illuminate\Support\Facades\Mail;
+use YooKassa\Client;
 
 class CheckoutController extends Controller
 {
@@ -140,9 +141,41 @@ class CheckoutController extends Controller
         });
     }
 
-
     public function success()
     {
         return view('checkout-success');
+    }
+
+    public function createPayment(Request $request)
+    {
+        // Создаем клиента Yookassa
+        $client = new Client();
+        $client->setAuth('shopId', 'secretKey'); // Замените на ваш Shop ID и секретный ключ
+
+        // Формируем данные для платежа
+        $payment = $client->createPayment(
+            [
+                'amount' => [
+                    'value' => number_format($request->total, 2, '.', ''), // Общая сумма заказа
+                    'currency' => 'RUB',
+                ],
+                'confirmation' => [
+                    'type' => 'redirect',
+                    'return_url' => route('payment.success'), // Страница для возврата после оплаты
+                ],
+                'capture' => true,
+                'description' => 'Оплата заказа №' . $request->order_id,
+            ],
+            uniqid('', true) // Уникальный идентификатор заказа
+        );
+
+        // Возвращаем URL для перенаправления на страницу оплаты
+        return redirect($payment->getConfirmation()->getConfirmationUrl());
+    }
+
+    public function paymentSuccess(Request $request)
+    {
+        // Логика успешной оплаты
+        return view('checkout.success');
     }
 }
