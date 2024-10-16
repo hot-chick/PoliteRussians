@@ -144,21 +144,15 @@
                 <h2>Способ оплаты</h2>
                 <div class="payment-options">
                     <label>
-                        <input type="radio" name="payment" value="cash" checked>
+                        <input type="radio" name="payment" value="cash" id="cash" checked>
                         При получении
                     </label>
                     <label>
-                        <input type="radio" name="payment" value="card" id="online-payment">
-                        Оплата онлайн
+                        <input type="radio" name="payment" value="yookassa" id="online-payment">
+                        Оплата онлайн (Yookassa)
                     </label>
                 </div>
             </div>
-
-            <form id="payment-form" action="{{ route('checkout.createPayment') }}" method="POST">
-                @csrf
-                <input type="hidden" name="total" value="{{ $totalPrice }}"> <!-- Общая сумма заказа -->
-                <input type="hidden" name="order_id" value="{{ $orderId }}"> <!-- Идентификатор заказа -->
-            </form>
             
             <input type="hidden" id="selected-point-id" name="pickup_point" value="">
 
@@ -371,27 +365,71 @@
         if (!deliveryMethod) {
             event.preventDefault();
             alert('Пожалуйста, выберите способ доставки.');
-            return;
+            return false;
         }
 
         if (deliveryMethod.value === 'courier' && !address) {
             event.preventDefault();
             alert('Пожалуйста, введите адрес доставки.');
-            return;
+            return false;
         }
 
         if (deliveryMethod.value === 'pickup' && !selectedPickupPoint) {
             event.preventDefault();
             alert('Пожалуйста, выберите пункт самовывоза на карте.');
-            return;
+            return false;
         }
 
-        // Если всё в порядке, форма отправится
+        return true; // Если все проверки пройдены, возвращаем true
     }
 
-    document.getElementById('online-payment').addEventListener('change', function() {
-        if (this.checked) {
-            document.getElementById('payment-form').submit(); // Отправляем форму на сервер
+    document.getElementById('checkout-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const isValid = validateForm(event);
+        if (!isValid) return;
+        
+        const formData = new FormData(this);
+        const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+        
+        if (paymentMethod === 'cash') {
+            fetch('/checkout/process', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    console.error('Ошибка при обработке заказа');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+        } else if (paymentMethod === 'yookassa') {
+            fetch('/checkout/create-payment', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.confirmation_url) {
+                    window.location.href = data.confirmation_url;
+                } else {
+                    console.error('Не удалось получить ссылку для оплаты');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
         }
     });
 </script>

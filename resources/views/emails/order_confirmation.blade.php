@@ -14,15 +14,21 @@
     <li>Пункт самовывоза: {{ $orderData['pickup_point'] ?? 'Не указан' }}</li>
     <li>Сумма заказа: {{ $orderData['totalPrice'] }} ₽</li>
     @if ($orderData['discount'])
-        <li>Скидка: {{ $orderData['discount'] }}%</li>
+    <li>Скидка: {{ $orderData['discount'] }}%</li>
     @endif
 </ul>
 
 <h2>Товары в заказе:</h2>
 <ul>
+    @if (!empty($orderData['products']) && is_array($orderData['products']))
     @foreach ($orderData['products'] as $product)
-        <li>{{ $product['title'] }} - {{ $product['price'] }} ₽ (Размер: {{ $product['size'] }})</li>
+    <p>Товар: {{ $product['description'] }}</p>
+    <p>Цена: {{ $product['amount']['value'] }} {{ $product['amount']['currency'] }}</p>
+    <p>Количество: {{ $product['quantity'] }}</p>
     @endforeach
+    @else
+    <li>Нет товаров в заказе.</li>
+    @endif
 </ul>
 
 <p>Спасибо за ваш заказ!</p>

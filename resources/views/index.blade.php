@@ -41,7 +41,7 @@
     
     @media (max-width: 768px) {
         .indeximg {
-            content: url('/img/index-mobile.webp');
+            content: url('/img/index-mobile.png');
             width: 100%;
             height: auto;
         }

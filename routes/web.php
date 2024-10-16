@@ -10,7 +10,7 @@ use App\Http\Controllers\CheckoutController;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
-Route::get('/generate-sitemap', function() {
+Route::get('/generate-sitemap', function () {
     // Создаем объект карты сайта
     Sitemap::create()
         ->add(Url::create('/')->setPriority(1.0))
@@ -93,8 +93,6 @@ Route::get('/cart/summary', [CartController::class, 'summary'])->name('cart.summ
 
 Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.show');
 
-Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
-
 Route::post('/apply-promo', [CartController::class, 'applyPromo'])->name('apply.promo');
 
 Route::get('/get-delivery-points', [CheckoutController::class, 'getDeliveryPoints'])->name('get.delivery.points');
@@ -103,10 +101,12 @@ Route::get('/checkout', [CheckoutController::class, 'show'])->name('checkout.sho
 
 Route::post('/cart/remove', [CheckoutController::class, 'remove'])->name('cart.remove');
 
-Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
-
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-Route::post('/checkout/create-payment', [CheckoutController::class, 'createPayment'])->name('checkout.createPayment');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 
-Route::get('/payment-success', [CheckoutController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+
+Route::get('/checkout/payment/success', [CheckoutController::class, 'paymentSuccess'])->name('checkout.payment.success');
+
+Route::post('/checkout/create-payment', [CheckoutController::class, 'process']); // Для создания платежа
